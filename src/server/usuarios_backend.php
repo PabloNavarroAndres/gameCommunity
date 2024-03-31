@@ -2,6 +2,7 @@
 
 header("Access-Control-Allow-Origin: http://localhost:4200");
 
+// Conexion de la BBDD
 $bd = include_once "bd.php";
 
 // Tipo de accion para la tabla de usuarios
@@ -11,8 +12,8 @@ switch ($action) {
     case 'obtenerUsuarios':
         try {
             // Consulta para obtener todos los usuarios
-            $sentencia = $bd->query("SELECT * FROM Users");
-            $usuarios = $sentencia->fetchAll(PDO::FETCH_OBJ);
+            $sql = $bd->query("SELECT * FROM Users");
+            $usuarios = $sql->fetchAll(PDO::FETCH_OBJ);
 
             // Devolver los datos como JSON
             header('Content-Type: application/json');
@@ -31,8 +32,7 @@ switch ($action) {
             // Obtener los datos del usuario del cuerpo de la solicitud (POST)
             $data = json_decode(file_get_contents('php://input'), true);
 
-            // Insertar datos en la base de datos (toma en cuenta medidas de seguridad como la validación de datos)
-            // Ejemplo básico, se debe realizar una validación y sanitización adecuada
+            // Insertar datos en la base de datos
             $email = $data['email'] ?? '';
             $username = $data['username'] ?? '';
             $password = $data['password'] ?? '';

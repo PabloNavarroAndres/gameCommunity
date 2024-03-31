@@ -2,6 +2,7 @@ import { CommonModule } from '@angular/common';
 import { Component } from '@angular/core';
 import { UsuarioComponent } from "../usuario/usuario.component";
 
+
 @Component({
     selector: 'app-home',
     standalone: true,

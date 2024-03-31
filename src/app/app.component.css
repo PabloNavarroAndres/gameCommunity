@@ -1,0 +1,38 @@
+nav {
+    background-color: #ab00ab !important;
+}
+
+.logo {
+    width: 50px;
+    margin-right: 10px;
+    cursor: pointer;
+    border: 1px solid transparent;
+    border-radius: 0%;
+    transition: border-color 0.5s ease, border-radius 0.5s ease;
+}
+
+.logo:hover {
+    border-color: black;
+    border-radius: 15%;
+}
+
+.navbar-brand {
+    transition: color 0.5s ease;
+}
+
+.navbar-brand:hover {
+    color: white;
+}
+
+.nav-item * {
+    border: 1px solid transparent;
+    border-radius: 0%;
+    transition: background-color 0.5s ease, color 0.5s ease, border-color 0.5s ease, border-radius 0.5s ease;
+}
+
+.nav-item:hover * {
+    color: white !important;
+    background-color: #680068;
+    border-color: black;
+    border-radius: 15%;
+}
