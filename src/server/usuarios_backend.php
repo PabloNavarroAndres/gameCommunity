@@ -36,7 +36,7 @@ switch ($action) {
             $email = $data['email'] ?? '';
             $username = $data['username'] ?? '';
             $password = $data['password'] ?? '';
-            $profile_picture = 'src/assets/user.png';
+            $profile_picture = 'src/assets/perfil/user.png';
             $total_games = 0;
             $isAdmin = 0;
 

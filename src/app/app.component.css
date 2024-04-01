@@ -1,5 +1,5 @@
 nav {
-    background-color: #ab00ab !important;
+    background-color: #8f008f !important;
 }
 
 .logo {
@@ -32,7 +32,8 @@ nav {
 
 .nav-item:hover * {
     color: white !important;
-    background-color: #680068;
+    background-color: #520052;
     border-color: black;
     border-radius: 15%;
+    cursor: pointer;
 }
