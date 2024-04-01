@@ -1,7 +1,20 @@
-<h1>HOME</h1>
+<h2>Home</h2>
 
-<div>
-    <div *ngIf="shouldShowLogin()">
-        <app-login></app-login>
-    </div>
+<div class="logo-img">
+    <img src="../../../assets/logo_gameCommunity.PNG" alt="logo de la web">
 </div>
+
+<section>
+    <!-- Login -->
+    @if (shouldShowLogin()) {
+        <h3>Login</h3>
+        <app-login></app-login>
+    }
+
+    <!-- Registro -->
+    @if (shouldShowRegistro()) {
+        <h3>Registro</h3>
+        <app-registro></app-registro>
+    }
+
+</section>

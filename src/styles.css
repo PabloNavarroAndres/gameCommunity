@@ -1,13 +1,69 @@
 /* You can add global styles to this file, and also import other style files */
-
-html, body { 
-    height: 100%; 
+:root {
+    --letra-boton: 1.2rem;
+    --titulo-peque: 1.5rem;
+    --titulo-mediano: 2.5rem;
+    --titulo-grande: 3rem;
+    --fondo-tema: #d004d0;
+    --hover-tema: #5d015d;
+    --letra-color-btn: #ff8cff;
 }
 
-body { 
-    margin: 0; font-family: Roboto, "Helvetica Neue", sans-serif;
+html, body {
+    height: 100%;
+}
+
+body {
+    margin: 0;
+    font-family: Roboto, "Helvetica Neue", sans-serif;
     background-image: url('../src/assets/portada_tfc.png');
     background-size: cover;
     background-repeat: no-repeat;
     background-attachment: fixed;
+}
+
+.titulo-mediano {
+    font-weight: bolder;
+    font-size: var(--titulo-mediano) !important;
+    color: var(--letra-color-btn);
+    padding-bottom: 20px;
+}
+
+.boton-general {
+    border: 1px solid black;
+    border-radius: 10px;
+    background: #d004d0;
+    color: var(--letra-color-btn);
+    transition: background-color 0.5s ease, color 0.5s ease;
+    font-size: var(--letra-boton);
+    padding: 10px;
+}
+
+.boton-general:hover {
+    background-color: var(--hover-tema);
+    color: white !important;
+}
+
+.titulo-label {
+    font-weight: bolder;
+    font-size: var(--titulo-peque);
+    color: var(--letra-color-btn);
+    padding-bottom: 10px;
+    padding-top: 20px;
+}
+
+/* Estilo de la barra de navegación*/
+.nav-item * {
+    font-size: var(--titulo-peque);
+    border: 1px solid transparent;
+    border-radius: 0%;
+    transition: background-color 0.5s ease, color 0.5s ease, border-color 0.5s ease, border-radius 0.5s ease;
+}
+
+.nav-item:hover * {
+    color: white !important;
+    background-color: var(--hover-tema);
+    border-color: black;
+    border-radius: 15%;
+    cursor: pointer;
 }

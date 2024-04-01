@@ -1,3 +1,5 @@
+<h1>Game Community</h1>
+
 <nav class="navbar navbar-expand-lg bg-body-tertiary">
     <div class="container-fluid">
         <img class="logo" src="../assets/img_logo_2.PNG" alt="logo de la web" routerLink="/home">
@@ -12,7 +14,7 @@
                     <a class="nav-link" (click)="toggleLogin()">Login</a>
                 </li>
                 <li class="nav-item" *ngIf="shouldShowLoginAndRegister()">
-                    <a class="nav-link" routerLink="/registro">Registro</a>
+                    <a class="nav-link" (click)="toggleRegistro()">Registro</a>
                 </li>
                 <li class="nav-item">
                     <a class="nav-link" routerLink="/usuarios">Usuarios</a>

@@ -1,1 +1,49 @@
-<p>registro works!</p>
+<section [@fadeInOut] class="form-registro">
+    <h2 class="titulo-mediano">Registro</h2>
+    <hr>
+    <form [formGroup]="formularioRegistro" (ngSubmit)="enviar()">
+        <div class="mb-3">
+            <label for="email" class="form-label titulo-label" titulo-label>Email</label>
+            <input [ngClass]="{'is-invalid': hasErrors('email', 'required') || hasErrors('email', 'email') }"
+                type="email" class="form-control" id="email" formControlName="email">
+
+            <div class="text-danger" *ngIf="hasErrors('email', 'email')">
+                Email invalido.
+            </div>
+
+            <div class="text-danger" *ngIf="hasErrors('email', 'required')">
+                Email obligatorio.
+            </div>
+        </div>
+
+        <div class="mb-3">
+            <label for="nombre" class="form-label titulo-label">Nombre</label>
+            <input [ngClass]="{'is-invalid': hasErrors('nombre', 'required') || hasErrors('nombre', 'minlength') }"
+                type="text" class="form-control" id="nombre" formControlName="nombre">
+
+            <div class="text-danger" *ngIf="hasErrors('nombre', 'required')">
+                Nombre obligatorio.
+            </div>
+
+            <div class="text-danger" *ngIf="hasErrors('nombre', 'minlength')">
+                El nombre debe ser de mínimo 4 caracteres.
+            </div>
+        </div>
+
+        <div class="mb-3">
+            <label for="password" class="form-label titulo-label">Contraseña</label>
+            <input [ngClass]="{'is-invalid': hasErrors('password', 'required') || hasErrors('password', 'minlength') }"
+                type="password" class="form-control" id="password" formControlName="password">
+
+            <div class="text-danger" *ngIf="hasErrors('password', 'required')">
+                Contraseña obligatoria.
+            </div>
+
+            <div class="text-danger" *ngIf="hasErrors('password', 'minlength')">
+                La contraseña debe ser de mínimo 8 caracteres.
+            </div>
+        </div>
+
+        <button type="submit" class="btn btn-primary">Registrarse</button>
+    </form>
+</section>

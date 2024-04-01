@@ -1,8 +1,10 @@
 import { CommonModule } from '@angular/common';
-import { Component } from '@angular/core';
+import { Component, OnDestroy, OnInit } from '@angular/core';
 import { UsuarioComponent } from "../usuario/usuario.component";
 import { LoginService } from '../../services/login.service';
 import { LoginComponent } from '../login/login.component';
+import { RegistroComponent } from "../registro/registro.component";
+import { RegistroService } from '../../services/registro.service';
 
 
 @Component({
@@ -10,13 +12,30 @@ import { LoginComponent } from '../login/login.component';
     standalone: true,
     templateUrl: './home.component.html',
     styleUrl: './home.component.css',
-    imports: [CommonModule, UsuarioComponent, LoginComponent]
+    imports: [CommonModule, UsuarioComponent, LoginComponent, RegistroComponent]
 })
-export class HomeComponent {
-    constructor(private loginService: LoginService) {}
+export class HomeComponent implements OnDestroy {
+    constructor(private loginService: LoginService, private registroService: RegistroService) {}
 
-    // Activar o desactivar el componente de login
-  shouldShowLogin(): boolean {
-    return this.loginService.shouldShowLogin();
-  }
+    // Cuando se cambie de ruta desactivaremos la vista 
+    // del login y registro del home, si estuviesen activas
+    ngOnDestroy(): void {
+        if (this.shouldShowLogin()) {
+            this.loginService.toggleLogin();
+        }
+
+        if (this.shouldShowRegistro()) {
+            this.registroService.toggleRegistro();
+        }
+    }
+
+    // Comprobar si se debe mostrar el componente del login
+    shouldShowLogin(): boolean {
+        return this.loginService.shouldShowLogin();
+    }
+
+    // Comprobar si se debe mostrar el componente del registro
+    shouldShowRegistro(): boolean {
+        return this.registroService.shouldShowRegistro();
+    }
 }

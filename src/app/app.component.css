@@ -1,3 +1,7 @@
+h1 {
+    display: none;
+}
+
 nav {
     background-color: #8f008f !important;
 }
@@ -25,6 +29,7 @@ nav {
 }
 
 .nav-item * {
+    font-size: 1.3rem;
     border: 1px solid transparent;
     border-radius: 0%;
     transition: background-color 0.5s ease, color 0.5s ease, border-color 0.5s ease, border-radius 0.5s ease;
@@ -32,8 +37,12 @@ nav {
 
 .nav-item:hover * {
     color: white !important;
-    background-color: #520052;
+    background-color: var(--hover-tema);
     border-color: black;
     border-radius: 15%;
     cursor: pointer;
+}
+
+.navbar-brand, .nav-link {
+    color: #ff8cff;
 }
