@@ -34,10 +34,15 @@ switch ($action) {
             // Obtener los datos del usuario del cuerpo de la solicitud (POST)
             $data = json_decode(file_get_contents('php://input'), true);
 
+            // Verificar si se proporcionaron todos los campos necesarios
+            if (!isset($data['email']) || !isset($data['username']) || !isset($data['password'])) {
+                throw new Exception('Faltan campos obligatorios de usuario');
+            }
+
             // Insertar datos en la base de datos
-            $email = $data['email'] ?? '';
-            $username = $data['username'] ?? '';
-            $password = $data['password'] ?? '';
+            $email = $data['email'];
+            $username = $data['username'];
+            $password = $data['password'];
             $profile_picture = 'src/assets/perfil/user.png';
             $total_games = 0;
             $isAdmin = 0;

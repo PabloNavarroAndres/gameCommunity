@@ -1,7 +1,7 @@
 <section [@fadeInOut] class="form-registro">
     <h2 class="titulo-mediano">Registro</h2>
     <hr>
-    <form [formGroup]="formularioRegistro" (ngSubmit)="enviar()">
+    <form [formGroup]="formularioRegistro" (ngSubmit)="enviar($event)">
         <div class="mb-3">
             <label for="email" class="form-label titulo-label" titulo-label>Email</label>
             <input [ngClass]="{'is-invalid': hasErrors('email', 'required') || hasErrors('email', 'email') }"

@@ -4,7 +4,6 @@ import { FormGroup, FormBuilder, Validators, FormsModule, ReactiveFormsModule } 
 import { registroAnimation } from './registro.animation';
 import { UsuarioService } from '../../services/usuarios.service';
 import { User } from '../../models/user.interface';
-import { map } from 'rxjs';
 
 @Component({
   selector: 'app-registro',
@@ -17,7 +16,7 @@ import { map } from 'rxjs';
 export class RegistroComponent {
   private usuarioService = inject(UsuarioService);
   formularioRegistro: FormGroup;
-  user: User[] = [];
+  user: User[] = []
 
 
   constructor(private form: FormBuilder,) {
@@ -33,8 +32,13 @@ export class RegistroComponent {
   }
 
   // Envio del formulario
-  enviar() {
+  enviar(event: Event) {
+
+    // Evitar que se envie el formulario automáticamente
+    event.preventDefault();
+
     if (this.formularioRegistro.valid) {
+      console.log('es valido');
       const formData = this.formularioRegistro.value;
 
       const nuevoUsuario: User = {
@@ -57,10 +61,14 @@ export class RegistroComponent {
           } else {
             console.log('agregar usuario nuevo');
             
+            // Añadir usuario a la bd
             this.usuarioService.agregarUsuario(nuevoUsuario)
             .subscribe({
               next: (response: any) => {
                 console.log('Usuario agregado correctamente:', response);
+
+                // Vaciar campos del formulario
+                this.formularioRegistro.reset();
               },
               error: (error: any) => {
                 console.error('Error al agregar usuario:', error);
