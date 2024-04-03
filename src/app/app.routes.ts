@@ -6,8 +6,8 @@ export const routes: Routes = [
     { path: '', component: HomeComponent },
     { path: 'usuarios', component: UsuarioComponent},
     /*
-    { path: 'perfil', component:  },
     { path: 'biblioteca', component:  },
+    { path: 'perfil', component:  },
     { path: 'videojuegos', component:  },
     { path: 'comunidades', component:  },
     { path: 'comunidad/global', component:  },

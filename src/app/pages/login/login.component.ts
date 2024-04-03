@@ -1,7 +1,9 @@
 import { CommonModule } from '@angular/common';
-import { Component } from '@angular/core';
+import { Component, inject } from '@angular/core';
 import { loginAnimation } from './login.animation';
 import { FormGroup, FormBuilder, Validators, FormsModule, ReactiveFormsModule } from '@angular/forms';
+import { User } from '../../models/user.interface';
+import { UsuarioService } from '../../services/usuarios.service';
 
 @Component({
   selector: 'app-login',
@@ -13,7 +15,9 @@ import { FormGroup, FormBuilder, Validators, FormsModule, ReactiveFormsModule } 
 })
 export class LoginComponent {
 
+  private usuarioService = inject(UsuarioService);
   formularioLogin: FormGroup;
+  user: User[] = [];
 
   constructor(private form: FormBuilder) {
     this.formularioLogin = this.form.group({
@@ -26,10 +30,57 @@ export class LoginComponent {
 
   }
 
+  // Envio del formulario
   enviar() {
-    console.log(this.formularioLogin);
+    if (this.formularioLogin.valid) {
+      const formData = this.formularioLogin.value;
+
+      const nuevoUsuario: User = {
+        email: formData.email,
+        username: formData.nombre,
+        password: formData.password
+      };
+
+      
+      this.usuarioService.obtenerUsuarios()
+      .subscribe({
+        next: (usuarios: User[]) => {
+
+          const usuarioEncontrado = usuarios.find(usuario => usuario.email === nuevoUsuario.email);
+
+          // El usuario ya existe en la bd
+          if (usuarioEncontrado) {
+            console.log('el usuario ya existe');
+          // El usuario no existe en la bd
+          } else {
+            console.log('agregar usuario nuevo');
+            
+            this.usuarioService.agregarUsuario(nuevoUsuario)
+            .subscribe({
+              next: (response: any) => {
+                console.log('Usuario agregado correctamente:', response);
+              },
+              error: (error: any) => {
+                console.error('Error al agregar usuario:', error);
+              }
+            });
+
+          }
+        },
+        error: (error: any) => {
+          console.error('Error al obtener usuarios:', error);
+        }
+      });
+      
+
+      // this.router.navigate(['/']);
+
+    } else {
+      console.error('Formulario inválido. Por favor, complete los campos correctamente.');
+    }
   }
 
+  // Comprobacion del tipo de errores de formulario
   hasErrors(controlName: string, errorType: string) {
     return this.formularioLogin.get(controlName)?.hasError(errorType) && this.formularioLogin.get(controlName)?.touched;
   }
