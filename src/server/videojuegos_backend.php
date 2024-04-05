@@ -7,37 +7,37 @@ header("Access-Control-Allow-Headers: Content-Type");
 // Conexion de la BBDD
 $bd = include_once "bd.php";
 
-// Tipo de accion para la tabla de usuarios
+// Tipo de accion para la tabla de videojuegos
 $action = $_GET['action'] ?? '';
 
 switch ($action) {
-    case 'obtenerUsuarios':
+    case 'obtenerVideojuegos':
         try {
-            // Consulta para obtener todos los usuarios
-            $sql = $bd->query("SELECT * FROM Users");
-            $juegos = $sql->fetchAll(PDO::FETCH_OBJ);
+            // Consulta para obtener todos los videojuegos
+            $sql = $bd->query("SELECT * FROM Games ORDER BY title");
+            $videojuegos = $sql->fetchAll(PDO::FETCH_OBJ);
 
             // Devolver los datos como JSON
             header('Content-Type: application/json');
-            echo json_encode($juegos);
+            echo json_encode($videojuegos);
 
         } catch (PDOException $e) {
             // Manejar la excepción
-            $errorMessage = "Error al obtener usuarios: " . $e->getMessage();
+            $errorMessage = "Error al obtener los videojuegos: " . $e->getMessage();
             echo json_encode(array("error" => $errorMessage));
         }
         break;
 
-    case 'agregarUsuario':
+    case 'agregarVideojuego':
         try {
             // Crear un nuevo usuario
             // Obtener los datos del usuario del cuerpo de la solicitud (POST)
             $data = json_decode(file_get_contents('php://input'), true);
 
             // Verificar si se proporcionaron todos los campos necesarios
-            if (!isset($data['email']) || !isset($data['username']) || !isset($data['password'])) {
+            /* if (!isset($data['email']) || !isset($data['username']) || !isset($data['password'])) {
                 throw new Exception('Faltan campos obligatorios de usuario');
-            }
+            } */
 
             // Insertar datos en la base de datos
             $email = $data['email'];

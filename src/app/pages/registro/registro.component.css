@@ -1,9 +1,8 @@
 .form-registro {
     width: 50%;
     padding: 50px;
-    margin-top: 40px;
-    margin-bottom: 100px;
     margin: 0 auto;
+    margin-bottom: 100px;
     background: purple;
     border-radius: 20px;
 }

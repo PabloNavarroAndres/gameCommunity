@@ -1,4 +1,6 @@
-import { Component } from '@angular/core';
+import { Component, inject } from '@angular/core';
+import { Videojuego } from '../../models/videojuego.interface';
+import { VideojuegosService } from '../../services/videojuegos.service';
 
 @Component({
   selector: 'app-biblioteca',
@@ -9,4 +11,11 @@ import { Component } from '@angular/core';
 })
 export class BibliotecaComponent {
 
+  // private videojuegoService = inject(VideojuegosService);
+
+  // videojuegos: Videojuego[] = [];
+
+  ngOnInit(): void {
+    
+  }
 }
