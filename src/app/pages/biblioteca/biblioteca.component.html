@@ -4,7 +4,18 @@
         <div class="videojuego">
             <img [src]="videojuego.image" alt="Juego de la biblioteca">
             <h2>{{ videojuego.title }}</h2>
-            <button>Editar</button>
+            @if (mostrarDetalles()) {
+                <section class="videojuego-detalles">
+                    <span>{{ videojuego.status }}</span>
+                    <span>{{ videojuego.personal_comment }}</span>
+                    <span>{{ videojuego.rating }}</span>
+                </section>
+            }
+            <!-- Activar los detalles del juego -->
+            <button (click)="toggleDetalles()">Detalles</button>
+
+            <!-- Editar los detalles del juego -->
+            <!-- <button>Editar</button> -->
         </div>
     }
 </div>
