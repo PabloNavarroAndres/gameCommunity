@@ -2,6 +2,7 @@
     <h2 class="titulo-mediano">Login</h2>
     <hr>
     <form [formGroup]="formularioLogin" (ngSubmit)="enviar()">
+        <!-- Email -->
         <div class="mb-3">
           <label for="email" class="form-label titulo-label">Email</label>
           <input [ngClass]="{'is-invalid': hasErrors('email', 'required') || hasErrors('email', 'email') }" type="email"
@@ -16,6 +17,7 @@
           </div>
         </div>
       
+        <!-- Contraseña -->
         <div class="mb-3">
             <label for="password" class="form-label titulo-label">Contraseña</label>
             <input [ngClass]="{'is-invalid': hasErrors('password', 'required') || hasErrors('password', 'minlength') }"
@@ -28,8 +30,14 @@
             <div class="text-danger" *ngIf="hasErrors('password', 'minlength')">
                 La contraseña debe ser de mínimo 8 caracteres.
             </div>
-        </div>  
+        </div>
+        
+        <!-- Mensaje de error (usuario existente en la BD) -->
+        <div class="text-danger" *ngIf="msjUsuarioInvalido()">
+          Email o contraseña incorrecto/a
+        </div>
 
+        <!-- Iniciar sesión -->
         <button type="submit" class="boton-general">Iniciar sesión</button>
       </form>
 </section>

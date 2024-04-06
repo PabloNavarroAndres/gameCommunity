@@ -14,12 +14,15 @@ import { User } from '../../models/user.interface';
   animations: [registroAnimation]
 })
 export class RegistroComponent {
+  // Servicio de usuarios
   private usuarioService = inject(UsuarioService);
+  // Formulario Registro
   formularioRegistro: FormGroup;
-  user: User[] = []
+  // Mostrar mensaje de usuario existente
+  usuarioExiste: boolean = false;
 
-
-  constructor(private form: FormBuilder,) {
+  constructor(private form: FormBuilder) {
+    // Añadir validadores a los campos del formulario
     this.formularioRegistro = this.form.group({
       email: ['', [Validators.required, Validators.email]],
       nombre: ['', [Validators.required, Validators.minLength(4)]],
@@ -27,8 +30,9 @@ export class RegistroComponent {
     });
   }
 
-  ngOnInit(): void {
-
+  // Comprobar si el usuario existe en la BD
+  msjUsuarioExiste() {
+    return this.usuarioExiste;
   }
 
   // Envio del formulario
@@ -37,26 +41,41 @@ export class RegistroComponent {
     // Evitar que se envie el formulario automáticamente
     event.preventDefault();
 
+    // Si no hay errores de validacion se procede a enviar
     if (this.formularioRegistro.valid) {
       console.log('es valido');
+
+      // Obtener los datos del formulario
       const formData = this.formularioRegistro.value;
 
+      // El usuario con los datos del formulario
       const nuevoUsuario: User = {
         email: formData.email,
         username: formData.nombre,
         password: formData.password
       };
 
-      
+      // Obtener los usuarios de la BD
       this.usuarioService.obtenerUsuarios()
       .subscribe({
         next: (usuarios: User[]) => {
 
+          // Se comprueba si se ha encontrado el usuario del formulario
           const usuarioEncontrado = usuarios.find(usuario => usuario.email === nuevoUsuario.email);
 
           // El usuario ya existe en la bd
           if (usuarioEncontrado) {
             console.log('el usuario ya existe');
+
+            // Activar la condicion de usuario existe
+            // (esto activará el mensaje que lo indica)
+            this.usuarioExiste = true;
+
+            // Desactivar el mensaje después de 5 segundos
+            setTimeout(() => {
+              this.usuarioExiste = false;
+            }, 5000);
+
           // El usuario no existe en la bd
           } else {
             console.log('agregar usuario nuevo');
@@ -81,9 +100,6 @@ export class RegistroComponent {
           console.error('Error al obtener usuarios:', error);
         }
       });
-      
-
-      // this.router.navigate(['/']);
 
     } else {
       console.error('Formulario inválido. Por favor, complete los campos correctamente.');

@@ -25,7 +25,7 @@ export class AppComponent {
     private registroService: RegistroService) {
   }
 
-  // Funcion para detectar si estas en home, para mostrar botones del nav "login" y "registro"
+  // Detectar si estas en home, para mostrar botones del nav "login" y "registro"
   shouldShowLoginAndRegister(): boolean {
     // Guardar la ruta actual
     const currentRoute = this.router.url;

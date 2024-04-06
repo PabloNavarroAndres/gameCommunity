@@ -16,23 +16,28 @@ import { Router } from '@angular/router';
 })
 export class LoginComponent {
 
+  // Servicio de usuarios
   private usuarioService = inject(UsuarioService);
+  // Formulario de login
   formularioLogin: FormGroup;
-  user: User[] = [];
+  // Mostrar mensaje de usuario incorrecto
+  usuarioInvalido: boolean = false;
 
   constructor(private form: FormBuilder, private router: Router) {
+    // Añadir validadores a los campos de formulario
     this.formularioLogin = this.form.group({
       email: ['', [Validators.required, Validators.email]],
       password: ['', [Validators.required, Validators.minLength(8)]]
     });
   }
 
-  ngOnInit(): void {
-
+  // Comprobar si el usuario existe en la BD
+  msjUsuarioInvalido() {
+    return this.usuarioInvalido;
   }
 
-   // Envio del formulario
-   enviar() {
+  // Envio del formulario
+  enviar() {
     if (this.formularioLogin.valid) {
       // Obtener datos de formulario
       const formData = this.formularioLogin.value;
@@ -46,34 +51,43 @@ export class LoginComponent {
 
       // Obtener usuarios de la bd
       this.usuarioService.obtenerUsuarios()
-      .subscribe({
-        // Array de usuarios obtenido
-        next: (usuarios: User[]) => {
+        .subscribe({
+          // Array de usuarios obtenido
+          next: (usuarios: User[]) => {
 
-          // Buscamos si coincide el email del usuario del formulario
-          // con un usuario del array de usuarios
-          const usuarioEncontrado = usuarios.find(usuario => usuario.email === nuevoUsuario.email);
+            // Buscamos si coincide el email del usuario del formulario
+            // con un usuario del array de usuarios
+            const usuarioEncontrado = usuarios.find(usuario => usuario.email === nuevoUsuario.email);
 
-          // El usuario ya existe en la bd
-          if (usuarioEncontrado) {
-            console.log('el usuario existe, login valido');
+            // El usuario ya existe en la bd
+            if (usuarioEncontrado) {
+              console.log('el usuario existe, login valido');
 
-            // Redireccionar a la biblioteca
-            this.router.navigate(['/biblioteca']);
+              // Redireccionar a la biblioteca
+              this.router.navigate(['/biblioteca']);
 
-          // El usuario no existe en la bd
-          } else {
-            console.log('no existe este usuario');
-            
-            // Mostrar mensaje de error y vaciar campos
-            this.formularioLogin.reset();
+              // El usuario no existe en la bd
+            } else {
+              console.log('no existe este usuario');
 
+              // Activar la condicion de usuario existe
+              // (esto activará el mensaje que lo indica)
+              this.usuarioInvalido = true;
+
+              // Desactivar el mensaje después de 5 segundos
+              setTimeout(() => {
+                this.usuarioInvalido = false;
+              }, 5000);
+
+              // Vaciar campos en el formulario
+              this.formularioLogin.reset();
+
+            }
+          },
+          error: (error: any) => {
+            console.error('Error al obtener usuarios:', error);
           }
-        },
-        error: (error: any) => {
-          console.error('Error al obtener usuarios:', error);
-        }
-      });
+        });
 
     } else {
       console.error('Formulario inválido. Por favor, complete los campos correctamente.');
