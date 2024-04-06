@@ -57,7 +57,8 @@ export class LoginComponent {
 
             // Buscamos si coincide el email del usuario del formulario
             // con un usuario del array de usuarios
-            const usuarioEncontrado = usuarios.find(usuario => usuario.email === nuevoUsuario.email);
+            const usuarioEncontrado = usuarios.find(usuario => 
+              usuario.email === nuevoUsuario.email && usuario.password === nuevoUsuario.password);
 
             // El usuario ya existe en la bd
             if (usuarioEncontrado) {

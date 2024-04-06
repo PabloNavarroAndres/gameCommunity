@@ -15,7 +15,7 @@
     background-color: #1b2838;
     width: calc(25% - 40px);
     max-width: 400px;
-    height: 400px;
+    height: 300px;
     border-radius: 10px;
     box-shadow: 0 0 10px rgba(0, 0, 0, 0.5);
     transition: transform 0.3s ease;
