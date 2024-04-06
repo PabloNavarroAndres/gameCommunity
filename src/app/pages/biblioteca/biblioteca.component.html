@@ -1,5 +1,10 @@
-<p>biblioteca works</p>
-
 <div class="videojuegos">
-    
+    @for (videojuego of videojuegos; track $index) {
+
+        <div class="videojuego">
+            <img [src]="videojuego.image" alt="Juego de la biblioteca">
+            <h2>{{ videojuego.title }}</h2>
+            <button>Editar</button>
+        </div>
+    }
 </div>

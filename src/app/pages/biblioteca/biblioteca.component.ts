@@ -1,6 +1,6 @@
 import { Component, inject } from '@angular/core';
 import { Videojuego } from '../../models/videojuego.interface';
-import { VideojuegosService } from '../../services/videojuegos.service';
+import { VideojuegosUsuarioService } from '../../services/videojuegos-usuario.service';
 
 @Component({
   selector: 'app-biblioteca',
@@ -11,11 +11,15 @@ import { VideojuegosService } from '../../services/videojuegos.service';
 })
 export class BibliotecaComponent {
 
-  // private videojuegoService = inject(VideojuegosService);
+  private videojuegoService = inject(VideojuegosUsuarioService);
 
-  // videojuegos: Videojuego[] = [];
+  videojuegos: Videojuego[] = [];
 
   ngOnInit(): void {
-    
+    this.videojuegoService.obtenerVideojuegosUsuario().subscribe((data: Videojuego[]) => {
+      console.log(data);
+      this.videojuegos = data;
+    })
   }
+
 }

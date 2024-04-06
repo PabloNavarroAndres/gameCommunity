@@ -8,7 +8,7 @@ import { User } from '../models/user.interface';
 })
 
 export class UsuarioService {
-  private url = 'http://localhost/gameCommunity/src/server/usuarios_backend.php';
+  private url = 'http://localhost/gameCommunity/src/server/usuarios.php';
 
   private _http = inject(HttpClient);
 

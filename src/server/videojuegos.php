@@ -30,41 +30,37 @@ switch ($action) {
 
     case 'agregarVideojuego':
         try {
-            // Crear un nuevo usuario
-            // Obtener los datos del usuario del cuerpo de la solicitud (POST)
+            // Crear un nuevo videojuego
+            // Obtener los datos del videojuego del cuerpo de la solicitud (POST)
             $data = json_decode(file_get_contents('php://input'), true);
 
             // Verificar si se proporcionaron todos los campos necesarios
-            /* if (!isset($data['email']) || !isset($data['username']) || !isset($data['password'])) {
-                throw new Exception('Faltan campos obligatorios de usuario');
-            } */
+            if (!isset($data['valor']) || !isset($data['valor'])) {
+                throw new Exception('Faltan campos obligatorios del videojuego');
+            }
 
             // Insertar datos en la base de datos
-            $email = $data['email'];
-            $username = $data['username'];
-            $password = $data['password'];
-            $profile_picture = 'src/assets/perfil/user.png';
-            $total_games = 0;
-            $isAdmin = 0;
+            $valor = $data['valor'];
 
-            $query = "INSERT INTO Users 
-                    (email, username, password, profile_picture, total_games, isAdmin) 
-                    VALUES ('$email', '$username', '$password', '$profile_picture', '$total_games', '$isAdmin')";
+            $query = "INSERT INTO Games 
+                    (valor, valor) 
+                    VALUES ('$valor', '$valor')";
 
             if ($bd->query($query) === TRUE) {
-                echo json_encode(array('message' => 'Usuario creado correctamente'));
+                echo json_encode(array('message' => 'Videojuego creado correctamente'));
             }
 
         } catch (Exception $e) {
             // Manejar la excepción
-            echo json_encode(array('Error al insertar usuario' => $e->getMessage()));
+            echo json_encode(array('Error al insertar videojuego' => $e->getMessage()));
         }
         break;
 
-    // Agregar casos para actualizarUsuario y eliminarUsuario según sea necesario...
+    // Agregar casos para actualizarVideojuego y eliminarVideojuego según sea necesario...
 
     default:
         // Acción no válida
         echo json_encode(array('error' => 'Accion no valida'));
         break;
 }
+
