@@ -18,16 +18,30 @@ export class LoginComponent {
 
   // Servicio de usuarios
   private usuarioService = inject(UsuarioService);
+
   // Formulario de login
   formularioLogin: FormGroup;
+
   // Mostrar mensaje de usuario incorrecto
   usuarioInvalido: boolean = false;
 
+  // Usuario que ha iniciado sesion
+  usuarioIniciado!: User | null;
+
   constructor(private form: FormBuilder, private router: Router) {
+
     // Añadir validadores a los campos de formulario
     this.formularioLogin = this.form.group({
       email: ['', [Validators.required, Validators.email]],
       password: ['', [Validators.required, Validators.minLength(8)]]
+    });
+  }
+
+  ngOnInit(): void {
+    // El usuario iniciado del servicio se obtendra 
+    // del usuario iniciado que guardemos en login
+    this.usuarioService.usuarioIniciado.subscribe(user => {
+      this.usuarioIniciado = user;
     });
   }
 
@@ -63,6 +77,10 @@ export class LoginComponent {
             // El usuario ya existe en la bd
             if (usuarioEncontrado) {
               console.log('el usuario existe, login valido');
+              console.log(usuarioEncontrado);
+
+              // Guardamos el usuario iniciado
+              this.usuarioService.agregarUsuarioIniciado(usuarioEncontrado);
 
               // Redireccionar a la biblioteca
               this.router.navigate(['/biblioteca']);

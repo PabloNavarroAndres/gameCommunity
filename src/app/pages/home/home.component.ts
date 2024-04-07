@@ -1,5 +1,5 @@
 import { CommonModule } from '@angular/common';
-import { Component, OnDestroy, OnInit } from '@angular/core';
+import { Component, OnDestroy, OnInit, inject } from '@angular/core';
 import { UsuarioComponent } from "../usuario/usuario.component";
 import { LoginService } from '../../services/login.service';
 import { LoginComponent } from '../login/login.component';
@@ -14,8 +14,11 @@ import { RegistroService } from '../../services/registro.service';
     styleUrl: './home.component.css',
     imports: [CommonModule, UsuarioComponent, LoginComponent, RegistroComponent]
 })
-export class HomeComponent implements OnDestroy {
-    constructor(private loginService: LoginService, private registroService: RegistroService) {}
+export class HomeComponent {
+
+    // Servicios
+    private loginService = inject(LoginService);
+    private registroService = inject(RegistroService);
 
     // Cuando se cambie de ruta desactivaremos la vista 
     // del login y registro del home, si estuviesen activas

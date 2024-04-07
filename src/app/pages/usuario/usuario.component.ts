@@ -10,13 +10,15 @@ import { User } from '../../models/user.interface';
   templateUrl: './usuario.component.html',
   styleUrl: './usuario.component.css'
 })
-export class UsuarioComponent implements OnInit {
+export class UsuarioComponent {
 
   private usuarioService = inject(UsuarioService);
   
+  // Array de usuarios
   usuarios: User[] = [];
 
   ngOnInit(): void {
+    // Obtener los usuarios de la BD
     this.usuarioService.obtenerUsuarios().subscribe((data: User[]) => {
       console.log(data);
       this.usuarios = data;
