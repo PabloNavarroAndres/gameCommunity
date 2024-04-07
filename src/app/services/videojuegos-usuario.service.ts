@@ -13,8 +13,8 @@ export class VideojuegosUsuarioService {
 
   private _http = inject(HttpClient);
 
-  obtenerVideojuegosUsuario():Observable<VideojuegoUsuario[]>{
-    return this._http.get<VideojuegoUsuario[]>(`${this.url}?action=obtenerVideojuegosUsuario`);
+  obtenerVideojuegosUsuario(email: string):Observable<VideojuegoUsuario[]>{
+    return this._http.get<VideojuegoUsuario[]>(`${this.url}?action=obtenerVideojuegosUsuario&email=${email}`);
   }
 
   agregarVideojuegoUsuario(videojuego: VideojuegoUsuario): Observable<VideojuegoUsuario> {

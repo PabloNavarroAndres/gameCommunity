@@ -13,10 +13,16 @@ $action = $_GET['action'] ?? '';
 switch ($action) {
     case 'obtenerVideojuegosUsuario':
         try {
+            // Obtenemos el email que se ha pasado como parametro
+            $email = $_GET['email'];
+
             // Consulta para obtener los datos de User_games y Games
-            $sql = $bd->query("SELECT UG.user_email, G.title, G.image, UG.status, UG.personal_comment, UG.rating 
+            $sql = $bd->prepare("SELECT UG.user_email, G.title, G.image, UG.status, UG.personal_comment, UG.rating 
                                FROM User_games UG
-                               JOIN Games G ON UG.game_id = G.game_id");
+                               JOIN Games G ON UG.game_id = G.game_id
+                               WHERE UG.user_email = ?"
+                            );
+            $sql->execute(array($email));
             $datos = $sql->fetchAll(PDO::FETCH_ASSOC);
         
             // Devolver los datos como JSON
