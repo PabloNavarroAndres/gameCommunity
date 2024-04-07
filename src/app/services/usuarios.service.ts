@@ -35,7 +35,8 @@ export class UsuarioService {
 
   // Obtener del local storage al usuario que ha iniciado sesión
   public obtenerUsuarioIniciado(): User | null {
-    return this.usuarioIniciadoSubject.value;
+    const usuarioIniciado = localStorage.getItem('usuarioIniciado');
+    return usuarioIniciado ? JSON.parse(usuarioIniciado) : null;
   }
 
   // Agregar al local storage el usuario que ha iniciado sesión

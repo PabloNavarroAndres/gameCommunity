@@ -22,8 +22,8 @@ export class AppComponent {
   private showLogin: boolean = false;
 
   constructor(
-    private router: Router, 
-    private loginService: LoginService, 
+    private router: Router,
+    private loginService: LoginService,
     private usuariosService: UsuarioService,
     private registroService: RegistroService) {
   }
@@ -41,7 +41,7 @@ export class AppComponent {
     switch (page) {
       case 'home':
         return currentRoute === '' || currentRoute === '/';
-    
+
       case 'home':
         return currentRoute === '' || currentRoute === '/';
 
@@ -49,10 +49,7 @@ export class AppComponent {
         return currentRoute === '';
 
       case 'perfil':
-        const sesionIniciada = localStorage.getItem('usuarioIniciado');
-        // Tiene que devolver falso para que no se muestre,
-        // en caso de que no tenga nada el sessionStorage
-        return sesionIniciada !== null;
+        return this.usuarioIniciado();
 
       default:
         return false;
@@ -83,7 +80,16 @@ export class AppComponent {
   // Cerrar sesión borrando el local storage del usuario iniciado
   cerrarSesion() {
     this.usuariosService.borrarUsuarioIniciado();
-    console.log('Sesion cerrada, valor del local storage: ' + this.usuariosService.obtenerUsuarioIniciado());
+    // console.log('Sesion cerrada, valor del local storage: ' + this.usuariosService.obtenerUsuarioIniciado());
+  }
+
+  // Comprueba si la sesion del usuario está iniciada
+  usuarioIniciado() {
+    // Comprobamos si existe el usuario en el local storage
+    const sesionIniciada = localStorage.getItem('usuarioIniciado');
+    // Tiene que devolver falso para que no se muestre,
+    // en caso de que no tenga nada el local storage
+    return sesionIniciada !== null;
   }
 
 }

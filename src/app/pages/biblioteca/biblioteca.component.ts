@@ -11,13 +11,17 @@ import { VideojuegoUsuario } from '../../models/videojuegoUsuario.interface';
 })
 export class BibliotecaComponent {
 
+  // Servicio de videojuegos
   private videojuegoService = inject(VideojuegosUsuarioService);
 
+  // Array de Videojuegos
   videojuegos: VideojuegoUsuario[] = [];
 
+  // Activar o desactivar los detalles del videojuego
   detallesVideojuego: boolean = false;
 
   ngOnInit(): void {
+    // Obtener los videojuegos del usuario de la BD
     this.videojuegoService.obtenerVideojuegosUsuario().subscribe((data: VideojuegoUsuario[]) => {
       console.log(data);
       this.videojuegos = data;
