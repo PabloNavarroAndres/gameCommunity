@@ -15,6 +15,5 @@ export class PerfilComponent {
   private usuarioService = inject(UsuarioService);
 
   // Obtener el usuario con la sesión iniciada
-  usuario?: User | null = this.usuarioService.obtenerUsuarioIniciado();
-
+  usuario = this.usuarioService.obtenerUsuarioIniciado() as User;
 }

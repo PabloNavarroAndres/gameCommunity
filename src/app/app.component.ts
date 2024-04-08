@@ -6,7 +6,6 @@ import { Router, RouterLink, RouterOutlet } from '@angular/router';
 import { LoginService } from './services/login.service';
 import { RegistroService } from './services/registro.service';
 import { UsuarioService } from './services/usuarios.service';
-import { User } from './models/user.interface';
 
 @Component({
   selector: 'app-root',
@@ -34,14 +33,11 @@ export class AppComponent {
 
     // Guardar la ruta actual
     const currentRoute = this.router.url;
-    // Guardar la pagina que deberia mostrar
+    // El caso de la pagina que deberia evaluarse si mostrar
     const page = pageOption;
 
     // Segun la ruta, mostramos verdadero en las permitidas
     switch (page) {
-      case 'home':
-        return currentRoute === '' || currentRoute === '/';
-
       case 'home':
         return currentRoute === '' || currentRoute === '/';
 
@@ -80,7 +76,6 @@ export class AppComponent {
   // Cerrar sesión borrando el local storage del usuario iniciado
   cerrarSesion() {
     this.usuariosService.borrarUsuarioIniciado();
-    // console.log('Sesion cerrada, valor del local storage: ' + this.usuariosService.obtenerUsuarioIniciado());
   }
 
   // Comprueba si la sesion del usuario está iniciada

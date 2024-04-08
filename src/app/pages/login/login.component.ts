@@ -26,7 +26,7 @@ export class LoginComponent {
   usuarioInvalido: boolean = false;
 
   // Usuario que ha iniciado sesion
-  usuarioIniciado!: User | null;
+  // usuarioIniciado!: User | null;
 
   constructor(private form: FormBuilder, private router: Router) {
 
@@ -37,13 +37,13 @@ export class LoginComponent {
     });
   }
 
-  ngOnInit(): void {
+  /* ngOnInit(): void {
     // El usuario iniciado del servicio se obtendra 
     // del usuario iniciado que guardemos en login
     this.usuarioService.usuarioIniciado.subscribe(user => {
       this.usuarioIniciado = user;
     });
-  }
+  } */
 
   // Comprobar si el usuario existe en la BD
   msjUsuarioInvalido() {

@@ -34,14 +34,9 @@ export class BibliotecaComponent {
     })
   }
 
-  // Devolver el valor verdadero/falso para mostrar detalles del juego
-  mostrarDetalles(): boolean {
-    return this.detallesVideojuego;
-  }
-
   // Activar/Desactivar los detalles
-  toggleDetalles() {
-    this.detallesVideojuego = !this.detallesVideojuego;
+  toggleDetalles(indice: number) {
+    this.videojuegos[indice].mostrarDetalles = !this.videojuegos[indice].mostrarDetalles;
   }
   
 }

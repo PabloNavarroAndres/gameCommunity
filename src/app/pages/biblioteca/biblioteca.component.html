@@ -4,7 +4,7 @@
         <div class="videojuego">
             <img [src]="videojuego.image" alt="Juego de la biblioteca">
             <h2>{{ videojuego.title }}</h2>
-            @if (mostrarDetalles()) {
+            @if (videojuego.mostrarDetalles) { <!-- Falta diferenciar a cada uno para que no abra todos -->
                 <section class="videojuego-detalles">
                     <span>{{ videojuego.status }}</span>
                     <span>{{ videojuego.personal_comment }}</span>
@@ -12,7 +12,7 @@
                 </section>
             }
             <!-- Activar los detalles del juego -->
-            <button (click)="toggleDetalles()">Detalles</button>
+            <button (click)="toggleDetalles($index)">Detalles</button>
 
             <!-- Editar los detalles del juego -->
             <!-- <button>Editar</button> -->
