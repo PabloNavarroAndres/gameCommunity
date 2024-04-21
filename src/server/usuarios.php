@@ -62,6 +62,7 @@ switch ($action) {
         break;
 
     // Agregar casos para actualizarUsuario y eliminarUsuario según sea necesario...
+    // ...
 
     default:
         // Acción no válida

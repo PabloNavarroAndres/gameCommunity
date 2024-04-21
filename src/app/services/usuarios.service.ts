@@ -33,6 +33,16 @@ export class UsuarioService {
     return this._http.post<User>(`${this.url}?action=agregarUsuario`, usuario);
   }
 
+  // Obtener usuarios de la BD
+  eliminarUsuario(): Observable<User[]> {
+    return this._http.get<User[]>(`${this.url}?action=eliminarUsuario`);
+  }
+
+  // Insertar usuario a la BD
+  actualizarUsuario(usuario: User): Observable<User> {
+    return this._http.post<User>(`${this.url}?action=actualizarUsuario`, usuario);
+  }
+
   // Obtener del local storage al usuario que ha iniciado sesión
   public obtenerUsuarioIniciado(): User | null {
     const usuarioIniciado = localStorage.getItem('usuarioIniciado');
@@ -50,7 +60,6 @@ export class UsuarioService {
     localStorage.removeItem('usuarioIniciado');
     this.usuarioIniciadoSubject.next(null);
   }
-
 
 
 }

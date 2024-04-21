@@ -4,19 +4,20 @@
     <form [formGroup]="formularioRegistro" (ngSubmit)="enviar($event)">
         <!-- Email -->
         <div class="mb-3">
-            <label for="email" class="form-label titulo-label" titulo-label>Email</label>
+            <label for="email" class="form-label titulo-label">Email</label>
             <input [ngClass]="{'is-invalid': hasErrors('email', 'required') || hasErrors('email', 'email') }"
                 type="email" class="form-control" id="email" formControlName="email">
-
-            <div class="text-danger" *ngIf="hasErrors('email', 'email')">
-                Email invalido.
+        
+            <div class="text-danger" *ngIf="hasErrors('email', 'email') || hasErrors('email', 'emailInvalido')  && !hasErrors('email', 'required')">
+                Email inválido.
             </div>
-
+        
             <div class="text-danger" *ngIf="hasErrors('email', 'required')">
                 Email obligatorio.
             </div>
         </div>
-
+        
+        
         <!-- Nombre -->
         <div class="mb-3">
             <label for="nombre" class="form-label titulo-label">Nombre</label>

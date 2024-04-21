@@ -8,8 +8,8 @@
           <input [ngClass]="{'is-invalid': hasErrors('email', 'required') || hasErrors('email', 'email') }" type="email"
             class="form-control" id="email" formControlName="email">
       
-          <div class="text-danger" *ngIf="hasErrors('email', 'email')">
-            Email invalido.
+          <div class="text-danger" *ngIf="hasErrors('email', 'email') || hasErrors('email', 'emailInvalido')  && !hasErrors('email', 'required')">
+            Email inválido.
           </div>
       
           <div class="text-danger" *ngIf="hasErrors('email', 'required')">

@@ -1,21 +1,121 @@
-<p>{{ usuario.email }}</p>
-<p>{{ usuario.username }}</p>
-<p>{{ usuario.password }}</p>
-<p>{{ usuario.total_games }}</p>
+<section class="perfil">
 
-<!-- 
+  <div class="usuario-info">
 
-    Info:
+    <div class="carta">
+      
+      <div class="carta-header">
+        {{ usuario.email }}
+      </div>
 
-    -Nombre
-    -foto (lista definida)
+      <div class="carta-body">
+        <table class="tabla">
+
+          <tr>
+            <th>Usuario</th>
+            <td>&#64;{{ usuario.username }}</td>
+          </tr>
+
+          <tr>
+            <th>Foto</th>
+            <td><img [src]="usuario.profile_picture" alt="Foto de perfil"></td>
+          </tr>
+
+          <button type="button" class="btn btn-outline-info" data-bs-toggle="modal" data-bs-target="#EditarPerfilModal" data-bs-whatever="usuario.username">Editar</button>
+        </table>
+      </div>
+    </div>
+  </div>
+
+  <div class="carta">
+    <div class="carta-header">
+      Estadísticas del Usuario
+    </div>
+    <div class="carta-body">
+      <table class="tabla">
+        <tr>
+          <th>Videojuegos Totales</th>
+          <td>{{ usuario.total_games }}</td>
+        </tr>
+        <tr>
+          <th>Videojuegos Terminados</th>
+          <td>¿?</td>
+        </tr>
+        <tr>
+          <th>Videojuegos Deseados</th>
+          <td>¿?</td>
+        </tr>
+      </table>
+    </div>
+  </div>
+
+  <!-- Formulario Modal de editar perfil -->
+  <div class="modal fade" id="EditarPerfilModal" tabindex="-1" aria-labelledby="PerfilModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+      <div class="modal-content">
+
+        <div class="modal-header">
+          <h2 class="modal-title fs-5" id="exampleModalLabel">Editar Perfil</h2>
+          <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+        </div>
+
+        <!-- Edicion de perfil -->
+        <div class="modal-body">
+
+          <form>
+            <!-- Nombre -->
+            <div class="mb-3">
+              <label for="recipient-name" class="col-form-label">Nombre:</label>
+              <input type="text" class="form-control" id="recipient-name" [(ngModel)]="nombre" [ngModelOptions]="{standalone: true}">
+            </div>
+
+            <!-- Imagen Perfil -->
+            <div class="mb-3">
+              <label for="message-text" class="col-form-label">Foto:</label>
+              
+              <div id="carouselExampleFade" class="carousel slide carousel-fade">
+
+                <div class="carousel-inner">
+
+                  @for (img of imagenes; track $index) {
+                    <div [ngClass]="{'active': img === imagenes[this.i]}" class="carousel-item">
+                      <img [src]="img" class="d-block w-100" alt="foto de perfil">
+                    </div>
+                  }
+
+                </div>
+
+                <!-- Boton anterior imagen -->   
+                <button class="carousel-control-prev" type="button" data-bs-target="#carouselExampleFade" data-bs-slide="prev" (click)="anteriorImg()">
+                  <span class="carousel-control-prev-icon" aria-hidden="true" ></span>
+                  <span class="visually-hidden">Anterior</span>
+                </button>
+
+                <!-- Boton siguiente imagen -->
+                <button class="carousel-control-next" type="button" data-bs-target="#carouselExampleFade" data-bs-slide="next" (click)="siguienteImg()">
+                  <span class="carousel-control-next-icon" aria-hidden="true" ></span>
+                  <span class="visually-hidden" >Siguiente</span>
+                </button>
+
+              </div>
 
 
-    contadores (calcular los "terminados" y "deseados" con el array de 
-    videojuegos obtenido de la biblioteca):
 
-    -videojuegos totales -> calculado directamente
-    -videojuegos terminados
-    -videojuegos deseados
+            </div>
+          </form>
 
- -->
+        </div>
+
+        <div class="modal-footer">
+
+          <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancelar</button>
+          <button type="button" class="btn btn-outline-info" (click)="actualizarPerfil()">Guardar</button>
+
+        </div>
+
+      </div>
+
+
+    </div>
+  </div>
+</section>

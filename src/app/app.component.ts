@@ -39,10 +39,12 @@ export class AppComponent {
     // Segun la ruta, mostramos verdadero en las permitidas
     switch (page) {
       case 'home':
-        return currentRoute === '' || currentRoute === '/';
+        // Mientras estemos en home y además el usuario no haya iniciado sesión
+        return (currentRoute === '' || currentRoute === '/') && !this.usuarioIniciado();
 
       case 'biblioteca':
-        return currentRoute === '';
+        // Mientras el usuario haya iniciado sesión
+        return this.usuarioIniciado();
 
       case 'perfil':
         return this.usuarioIniciado();

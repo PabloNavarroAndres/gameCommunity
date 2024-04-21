@@ -17,9 +17,9 @@
                     <a class="nav-link" (click)="toggleRegistro()">Registro</a>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link" routerLink="/usuarios">Usuarios</a>
+                    <a class="nav-link" routerLink="/comunidades">Comunidades</a>
                 </li>
-                <li class="nav-item">
+                <li class="nav-item" *ngIf="shouldShowThis('biblioteca')">
                     <a class="nav-link" routerLink="/biblioteca">Biblioteca</a>
                 </li>
                 <li class="nav-item">
@@ -31,8 +31,6 @@
                     </a>
                     <ul class="dropdown-menu">
                       <li><a class="dropdown-item" routerLink="/perfil">Mi Perfil</a></li>
-                      <li><a class="dropdown-item" routerLink="/perfilEdit">Editar Perfil</a></li>
-                      <li><hr class="dropdown-divider"></li>
                       <li><a class="dropdown-item" (click)="cerrarSesion()" routerLink="">Cerrar sesión</a></li>
                     </ul>
                 </li>
