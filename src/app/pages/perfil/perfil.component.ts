@@ -52,7 +52,7 @@ export class PerfilComponent {
   // Calcular la posicion anterior de la imagen del carrusel en el array
   anteriorImg() {
     if (this.i === 0) {
-      this.i = this.imagenes.length-1;
+      this.i = this.imagenes.length - 1;
 
     } else {
       this.i--;
@@ -61,7 +61,7 @@ export class PerfilComponent {
 
   // Calcular la posicion siguiente de la imagen del carrusel en el array
   siguienteImg() {
-    if (this.i === this.imagenes.length-1) {
+    if (this.i === this.imagenes.length - 1) {
       this.i = 0;
 
     } else {
@@ -79,6 +79,20 @@ export class PerfilComponent {
 
     // Foto de perfil
     this.usuario.profile_picture = this.selectedImage;
+
+    // Mandamos el usuario actualizado al servicio
+    this._usuarioService.actualizarUsuario(this.usuario)
+      .subscribe({
+        // Array de usuarios obtenido
+        next: (response: User) => {
+          console.log('Usuario actualizado correctamente', response);
+        },
+        error: (error: any) => {
+          console.error('Error al obtener usuarios:', error);
+        }
+      });
+
   }
+
 }
 

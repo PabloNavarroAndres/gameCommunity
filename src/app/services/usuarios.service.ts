@@ -1,6 +1,6 @@
 import { Injectable, inject } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
-import { BehaviorSubject, Observable } from 'rxjs';
+import { BehaviorSubject, Observable, tap } from 'rxjs';
 import { User } from '../models/user.interface';
 
 @Injectable({
@@ -40,7 +40,13 @@ export class UsuarioService {
 
   // Insertar usuario a la BD
   actualizarUsuario(usuario: User): Observable<User> {
-    return this._http.post<User>(`${this.url}?action=actualizarUsuario`, usuario);
+    return this._http.put<User>(`${this.url}?action=actualizarUsuario`, usuario)
+    .pipe(
+      tap(() => {
+        // Actualizar usuario iniciado en localStorage
+        localStorage.setItem('usuarioIniciado', JSON.stringify(usuario));
+      })
+    );
   }
 
   // Obtener del local storage al usuario que ha iniciado sesión
@@ -60,6 +66,5 @@ export class UsuarioService {
     localStorage.removeItem('usuarioIniciado');
     this.usuarioIniciadoSubject.next(null);
   }
-
 
 }

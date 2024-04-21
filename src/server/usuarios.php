@@ -1,7 +1,7 @@
 <?php
 
 header("Access-Control-Allow-Origin: http://localhost:4200");
-header("Access-Control-Allow-Methods: POST, GET, OPTIONS");
+header("Access-Control-Allow-Methods: POST, GET, PUT, OPTIONS");
 header("Access-Control-Allow-Headers: Content-Type");
 
 // Conexion de la BBDD
@@ -61,8 +61,40 @@ switch ($action) {
         }
         break;
 
-    // Agregar casos para actualizarUsuario y eliminarUsuario según sea necesario...
-    // ...
+    case 'actualizarUsuario':
+        try {
+            $data = json_decode(file_get_contents('php://input'), true);
+
+            // Verificar si se proporcionaron todos los campos necesarios
+            if (!isset($data['email']) || !isset($data['username']) || !isset($data['profile_picture'])) {
+                throw new Exception('Faltan campos obligatorios de usuario');
+            }
+
+            // Insertar datos en la base de datos
+            $username = $data['username'];
+            $profile_picture = $data['profile_picture'];
+            $email = $data['email'];
+
+            // Preparar la consulta
+            $query = $bd->prepare("UPDATE Users SET username = ?, profile_picture = ? WHERE email = ?");
+
+            if ($query) {
+                $result = $query->execute([$username, $profile_picture, $email]);
+
+                if ($result && $query->rowCount() > 0) {
+                    echo json_encode(['message' => 'Usuario actualizado correctamente']);
+                } else {
+                    echo json_encode(['message' => 'No se pudo actualizar el usuario']);
+                }
+            } else {
+                throw new Exception('Error al preparar la consulta');
+            }
+
+        } catch (Exception $e) {
+            echo json_encode(['Error al actualizar usuario' => $e->getMessage()]);
+        }
+
+        break;
 
     default:
         // Acción no válida
