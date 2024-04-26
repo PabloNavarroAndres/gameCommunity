@@ -1,1 +1,6 @@
 @import '../../app.component.css';
+
+.videojuegos {
+    padding-top: 50px;
+    padding-bottom: 50px;
+}

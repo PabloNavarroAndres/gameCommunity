@@ -61,22 +61,6 @@ h2 {
     height: auto;
 }
 
-.btn-outline-info {
-    border: 2px solid #7a3cff;
-    color: #7a3cff;
-}
-
-.btn-outline-info:hover {
-    border-color: transparent;
-    background-color: #7a3cff;
-    color: white;
-}
-
-.modal-header {
-    background-color: #a65cff;
-    color: white;
-}
-
 .carousel-control-next-icon, .carousel-control-prev {
     filter: brightness(0%) contrast(100%);
 }

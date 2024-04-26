@@ -1,0 +1,20 @@
+#pills-tab {
+    display: flex;
+    justify-content: center;
+    margin: 0 auto;
+    width: 50%;
+}
+
+#pills-tabContent {
+    display: flex;
+    justify-content: center;
+    margin: 0 auto;
+    align-items: center;
+    width: 80%;
+}
+
+.nav-pills {
+    font-size: 20px;
+    --bs-nav-pills-link-active-bg: #8f008f;
+    --bs-nav-link-color: white;
+}

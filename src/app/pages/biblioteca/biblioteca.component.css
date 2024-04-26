@@ -1,7 +1,27 @@
 @import '../../app.component.css';
 
+h2 {
+    margin: 0;
+}
+
 .videojuego-detalles {
     display: flex;
     flex-direction: column;
     color: white;
+}
+
+.lista-detalles {
+    list-style-type: none;
+    padding: 0;
+}
+
+.lista-detalles li {
+    display: flex !important;
+    justify-content: left;
+    align-items: center;
+    gap: 20px;
+}
+
+.lista-detalles svg {
+    flex-shrink: 0;
 }

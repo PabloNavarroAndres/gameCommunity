@@ -22,12 +22,7 @@ body {
     background-attachment: fixed;
 }
 
-.titulo-mediano {
-    font-weight: bolder;
-    font-size: var(--titulo-mediano) !important;
-    color: var(--letra-color-btn);
-    padding-bottom: 20px;
-}
+/* Botones */
 
 .boton-general {
     border: 1px solid black;
@@ -44,12 +39,37 @@ body {
     color: white !important;
 }
 
+.btn-modal {
+    border: 2px solid #7a3cff !important;
+    color: #7a3cff !important;
+}
+
+.btn-modal:hover {
+    border-color: transparent !important;
+    background-color: #7a3cff !important;
+    color: white !important;
+}
+
+.modal-header {
+    background-color: #a65cff !important;
+    color: white !important;
+}
+
+/* Texto */
+
 .titulo-label {
     font-weight: bolder;
     font-size: var(--titulo-peque);
     color: var(--letra-color-btn);
     padding-bottom: 10px;
     padding-top: 20px;
+}
+
+.titulo-mediano {
+    font-weight: bolder;
+    font-size: var(--titulo-mediano) !important;
+    color: var(--letra-color-btn);
+    padding-bottom: 20px;
 }
 
 /* Estilo de la barra de navegación*/

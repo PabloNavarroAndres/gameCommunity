@@ -56,7 +56,7 @@ switch ($action) {
         }
         break;
 
-    // Agregar casos para actualizarVideojuego y eliminarVideojuego según sea necesario...
+    // Agregar casos para actualizarVideojuego y eliminarVideojuego...
 
     default:
         // Acción no válida
