@@ -18,8 +18,10 @@ export class VideojuegosUsuarioService {
   }
 
   agregarVideojuegoUsuario(videojuego: VideojuegoUsuario):Observable<VideojuegoUsuario> {
+    // Msj
     console.log('insertar: ');
     console.log(videojuego);
+
     return this._http.post<VideojuegoUsuario>(`${this.url}?action=agregarVideojuegoUsuario`, videojuego);
   }
   

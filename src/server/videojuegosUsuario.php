@@ -21,24 +21,24 @@ switch ($action) {
                                FROM User_games UG
                                JOIN Games G ON UG.game_id = G.game_id
                                WHERE UG.user_email = ?"
-                            );
+            );
             $sql->execute(array($email));
             $datos = $sql->fetchAll(PDO::FETCH_ASSOC);
-        
+
             // Devolver los datos como JSON
             header('Content-Type: application/json');
             echo json_encode($datos);
-        
+
         } catch (PDOException $e) {
             // Manejar la excepción
             $errorMessage = "Error al obtener los datos: " . $e->getMessage();
             echo json_encode(array("error" => $errorMessage));
-        }        
+        }
         break;
 
     case 'agregarVideojuegoUsuario':
-      
-        /* try {
+
+        try {
             // Crear un nuevo videojuego de usuario
             // Obtener los datos del videojuego del cuerpo de la solicitud (POST)
             $data = json_decode(file_get_contents('php://input'), true);
@@ -63,38 +63,9 @@ switch ($action) {
         } catch (Exception $e) {
             // Manejar la excepción
             echo json_encode(array('Error al insertar videojuego de usuario' => $e->getMessage()));
-        } */
-        
-        try {
-            // Crear un nuevo usuario
-            // Obtener los datos del usuario del cuerpo de la solicitud (POST)
-            /* $data = json_decode(file_get_contents('php://input'), true);
- */
-            // Verificar si se proporcionaron todos los campos necesarios
-            /* if (!isset($data['email']) || !isset($data['username']) || !isset($data['password'])) {
-                throw new Exception('Faltan campos obligatorios de usuario');
-            } */
-
-            /* // Insertar datos en la base de datos
-            $email = $data['email'];
-            $username = $data['username'];
-            $password = $data['password'];
-            $profile_picture = '../../../assets/perfil/user.png';
-            $total_games = 0;
-            $isAdmin = 0; */
-
-            $query = "INSERT INTO User_games 
-                    (user_email, game_id) 
-                    VALUES ('pablo@gmail.com', 8)";
-
-            $bd->query($query);
-
-        } catch (PDOException $e) {
-            // Manejar la excepción
-            echo json_encode(array('Error al insertar usuario' => $e->getMessage()));
         }
+
         break;
-        
 
 
     // Agregar casos para actualizarVideojuego y eliminarVideojuego...

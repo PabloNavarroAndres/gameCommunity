@@ -60,7 +60,16 @@ export class VideojuegosComponent {
     console.log(videojuegoUsuario);
 
     // Agregarlo desde el servicio de usuarios
-    this.videojuegoUsuarioService.agregarVideojuegoUsuario(videojuegoUsuario);
+    this.videojuegoUsuarioService.agregarVideojuegoUsuario(videojuegoUsuario)
+    .subscribe({
+      next: (response: any) => {
+        console.log('Videojuego agregado correctamente:', response);
+
+      },
+      error: (error: any) => {
+        console.error('Error al agregar videojuego:', error);
+      }
+    });
 
     // Mensaje snack bar
     this.openSnackBar(videojuego.title, 'Cerrar', 3500);

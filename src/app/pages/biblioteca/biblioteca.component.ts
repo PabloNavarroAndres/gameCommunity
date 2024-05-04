@@ -25,11 +25,11 @@ export class BibliotecaComponent {
   // usuario que ha iniciado la sesión
   usuarioIniciado = this.usuarioService.obtenerUsuarioIniciado() as User;
 
-  // Indice de videojuego a mostrar en detalles
-  indiceVideojuego = 0;
-
   // Array de Videojuegos
   videojuegos: VideojuegoUsuario[] = [];
+
+  // Indice de videojuego a mostrar en detalles
+  indiceVideojuego = 0;
 
   // Activar o desactivar los detalles del videojuego
   detallesVideojuego: boolean = false;
