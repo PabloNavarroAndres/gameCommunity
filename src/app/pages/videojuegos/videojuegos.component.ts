@@ -2,6 +2,10 @@ import { Component, inject } from '@angular/core';
 import { Videojuego } from '../../models/videojuego.interface';
 import { VideojuegosService } from '../../services/videojuegos.service';
 import { MatSnackBar } from '@angular/material/snack-bar';
+import { UsuarioService } from '../../services/usuarios.service';
+import { User } from '../../models/user.interface';
+import { VideojuegosUsuarioService } from '../../services/videojuegos-usuario.service';
+import { VideojuegoUsuario } from '../../models/videojuegoUsuario.interface';
 
 @Component({
   selector: 'app-videojuegos',
@@ -13,8 +17,15 @@ import { MatSnackBar } from '@angular/material/snack-bar';
 export class VideojuegosComponent {
   // Servicio de videojuegos
   private videojuegoService = inject(VideojuegosService);
+  // Servicio de videojuegos usuario
+  private videojuegoUsuarioService = inject(VideojuegosUsuarioService);
+  // Servicio de Usuarios
+  private usuarioService = inject(UsuarioService);
 
-  // Snackbar
+  // usuario que ha iniciado la sesión
+  usuarioIniciado = this.usuarioService.obtenerUsuarioIniciado() as User;
+
+  // Snackbar para indicar el juego agregado
   private _snackBar = inject(MatSnackBar)
 
   // Array de videojuegos
@@ -30,8 +41,28 @@ export class VideojuegosComponent {
 
   // Aparecer la notificación snackbar
   openSnackBar(message: string, action: string, duration: number) {
+    message = '¡' + message + ' agregado!';
     this._snackBar.open(message, action, {
       duration: duration,
     });
+  }
+
+  // Agregar videojuego al usuario
+  agregarVideojuego(videojuego: Videojuego) {
+
+    // Crear un objeto que cumpla con la interfaz VideojuegoUsuario
+    const videojuegoUsuario: VideojuegoUsuario = {
+      game_id: videojuego.game_id,
+      user_email: this.usuarioIniciado.email
+    };
+
+    console.log('insertare al servicio: ');
+    console.log(videojuegoUsuario);
+
+    // Agregarlo desde el servicio de usuarios
+    this.videojuegoUsuarioService.agregarVideojuegoUsuario(videojuegoUsuario);
+
+    // Mensaje snack bar
+    this.openSnackBar(videojuego.title, 'Cerrar', 3500);
   }
 }

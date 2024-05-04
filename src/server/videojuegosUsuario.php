@@ -36,33 +36,66 @@ switch ($action) {
         }        
         break;
 
-    case 'agregarVideojuego':
-        try {
-            // Crear un nuevo videojuego
+    case 'agregarVideojuegoUsuario':
+      
+        /* try {
+            // Crear un nuevo videojuego de usuario
             // Obtener los datos del videojuego del cuerpo de la solicitud (POST)
             $data = json_decode(file_get_contents('php://input'), true);
 
             // Verificar si se proporcionaron todos los campos necesarios
-            if (!isset($data['valor']) || !isset($data['valor'])) {
-                throw new Exception('Faltan campos obligatorios del videojuego');
+            if (!isset($data['game_id']) || !isset($data['user_email'])) {
+                throw new Exception('Faltan campos obligatorios del videojuego de usuario');
             }
 
             // Insertar datos en la base de datos
-            $valor = $data['valor'];
+            $game_id = $data['game_id'];
+            $user_email = $data['user_email'];
 
-            $query = "INSERT INTO Games 
-                    (valor, valor) 
-                    VALUES ('$valor', '$valor')";
+            $query = "INSERT INTO User_games 
+                    (game_id, user_email) 
+                    VALUES ('$game_id', '$user_email')";
 
             if ($bd->query($query) === TRUE) {
-                echo json_encode(array('message' => 'Videojuego creado correctamente'));
+                echo json_encode(array('message' => 'Videojuego de usuario creado correctamente'));
             }
 
         } catch (Exception $e) {
             // Manejar la excepción
-            echo json_encode(array('Error al insertar videojuego' => $e->getMessage()));
+            echo json_encode(array('Error al insertar videojuego de usuario' => $e->getMessage()));
+        } */
+        
+        try {
+            // Crear un nuevo usuario
+            // Obtener los datos del usuario del cuerpo de la solicitud (POST)
+            /* $data = json_decode(file_get_contents('php://input'), true);
+ */
+            // Verificar si se proporcionaron todos los campos necesarios
+            /* if (!isset($data['email']) || !isset($data['username']) || !isset($data['password'])) {
+                throw new Exception('Faltan campos obligatorios de usuario');
+            } */
+
+            /* // Insertar datos en la base de datos
+            $email = $data['email'];
+            $username = $data['username'];
+            $password = $data['password'];
+            $profile_picture = '../../../assets/perfil/user.png';
+            $total_games = 0;
+            $isAdmin = 0; */
+
+            $query = "INSERT INTO User_games 
+                    (user_email, game_id) 
+                    VALUES ('pablo@gmail.com', 8)";
+
+            $bd->query($query);
+
+        } catch (PDOException $e) {
+            // Manejar la excepción
+            echo json_encode(array('Error al insertar usuario' => $e->getMessage()));
         }
         break;
+        
+
 
     // Agregar casos para actualizarVideojuego y eliminarVideojuego...
 

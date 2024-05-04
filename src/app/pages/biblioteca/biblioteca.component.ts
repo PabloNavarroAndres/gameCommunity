@@ -19,7 +19,11 @@ export class BibliotecaComponent {
 
   // Servicio de videojuegos
   private videojuegoService = inject(VideojuegosUsuarioService);
+  // Servicio de Usuarios
   private usuarioService = inject(UsuarioService);
+
+  // usuario que ha iniciado la sesión
+  usuarioIniciado = this.usuarioService.obtenerUsuarioIniciado() as User;
 
   // Indice de videojuego a mostrar en detalles
   indiceVideojuego = 0;
@@ -30,9 +34,6 @@ export class BibliotecaComponent {
   // Activar o desactivar los detalles del videojuego
   detallesVideojuego: boolean = false;
 
-  // usuario que ha iniciado la sesión
-  usuarioIniciado = this.usuarioService.obtenerUsuarioIniciado() as User;
-
   ngOnInit(): void {
     // Obtener los videojuegos del usuario de la BD, usando su id
     this.videojuegoService.obtenerVideojuegosUsuario(this.usuarioIniciado.email).subscribe((data: VideojuegoUsuario[]) => {
@@ -40,11 +41,6 @@ export class BibliotecaComponent {
       this.videojuegos = data;
     })
   }
-
-  // Activar/Desactivar los detalles
-  /* toggleDetalles(indice: number) {
-    this.videojuegos[indice].mostrarDetalles = !this.videojuegos[indice].mostrarDetalles;
-  } */
 
   // Activar modal detalles videojuego
   mostrarDetalles(indice: number) {

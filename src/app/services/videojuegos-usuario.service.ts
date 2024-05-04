@@ -17,8 +17,11 @@ export class VideojuegosUsuarioService {
     return this._http.get<VideojuegoUsuario[]>(`${this.url}?action=obtenerVideojuegosUsuario&email=${email}`);
   }
 
-  agregarVideojuegoUsuario(videojuego: VideojuegoUsuario): Observable<VideojuegoUsuario> {
+  agregarVideojuegoUsuario(videojuego: VideojuegoUsuario):Observable<VideojuegoUsuario> {
+    console.log('insertar: ');
+    console.log(videojuego);
     return this._http.post<VideojuegoUsuario>(`${this.url}?action=agregarVideojuegoUsuario`, videojuego);
   }
+  
 
 }

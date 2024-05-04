@@ -15,11 +15,11 @@ switch ($action) {
         try {
             // Consulta para obtener todos los usuarios
             $sql = $bd->query("SELECT * FROM Users");
-            $juegos = $sql->fetchAll(PDO::FETCH_OBJ);
+            $users = $sql->fetchAll(PDO::FETCH_OBJ);
 
             // Devolver los datos como JSON
             header('Content-Type: application/json');
-            echo json_encode($juegos);
+            echo json_encode($users);
 
         } catch (PDOException $e) {
             // Manejar la excepción

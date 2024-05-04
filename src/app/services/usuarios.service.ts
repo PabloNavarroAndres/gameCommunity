@@ -23,22 +23,22 @@ export class UsuarioService {
     this.usuarioIniciado = this.usuarioIniciadoSubject.asObservable();
   }
 
-  // Obtener usuarios de la BD
+  // Obtener usuarios
   obtenerUsuarios(): Observable<User[]> {
     return this._http.get<User[]>(`${this.url}?action=obtenerUsuarios`);
   }
 
-  // Insertar usuario a la BD
+  // Insertar usuario
   agregarUsuario(usuario: User): Observable<User> {
     return this._http.post<User>(`${this.url}?action=agregarUsuario`, usuario);
   }
 
-  // Obtener usuarios de la BD
+  // Obtener usuarios
   eliminarUsuario(): Observable<User[]> {
     return this._http.get<User[]>(`${this.url}?action=eliminarUsuario`);
   }
 
-  // Insertar usuario a la BD
+  // Actualizar usuario
   actualizarUsuario(usuario: User): Observable<User> {
     return this._http.put<User>(`${this.url}?action=actualizarUsuario`, usuario)
     .pipe(
@@ -48,6 +48,18 @@ export class UsuarioService {
       })
     );
   }
+
+  // Sumar 1+ al contador de juegos deseados
+  /* sumarJuegoDeseado(usuario: User): Observable<User> {
+    return this._http.put<User>(`${this.url}?action=actualizarUsuario`, usuario)
+    .pipe(
+      tap(() => {
+        // Actualizar usuario iniciado en localStorage
+        localStorage.setItem('usuarioIniciado', JSON.stringify(usuario));
+      })
+    );
+  } */
+
 
   // Obtener del local storage al usuario que ha iniciado sesión
   public obtenerUsuarioIniciado(): User | null {
