@@ -1,9 +1,5 @@
 <?php
 
-header("Access-Control-Allow-Origin: http://localhost:4200");
-header("Access-Control-Allow-Methods: POST, GET, PUT, OPTIONS");
-header("Access-Control-Allow-Headers: Content-Type");
-
 require_once "bd.php";
 require_once 'app/models/model/user.model.php';
 
@@ -47,6 +43,28 @@ class UserRepository {
             // Manejar la excepción
             $errorMessage = "Error al obtener usuarios: " . $e->getMessage();
             echo json_encode(array("error" => $errorMessage));
+        }
+    }
+
+    public function agregarUsuario($data) {
+
+        // Insertar datos en la base de datos
+        $email = $data['email'];
+        $username = $data['username'];
+        $password = $data['password'];
+        $profile_picture = '../../../assets/perfil/user.png';
+        $total_games = 0;
+        $isAdmin = 0;
+
+        $query = "INSERT INTO Users 
+                (email, username, password, profile_picture, total_games, isAdmin) 
+                VALUES ('$email', '$username', '$password', '$profile_picture', '$total_games', '$isAdmin')";
+
+        if ($this->bd->query($query) === TRUE) {
+
+            // Establecer código de estado 201
+            http_response_code(201);
+
         }
     }
 

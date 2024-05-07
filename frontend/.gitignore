@@ -43,6 +43,6 @@ testem.log
 Thumbs.db
 
 # Backend files
-../backend/app/usuarios.php
-../backend/app/videojuegos.php
-../backend/app/videojuegosUsuario.php
+../backend/src/app/usuarios.php
+../backend/src/app/videojuegos.php
+../backend/src/app/videojuegosUsuario.php
