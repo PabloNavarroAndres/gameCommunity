@@ -19,13 +19,14 @@ yarn-error.log
 *.launch
 .settings/
 *.sublime-workspace
+../.editorconfig
 
 # Visual Studio Code
-.vscode/*
-!.vscode/settings.json
-!.vscode/tasks.json
-!.vscode/launch.json
-!.vscode/extensions.json
+../.vscode/*
+../!.vscode/settings.json
+../!.vscode/tasks.json
+../!.vscode/launch.json
+../!.vscode/extensions.json
 .history/*
 
 # Miscellaneous
@@ -40,3 +41,8 @@ testem.log
 # System files
 .DS_Store
 Thumbs.db
+
+# Backend files
+../backend/app/usuarios.php
+../backend/app/videojuegos.php
+../backend/app/videojuegosUsuario.php

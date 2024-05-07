@@ -9,7 +9,7 @@ import { VideojuegoUsuario } from '../models/videojuegoUsuario.interface';
 })
 export class VideojuegosUsuarioService {
 
-  private url = 'http://localhost/gameCommunity/src/server/videojuegosUsuario.php';
+  private url = 'http://localhost/gameCommunity/backend/src/app/videojuegosUsuario.php';
 
   private _http = inject(HttpClient);
 

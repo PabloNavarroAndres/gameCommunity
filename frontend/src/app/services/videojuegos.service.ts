@@ -8,7 +8,7 @@ import { Videojuego } from '../models/videojuego.interface';
 })
 export class VideojuegosService {
 
-  private url = 'http://localhost/gameCommunity/src/server/videojuegos.php';
+  private url = 'http://localhost/gameCommunity/backend/src/app/videojuegos.php';
 
   private _http = inject(HttpClient);
 

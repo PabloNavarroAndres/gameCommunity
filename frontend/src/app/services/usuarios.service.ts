@@ -8,7 +8,7 @@ import { User } from '../models/user.interface';
 })
 
 export class UsuarioService {
-  private url = 'http://localhost/gameCommunity/src/server/usuarios.php';
+  private url = 'http://localhost/gameCommunity/backend/src/index.php';
   private _http = inject(HttpClient);
 
   // Usuario que ha iniciado sesión
@@ -25,22 +25,22 @@ export class UsuarioService {
 
   // Obtener usuarios
   obtenerUsuarios(): Observable<User[]> {
-    return this._http.get<User[]>(`${this.url}?action=obtenerUsuarios`);
+    return this._http.get<User[]>(`${this.url}?controller=usuarios&action=obtenerUsuarios`);
   }
 
   // Insertar usuario
   agregarUsuario(usuario: User): Observable<User> {
-    return this._http.post<User>(`${this.url}?action=agregarUsuario`, usuario);
+    return this._http.post<User>(`${this.url}?controller=usuarios&action=agregarUsuario`, usuario);
   }
 
   // Obtener usuarios
   eliminarUsuario(): Observable<User[]> {
-    return this._http.get<User[]>(`${this.url}?action=eliminarUsuario`);
+    return this._http.get<User[]>(`${this.url}?controller=usuarios&action=eliminarUsuario`);
   }
 
   // Actualizar usuario
   actualizarUsuario(usuario: User): Observable<User> {
-    return this._http.put<User>(`${this.url}?action=actualizarUsuario`, usuario)
+    return this._http.put<User>(`${this.url}?controller=usuarios&action=actualizarUsuario`, usuario)
     .pipe(
       tap(() => {
         // Actualizar usuario iniciado en localStorage
