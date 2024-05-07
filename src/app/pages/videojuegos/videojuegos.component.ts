@@ -56,18 +56,15 @@ export class VideojuegosComponent {
       user_email: this.usuarioIniciado.email
     };
 
-    console.log('insertare al servicio: ');
-    console.log(videojuegoUsuario);
-
     // Agregarlo desde el servicio de usuarios
     this.videojuegoUsuarioService.agregarVideojuegoUsuario(videojuegoUsuario)
     .subscribe({
       next: (response: any) => {
-        console.log('Videojuego agregado correctamente:', response);
+        console.log('Insertando videojuego al servidor:', response);
 
       },
       error: (error: any) => {
-        console.error('Error al agregar videojuego:', error);
+        console.error('Error intentando agregar el videojuego:', error);
       }
     });
 

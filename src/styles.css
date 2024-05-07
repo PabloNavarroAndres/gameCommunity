@@ -50,6 +50,10 @@ body {
     color: white !important;
 }
 
+.btn-close {
+    filter: invert();
+}
+
 .modal-header {
     background-color: #a65cff !important;
     color: white !important;
