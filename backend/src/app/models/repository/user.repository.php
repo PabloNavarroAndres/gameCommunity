@@ -41,7 +41,7 @@ class UserRepository {
 
         } catch (PDOException $e) {
             // Manejar la excepción
-            $errorMessage = "Error al obtener usuarios: " . $e->getMessage();
+            $errorMessage = "Error al obtener usuarios sql: " . $e->getMessage();
             echo json_encode(array("error" => $errorMessage));
         }
     }
@@ -66,6 +66,20 @@ class UserRepository {
             http_response_code(201);
 
         }
+    }
+
+    public function actualizarUsuario($data) {
+
+        // Insertar datos en la base de datos
+        $username = $data['username'];
+        $profile_picture = $data['profile_picture'];
+        $email = $data['email'];
+
+        // Preparar la consulta
+        $query = $this->bd->prepare("UPDATE Users SET username = ?, profile_picture = ? WHERE email = ?");
+
+        // Ejecutar consulta
+        $result = $query->execute([$username, $profile_picture, $email]);
     }
 
     // Otros métodos del repositorio para agregar y actualizar usuarios

@@ -28,7 +28,7 @@ switch ($action) {
         }
         break;
 
-    case 'agregarVideojuego':
+    /* case 'agregarVideojuego':
         try {
             // Crear un nuevo videojuego
             // Obtener los datos del videojuego del cuerpo de la solicitud (POST)
@@ -54,7 +54,7 @@ switch ($action) {
             // Manejar la excepción
             echo json_encode(array('Error al insertar videojuego' => $e->getMessage()));
         }
-        break;
+        break; */
 
     // Agregar casos para actualizarVideojuego y eliminarVideojuego...
 

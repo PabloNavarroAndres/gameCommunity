@@ -9,12 +9,12 @@ import { VideojuegoUsuario } from '../models/videojuegoUsuario.interface';
 })
 export class VideojuegosUsuarioService {
 
-  private url = 'http://localhost/gameCommunity/backend/src/app/videojuegosUsuario.php';
+  private url = 'http://localhost/gameCommunity/backend/src/index.php';
 
   private _http = inject(HttpClient);
 
   obtenerVideojuegosUsuario(email: string):Observable<VideojuegoUsuario[]>{
-    return this._http.get<VideojuegoUsuario[]>(`${this.url}?action=obtenerVideojuegosUsuario&email=${email}`);
+    return this._http.get<VideojuegoUsuario[]>(`${this.url}?controller=videojuegosUsuario&action=obtenerVideojuegosUsuario&email=${email}`);
   }
 
   agregarVideojuegoUsuario(videojuego: VideojuegoUsuario):Observable<VideojuegoUsuario> {
