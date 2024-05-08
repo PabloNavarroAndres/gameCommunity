@@ -22,7 +22,7 @@ export class VideojuegosUsuarioService {
     console.log('insertar: ');
     console.log(videojuego);
 
-    return this._http.post<VideojuegoUsuario>(`${this.url}?action=agregarVideojuegoUsuario`, videojuego);
+    return this._http.post<VideojuegoUsuario>(`${this.url}?controller=videojuegosUsuario&action=agregarVideojuegoUsuario`, videojuego);
   }
   
 

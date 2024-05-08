@@ -23,10 +23,10 @@ if (isset($_GET['controller'])) {
             break;
 
         default:
-            echo json_encode(['error' => 'Acción no válida']);
+            echo json_encode(['error' => 'Controlador no válido']);
             break;
     }
 
 } else {
-    echo json_encode(['error' => 'No se proporcionó ninguna acción']);
+    echo json_encode(['error' => 'No se proporcionó ningun controlador']);
 }

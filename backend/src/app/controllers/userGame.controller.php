@@ -23,7 +23,7 @@ switch ($action) {
         }
         break;
 
-    case 'agregarVideojuego':
+    case 'agregarVideojuegoUsuario':
         try {
 
             // Crear un nuevo usuario
@@ -31,12 +31,12 @@ switch ($action) {
             $data = json_decode(file_get_contents('php://input'), true);
 
             // Verificar si se proporcionaron todos los campos necesarios
-            if (!isset($data['email']) || !isset($data['username']) || !isset($data['password'])) {
-                throw new Exception('Faltan campos obligatorios de usuario');
+            if (!isset($data['game_id']) || !isset($data['user_email'])) {
+                throw new Exception('Faltan campos obligatorios del videojuego de usuario');
             }
-            
+
             // Datos obtenidos del metodo
-            $userRepository->agregarUsuario($data);
+            $userGameRepository->agregarVideojuegoUsuario($data);
 
             // Devolverlo en Json
             JsonView::agregadoMsj();
