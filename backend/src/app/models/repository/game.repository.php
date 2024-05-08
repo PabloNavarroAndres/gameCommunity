@@ -36,7 +36,7 @@ class GameRepository {
 
         } catch (PDOException $e) {
             // Manejar la excepción
-            $errorMessage = "Error al obtener videojuegos sql: " . $e->getMessage();
+            $errorMessage = "Error al obtener videojuegos: " . $e->getMessage();
             echo json_encode(array("error" => $errorMessage));
         }
     }

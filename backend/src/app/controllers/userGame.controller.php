@@ -10,10 +10,10 @@ $action = $_GET['action'];
 
 switch ($action) {
 
-    case 'obtenerVideojuegos':
+    case 'obtenerVideojuegosUsuario':
         try {
             // Datos obtenidos del metodo
-            $userGames = $userGameRepository->obtenerVideojuegos();
+            $userGames = $userGameRepository->obtenerVideojuegosUsuario();
 
             // Devolverlo en Json
             JsonView::render($userGames);

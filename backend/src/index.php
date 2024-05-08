@@ -18,6 +18,10 @@ if (isset($_GET['controller'])) {
             include_once 'app/controllers/game.controller.php';
             break;
 
+        case 'videojuegosUsuario':
+            include_once 'app/controllers/userGame.controller.php';
+            break;
+
         default:
             echo json_encode(['error' => 'Acción no válida']);
             break;
