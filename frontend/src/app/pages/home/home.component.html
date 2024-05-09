@@ -4,6 +4,19 @@
     <img src="../../../assets/logo_gameCommunity.PNG" alt="logo de la web">
 </div>
 
+@if (!shouldShowLogin() && !shouldShowRegistro()) {
+
+    <section class="home-info">
+        <h3>¡Bienvenido a nuestra comunidad!</h3>
+    
+        <p>
+            En esta web podrás encontrar usuarios con tus mismos gustos en videojuegos, con los cuales podrás 
+            hablar mediante los fotos de las comunidades, además de tener tu biblioteca de videojuegos con 
+            detalles personalizados en cada uno.
+        </p>
+    </section>
+}
+
 <section>
     <!-- Login -->
     @if (shouldShowLogin()) {
@@ -18,3 +31,4 @@
     }
 
 </section>
+

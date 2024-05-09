@@ -91,3 +91,8 @@ body {
     border-radius: 15%;
     cursor: pointer;
 }
+
+.placeholderStyle {
+    color: gray;
+    font-style: italic;
+}

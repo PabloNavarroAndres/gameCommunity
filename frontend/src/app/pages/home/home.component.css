@@ -1,4 +1,4 @@
-h2, h3 {
+h2 {
     display: none;
 }
 
@@ -28,4 +28,11 @@ h2, h3 {
     width: 100%;
     height: 100%;
     object-fit: scale-down;
+}
+
+.home-info {
+    width: 80%;
+    color: white;
+    margin: 0 auto;
+    text-align: center;
 }
