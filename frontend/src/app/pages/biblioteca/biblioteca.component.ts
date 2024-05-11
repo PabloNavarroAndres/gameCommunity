@@ -44,7 +44,6 @@ export class BibliotecaComponent {
   ngOnInit(): void {
     // Obtener los videojuegos del usuario de la BD, usando su id
     this.videojuegoService.obtenerVideojuegosUsuario(this.usuarioIniciado.email).subscribe((data: VideojuegoUsuario[]) => {
-      // console.log(data);
       this.videojuegos = data;
     })
   }
@@ -57,11 +56,33 @@ export class BibliotecaComponent {
   // Editar los detalles del videojuego
   editarDetalles() {
 
-    // Los valores seleccionados están disponibles en las propiedades estadoJuego, comentario y calificacion
-    console.log('Estado de juego:', this.estado);
-    console.log('Comentario:', this.comentario);
-    console.log('Calificación:', this.calificacion);
-    console.log('id:', this.videojuegos[this.indiceVideojuego].game_id);
+    // Videojuego del usuario con los datos actualizados
+    // (mientras los campos no sean indefinidos)
+    if (this.estado !== undefined) {
+      this.videojuegos[this.indiceVideojuego].status = this.estado;
+    }
+
+    if (this.comentario !== undefined) {
+      this.videojuegos[this.indiceVideojuego].personal_comment = this.comentario;
+    }
+
+    if (this.calificacion !== undefined) {
+      this.videojuegos[this.indiceVideojuego].rating = this.calificacion;
+    }
+
+    // Actualizar en la BD
+    this.videojuegoService.actualizarVideojuegoUsuario(this.videojuegos[this.indiceVideojuego])
+    .subscribe({
+
+      // Videojuego de usuario obtenido
+      next: (response: VideojuegoUsuario) => {
+        console.log('Videojuego de usuario actualizado correctamente', response);
+      },
+
+      error: (error: any) => {
+        console.error('Error al actualizar videojuego del usuario:', error);
+      }
+    });
 
     // Vaciar campos de edición
     this.resetForm();
@@ -70,9 +91,9 @@ export class BibliotecaComponent {
   // Vaciar los campos del modo editar detalles
   resetForm() {
     // Vaciar los campos del modal de editar detalles si es necesario
-    this.estado = '';
-    this.comentario = '';
-    this.calificacion = -1;
+    this.estado = undefined;
+    this.comentario = undefined;
+    this.calificacion = undefined;
   }
   
 }

@@ -79,8 +79,7 @@ class UserRepository {
         $query = $this->bd->prepare("UPDATE Users SET username = ?, profile_picture = ? WHERE email = ?");
 
         // Ejecutar consulta
-        $result = $query->execute([$username, $profile_picture, $email]);
+        $query->execute([$username, $profile_picture, $email]);
     }
 
-    // Otros métodos del repositorio para agregar y actualizar usuarios
 }

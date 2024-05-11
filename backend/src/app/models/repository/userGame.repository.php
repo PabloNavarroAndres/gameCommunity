@@ -3,16 +3,19 @@
 require_once "bd.php";
 require_once 'app/models/model/userGame.model.php';
 
-class UserGameRepository {
+class UserGameRepository
+{
 
     private $bd;
 
-    public function __construct() {
+    public function __construct()
+    {
         $this->bd = BD::getBD();
     }
 
 
-    public function obtenerVideojuegosUsuario() {
+    public function obtenerVideojuegosUsuario()
+    {
         try {
 
             // Obtenemos el email que se ha pasado como parametro
@@ -27,7 +30,7 @@ class UserGameRepository {
             $sql->execute(array($email));
 
             // Datos obtenidos del SQL, como un array asociativo
-            $userGamesData = $sql->fetchAll(PDO::FETCH_ASSOC); 
+            $userGamesData = $sql->fetchAll(PDO::FETCH_ASSOC);
 
             // Crear objetos Game a partir de los datos
             $userGames = [];
@@ -53,9 +56,10 @@ class UserGameRepository {
         }
     }
 
-    public function agregarVideojuegoUsuario($data) {
+    public function agregarVideojuegoUsuario($data)
+    {
         try {
-            
+
             // Insertar datos en la base de datos
             $game_id = $data['game_id'];
             $user_email = $data['user_email'];
@@ -72,6 +76,37 @@ class UserGameRepository {
             // Manejar la excepción
             echo json_encode(array('Error al insertar videojuego de usuario' => $e->getMessage()));
         }
+    }
+
+    public function actualizarVideojuegoUsuario($data)
+    {
+
+        try {
+
+            // Insertar datos en la base de datos
+            $status = $data['status'];
+            $personal_comment = $data['personal_comment'];
+            $rating = $data['rating'];
+            $user_email = $data['user_email'];
+            $game_id = $data['game_id'];
+
+            // Preparar la consulta
+            $query = $this->bd->prepare(
+                "UPDATE User_games 
+            SET status = ?, personal_comment = ?, rating = ?
+            WHERE user_email = ? && game_id = ?"
+            );
+
+            // Ejecutar consulta
+            $query->execute([$status, $personal_comment, $rating, $user_email, $game_id]);
+
+        } catch (PDOException $e) {
+
+            // Manejar la excepción
+            $errorMessage = "Error al actualizar videojuego del usuario: " . $e->getMessage();
+            echo json_encode(array("error" => $errorMessage));
+        }
+
     }
 
 }
