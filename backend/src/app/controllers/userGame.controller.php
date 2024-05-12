@@ -71,7 +71,7 @@ switch ($action) {
 
         } catch (Exception $e) {
             // Manejar la excepción
-            echo json_encode(array('Error al insertar usuario' => $e->getMessage()));
+            echo json_encode(array('Error al actualizar videojuego de usuario' => $e->getMessage()));
         }
         break;
 

@@ -50,15 +50,14 @@ export class UsuarioService {
   }
 
   // Sumar 1+ al contador de juegos deseados
-  /* sumarJuegoDeseado(usuario: User): Observable<User> {
-    return this._http.put<User>(`${this.url}?action=actualizarUsuario`, usuario)
-    .pipe(
-      tap(() => {
-        // Actualizar usuario iniciado en localStorage
-        localStorage.setItem('usuarioIniciado', JSON.stringify(usuario));
-      })
-    );
-  } */
+  sumarJuegoDeseado(usuario: User): Observable<User> {
+    return this._http.put<User>(`${this.url}?controller=usuarios&action=sumarDeseado`, usuario);
+  }
+
+  // Restar 1- al contador de juegos deseados
+  restarJuegoDeseado(usuario: User): Observable<User> {
+    return this._http.put<User>(`${this.url}?controller=usuarios&action=restarDeseado`, usuario);
+  }
 
 
   // Obtener del local storage al usuario que ha iniciado sesión

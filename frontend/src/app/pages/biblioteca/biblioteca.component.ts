@@ -56,22 +56,129 @@ export class BibliotecaComponent {
   // Editar los detalles del videojuego
   editarDetalles() {
 
+    // Videojuego seleccionado
+    const videojuego = this.videojuegos[this.indiceVideojuego];
+
     // Videojuego del usuario con los datos actualizados
     // (mientras los campos no sean indefinidos)
     if (this.estado !== undefined) {
-      this.videojuegos[this.indiceVideojuego].status = this.estado;
+
+      // Segun el estado al que vayamos a cambiarlo
+      // cambiará la estadística de usuario
+      switch (this.estado) {
+        case 'Terminado':
+
+          // Si ya estaba terminado se queda igual
+          if (this.estado === videojuego.status) {
+            break;
+          }
+
+          // Si estaba en lista de deseados se resta del contador
+          // de juegos deseados
+          if (videojuego.status === 'Lista de deseos') {
+            // Funcion restar deseados -1
+            // ...
+          }
+
+          // Funcion sumar a juegos terminados +1
+          // ...
+
+          // Actualizamos estado del videojuego
+          videojuego.status = this.estado;
+
+          break;
+
+        case 'Lista de deseos':
+
+          // Si ya estaba en deseados se queda igual
+          if (this.estado === videojuego.status) {
+            break;
+          }
+
+          // Si estaba en lista de terminados se resta del contador
+          // de juegos terminados
+          if (videojuego.status === 'Terminados') {
+            // Funcion restar terminados -1
+            // ...
+          }
+
+          // Funcion sumar a juegos deseados +1
+          this.usuarioService.sumarJuegoDeseado(this.usuarioIniciado)
+          .subscribe({
+
+            // Sumado correctamente
+            next: () => {
+              console.log('Deseado sumado correctamente');
+              this.usuarioIniciado.desired_games!++;
+              localStorage.setItem('usuarioIniciado', JSON.stringify(this.usuarioIniciado));
+
+            },
+      
+            error: (error: any) => {
+              console.error('Error al sumar deseado al usuario:', error);
+            }
+          });
+
+          // Actualizamos estado del videojuego
+          videojuego.status = this.estado;
+
+          break;
+
+        case 'Por empezar':
+
+          // Si estaba en lista de terminados se resta del contador
+          // de juegos terminados
+          if (videojuego.status === 'Terminados') {
+            // Funcion restar terminados -1
+            // ...
+          }
+
+          // Si estaba en lista de deseados se resta del contador
+          // de juegos deseados
+          if (videojuego.status === 'Lista de deseos') {
+            // Funcion restar deseados -1
+            this.usuarioService.restarJuegoDeseado(this.usuarioIniciado)
+            .subscribe({
+
+              // Restado correctamente
+              next: () => {
+                console.log('Deseado restado correctamente');
+                this.usuarioIniciado.desired_games!--;
+                localStorage.setItem('usuarioIniciado', JSON.stringify(this.usuarioIniciado));
+  
+              },
+        
+              error: (error: any) => {
+                console.error('Error al sumar deseado al usuario:', error);
+              }
+            });
+          }
+          
+          break;
+        
+        case 'En progreso':
+
+          
+          break;
+
+        default:
+          videojuego.status = this.estado;
+          break;
+      }
+
+      videojuego.status = this.estado;
     }
 
     if (this.comentario !== undefined) {
-      this.videojuegos[this.indiceVideojuego].personal_comment = this.comentario;
+      videojuego.personal_comment = this.comentario;
     }
 
     if (this.calificacion !== undefined) {
-      this.videojuegos[this.indiceVideojuego].rating = this.calificacion;
+      videojuego.rating = this.calificacion;
     }
 
     // Actualizar en la BD
-    this.videojuegoService.actualizarVideojuegoUsuario(this.videojuegos[this.indiceVideojuego])
+    this.videojuegoService.actualizarVideojuegoUsuario(videojuego)
     .subscribe({
 
       // Videojuego de usuario obtenido

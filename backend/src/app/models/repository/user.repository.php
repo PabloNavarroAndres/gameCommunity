@@ -82,4 +82,27 @@ class UserRepository {
         $query->execute([$username, $profile_picture, $email]);
     }
 
+    public function sumarDeseado($data) {
+
+        $email = $data['email'];
+
+        // Preparar la consulta
+        $query = $this->bd->prepare("UPDATE Users SET desired_games = desired_games + 1 WHERE email = ?");
+
+        // Ejecutar consulta
+        $query->execute([$email]);
+    }
+
+    public function restarDeseado($data) {
+
+        $email = $data['email'];
+
+        // Preparar la consulta
+        $query = $this->bd->prepare("UPDATE Users SET desired_games = desired_games - 1 WHERE email = ?");
+
+        // Ejecutar consulta
+        $query->execute([$email]);
+    }
+    
+
 }

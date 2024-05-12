@@ -72,20 +72,25 @@ export class PerfilComponent {
   // Actualizar la imagen del usuario
   actualizarPerfil() {
 
+    // Usuario con los nuevos datos
+    const usuarioActualizado = { ...this.usuario };
+
     // Nombre
     if (this.nombre !== '') {
-      this.usuario.username = this.nombre;
+      usuarioActualizado.username = this.nombre;
     }
-
     // Foto de perfil
-    this.usuario.profile_picture = this.selectedImage;
+    usuarioActualizado.profile_picture = this.selectedImage;
 
     // Mandamos el usuario actualizado al servicio
-    this._usuarioService.actualizarUsuario(this.usuario)
+    this._usuarioService.actualizarUsuario(usuarioActualizado)
       .subscribe({
         // Array de usuarios obtenido
         next: (response: User) => {
           console.log('Usuario actualizado correctamente', response);
+
+          // Actualizar usuario iniciado
+          this.usuario = usuarioActualizado;
         },
         error: (error: any) => {
           console.error('Error al obtener usuarios:', error);

@@ -71,7 +71,51 @@ switch ($action) {
         }
         break;
 
-    
+    case 'sumarDeseado':
+        try {
+
+            // Obtener los datos del usuario del cuerpo de la solicitud (POST)
+            $data = json_decode(file_get_contents('php://input'), true);
+
+            // Verificar si se proporcionaron todos los campos necesarios
+            if (!isset($data['email'])) {
+                throw new Exception('Falta el email obligatorio de usuario');
+            }
+            
+            // Datos obtenidos del metodo
+            $userRepository->sumarDeseado($data);
+
+            // Respuesta Json
+            JsonView::actualizadoMsj();
+
+        } catch (Exception $e) {
+            // Manejar la excepción
+            echo json_encode(array('Error en controlador de sumar deseado' => $e->getMessage()));
+        }
+        break;
+
+    case 'restarDeseado':
+        try {
+
+            // Obtener los datos del usuario del cuerpo de la solicitud (POST)
+            $data = json_decode(file_get_contents('php://input'), true);
+
+            // Verificar si se proporcionaron todos los campos necesarios
+            if (!isset($data['email'])) {
+                throw new Exception('Falta el email obligatorio de usuario');
+            }
+            
+            // Datos obtenidos del metodo
+            $userRepository->restarDeseado($data);
+
+            // Respuesta Json
+            JsonView::actualizadoMsj();
+
+        } catch (Exception $e) {
+            // Manejar la excepción
+            echo json_encode(array('Error en controlador de restar deseado' => $e->getMessage()));
+        }
+        break;
 
     // Otros casos para agregar y actualizar usuarios
     default:
