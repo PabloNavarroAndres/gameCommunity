@@ -7,28 +7,41 @@
 @if (!shouldShowLogin() && !shouldShowRegistro()) {
 
     <section class="home-info">
-        <h3>¡Bienvenido/a a nuestra comunidad!</h3>
-    
-        <p>
-            En esta web podrás encontrar usuarios con tus mismos gustos en videojuegos, con los cuales podrás 
-            hablar mediante los fotos de las comunidades, además de tener tu biblioteca de videojuegos con 
-            detalles personalizados en cada uno.
-        </p>
+
+        <img src="../../../assets/manuscrito.png" alt="fondo manuscrito">
+
+        <div class="info-content">
+            <h3>¡Bienvenido/a a nuestra comunidad!</h3>
+            
+            <p>
+                En esta web podrás encontrar usuarios con tus mismos gustos en videojuegos, con los cuales podrás 
+                hablar mediante los foros de las comunidades, además de tener tu biblioteca de videojuegos con 
+                detalles personalizados en cada uno.
+            </p>
+
+            <p>Entre las cosas que podrás hacer en la web está:</p>
+            <ul>
+                <li>¡Tener tu propia biblioteca de videojuegos!</li>
+                <li>¡Tener un perfil personalizable!</li>
+                <li>¡Crear comunidades y unirte a otras!</li>
+                <li>¡Comentar en foros de comunidades junto a más usuarios!</li>
+            </ul>
+
+        </div>
+        
     </section>
 }
 
-<section>
+<div>
     <!-- Login -->
     @if (shouldShowLogin()) {
-        <h3>Login</h3>
         <app-login></app-login>
     }
 
     <!-- Registro -->
     @if (shouldShowRegistro()) {
-        <h3>Registro</h3>
         <app-registro></app-registro>
     }
 
-</section>
+</div>
 
