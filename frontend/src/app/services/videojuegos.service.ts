@@ -12,8 +12,8 @@ export class VideojuegosService {
 
   private _http = inject(HttpClient);
 
-  obtenerVideojuegos(): Observable<Videojuego[]> {
-    return this._http.get<Videojuego[]>(`${this.url}?controller=videojuegos&action=obtenerVideojuegos`);
+  obtenerVideojuegos(email: string): Observable<Videojuego[]> {
+    return this._http.get<Videojuego[]>(`${this.url}?controller=videojuegos&action=obtenerVideojuegos&email=${email}`);
   }
 
 }

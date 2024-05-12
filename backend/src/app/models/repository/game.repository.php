@@ -12,11 +12,23 @@ class GameRepository {
     }
 
 
-    public function obtenerVideojuegos() {
+    public function obtenerVideojuegos($email) {
         try {
 
-            // Consulta para obtener todos los videojuegos
-            $sql = $this->bd->query("SELECT * FROM Games");
+            // Consulta para obtener todos los videojuegos que no tenga
+            // ya agregados el usuario iniciado
+            $sql = $this->bd->prepare(
+                "SELECT *
+                FROM Games
+                WHERE game_id NOT IN (
+                    SELECT game_id
+                    FROM User_games
+                    WHERE user_email = ?
+                );"
+            );
+
+            // Ejecutar la consulta preparada
+            $sql->execute([$email]);
 
             // Datos obtenidos del SQL, como un array asociativo
             $gamesData = $sql->fetchAll(PDO::FETCH_ASSOC); 

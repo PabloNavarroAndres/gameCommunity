@@ -12,8 +12,14 @@ switch ($action) {
 
     case 'obtenerVideojuegos':
         try {
+            $email = $_GET['email'];
+
+            /* if(!isset($email)) {
+                throw new Exception('Falta el email del usuario');
+            } */
+
             // Datos obtenidos del metodo
-            $games = $gameRepository->obtenerVideojuegos();
+            $games = $gameRepository->obtenerVideojuegos($email);
 
             // Devolverlo en Json
             JsonView::render($games);

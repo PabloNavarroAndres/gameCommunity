@@ -1,3 +1,5 @@
+<h2 class="titulo-ruta">VIDEOJUEGOS</h2>
+
 <div class="videojuegos">
     @for (videojuego of videojuegos; track $index) {
 
@@ -5,7 +7,9 @@
             <img [src]="videojuego.image" alt="Juego de la biblioteca">
             <h2>{{ videojuego.title }}</h2>
 
-            <button (click)="agregarVideojuego(videojuego)">Agregar</button>
+            @if (usuarioIniciado) {
+                <button (click)="agregarVideojuego(videojuego)">Agregar</button>
+            }
         </div>
     }
 </div>

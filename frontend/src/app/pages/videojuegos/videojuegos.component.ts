@@ -33,7 +33,7 @@ export class VideojuegosComponent {
 
   ngOnInit(): void {
     // Obtener los videojuegos de la BD
-    this.videojuegoService.obtenerVideojuegos().subscribe((data: Videojuego[]) => {
+    this.videojuegoService.obtenerVideojuegos(this.usuarioIniciado.email).subscribe((data: Videojuego[]) => {
       console.log(data);
       this.videojuegos = data;
     })

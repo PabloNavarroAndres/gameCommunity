@@ -23,6 +23,15 @@ h3 {
     }
 }
 
+.logo {
+    width: 50px;
+    margin-right: 10px;
+    cursor: pointer;
+    border: 1px solid transparent;
+    border-radius: 0%;
+    transition: border-color 0.5s ease, border-radius 0.5s ease;
+}
+
 .logo-img {
     width: 80%;
     margin: 0 auto;
@@ -62,10 +71,6 @@ h3 {
 
 
 @media (max-width: 1200px) {
-    /* h3 {
-        font-size: var(--titulo-peque);
-    } */
-
     .home-info {
         width: 100%;
     }

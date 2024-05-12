@@ -1,18 +1,5 @@
-@import '../../app.component.css';
-
 h2 {
     margin: 0;
-}
-
-.videojuegos {
-    padding-top: 50px;
-    padding-bottom: 50px;
-}
-
-.videojuego-detalles {
-    display: flex;
-    flex-direction: column;
-    color: white;
 }
 
 .lista-detalles {

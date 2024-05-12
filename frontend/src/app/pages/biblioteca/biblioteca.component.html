@@ -1,3 +1,5 @@
+<h2 class="titulo-ruta">BIBLIOTECA</h2>
+
 <section class="videojuegos">
   @for (videojuego of videojuegos; track $index) {
 
@@ -6,7 +8,7 @@
       <h2>{{ videojuego.title }}</h2>
 
       <!-- Activar los detalles del juego -->
-      <button type="button" class="btn btn-outline-info" data-bs-toggle="modal" data-bs-target="#DetallesModal"
+      <button type="button" data-bs-toggle="modal" data-bs-target="#DetallesModal"
         (click)="mostrarDetalles($index)">Detalles
       </button>
 
