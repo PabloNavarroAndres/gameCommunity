@@ -66,9 +66,61 @@ export class BibliotecaComponent {
     .subscribe({
 
       next: (response: any) => {
+
         console.log('Eliminando videojuego del servidor:', response);
+
+        // Comprobamos en que estado estaba el juego para restarlo
+        // de su contador correspondiente
+        switch (this.videojuegos[indiceArray].status) {
+          case 'Terminado':
+            
+            // Funcion restar terminados -1
+            this.usuarioService.restarJuegoTerminado(this.usuarioIniciado)
+            .subscribe({
+
+              // Restado correctamente
+              next: () => {
+                console.log('Terminado restado correctamente');
+                this.usuarioIniciado.finished_games!--;
+                localStorage.setItem('usuarioIniciado', JSON.stringify(this.usuarioIniciado));
+  
+              },
+        
+              error: (error: any) => {
+                console.error('Error al restar terminado deseado al usuario:', error);
+              }
+            });
+
+            break;
+
+          case 'Lista de deseos':
+
+            // Funcion restar deseados -1
+            this.usuarioService.restarJuegoDeseado(this.usuarioIniciado)
+            .subscribe({
+
+              // Restado correctamente
+              next: () => {
+                console.log('Deseado restado correctamente');
+                this.usuarioIniciado.desired_games!--;
+                localStorage.setItem('usuarioIniciado', JSON.stringify(this.usuarioIniciado));
+  
+              },
+        
+              error: (error: any) => {
+                console.error('Error al restar deseado al usuario:', error);
+              }
+            });
+
+            break;
+        
+          default:
+            break;
+        }
+
         // Eliminar el videojuego del array
         this.videojuegos.splice(indiceArray, 1);
+
         // Restar uno a juegos totales del usuario
         this.usuarioIniciado.total_games!--;
         localStorage.setItem('usuarioIniciado', JSON.stringify(this.usuarioIniciado));
