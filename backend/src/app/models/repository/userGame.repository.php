@@ -60,22 +60,79 @@ class UserGameRepository
     {
         try {
 
+            // Comenzar la transacción
+            $this->bd->beginTransaction();
+
             // Insertar datos en la base de datos
             $game_id = $data['game_id'];
             $user_email = $data['user_email'];
 
-            $query = "INSERT INTO User_games 
-                    (game_id, user_email) 
-                    VALUES ('$game_id', '$user_email')";
+            // Query para agregar el juego de usuario
+            $queryInsert = $this->bd->prepare(
+                "INSERT INTO User_games 
+                (game_id, user_email) 
+                VALUES (?, ?)"
+            );
 
-            if ($this->bd->query($query) === TRUE) {
-                echo json_encode(array('message' => 'Videojuego al usuario agregado correctamente'));
-            }
+            $queryInsert->execute([$game_id, $user_email]);
+
+
+            // Query para actualizar el contador total_games
+            $sqlUpdateTotalGames = $this->bd->prepare(
+                "UPDATE Users SET total_games = total_games + 1 WHERE email = ?"
+            );
+
+            $sqlUpdateTotalGames->execute([$user_email]);            
+
+
+            // Confirmar la transacción
+            $this->bd->commit();
 
         } catch (Exception $e) {
+            // Si ocurre un error, revertir la transacción
+            $this->bd->rollBack();
+
             // Manejar la excepción
             echo json_encode(array('Error al insertar videojuego de usuario' => $e->getMessage()));
         }
+    }
+
+    public function eliminarVideojuegoUsuario($data)
+    {
+        try {
+            // Comenzar la transacción
+            $this->bd->beginTransaction();
+        
+            // Obtener los datos del juego de usuario a eliminar
+            $game_id = $data['game_id'];
+            $user_email = $data['user_email'];
+        
+            // Query para eliminar el juego de usuario
+            $queryDelete = $this->bd->prepare(
+                "DELETE FROM User_games WHERE game_id = ? AND user_email = ?"
+            );
+        
+            $queryDelete->execute([$game_id, $user_email]);
+        
+            // Query para actualizar el contador total_games
+            $sqlUpdateTotalGames = $this->bd->prepare(
+                "UPDATE Users SET total_games = total_games - 1 WHERE email = ?"
+            );
+
+            $sqlUpdateTotalGames->execute([$user_email]);
+        
+            // Confirmar la transacción
+            $this->bd->commit();
+        
+            // Devolver algún tipo de confirmación o mensaje de éxito si es necesario
+        } catch (PDOException $e) {
+            // Si ocurre un error, revertir la transacción
+            $this->bd->rollBack();
+            // Manejar la excepción
+            $errorMessage = "Error al eliminar el juego de usuario: " . $e->getMessage();
+            echo json_encode(array("error" => $errorMessage));
+        }
+        
     }
 
     public function actualizarVideojuegoUsuario($data)

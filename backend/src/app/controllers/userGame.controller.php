@@ -46,6 +46,30 @@ switch ($action) {
             echo json_encode(array('Error al insertar videojuego de usuario' => $e->getMessage()));
         }
         break;
+        
+    case 'eliminarVideojuegoUsuario':
+        try {
+
+            // Crear un nuevo videojuego de usuario
+            // Obtener los datos del usuario del cuerpo de la solicitud (POST)
+            $data = json_decode(file_get_contents('php://input'), true);
+
+            // Verificar si se proporcionaron todos los campos necesarios
+            if (!isset($data['game_id']) || !isset($data['user_email'])) {
+                throw new Exception('Faltan campos obligatorios del videojuego de usuario');
+            }
+
+            // Datos obtenidos del metodo
+            $userGameRepository->eliminarVideojuegoUsuario($data);
+
+            // Devolverlo en Json
+            JsonView::eliminadoMsj();
+
+        } catch (Exception $e) {
+            // Manejar la excepción
+            echo json_encode(array('Error al eliminar videojuego de usuario' => $e->getMessage()));
+        }
+        break;
 
     case 'actualizarVideojuegoUsuario':
         try {

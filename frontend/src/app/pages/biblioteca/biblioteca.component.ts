@@ -53,6 +53,64 @@ export class BibliotecaComponent {
     this.indiceVideojuego = indice;
   }
 
+  // Eliminar juego de la biblioteca
+  eliminarVideojuego(gameId: number, indiceArray: number) {
+
+    // Crear un objeto que cumpla con la interfaz VideojuegoUsuario
+    const videojuegoUsuario: VideojuegoUsuario = {
+      game_id: gameId,
+      user_email: this.usuarioIniciado.email
+    };
+
+    this.videojuegoService.eliminarVideojuegoUsuario(videojuegoUsuario)
+    .subscribe({
+
+      next: (response: any) => {
+        console.log('Eliminando videojuego del servidor:', response);
+        // Eliminar el videojuego del array
+        this.videojuegos.splice(indiceArray, 1);
+        // Restar uno a juegos totales del usuario
+        this.usuarioIniciado.total_games!--;
+        localStorage.setItem('usuarioIniciado', JSON.stringify(this.usuarioIniciado));
+      },
+
+      error: (error: any) => {
+        console.error('Error intentando agregar el videojuego:', error);
+      }
+    });
+  }
+
+  
+  // Agregar videojuego al usuario
+  /* agregarVideojuego(videojuego: Videojuego) {
+
+    // Crear un objeto que cumpla con la interfaz VideojuegoUsuario
+    const videojuegoUsuario: VideojuegoUsuario = {
+      game_id: videojuego.game_id,
+      user_email: this.usuarioIniciado.email
+    };
+
+    // Agregarlo desde el servicio de usuarios
+    this.videojuegoUsuarioService.agregarVideojuegoUsuario(videojuegoUsuario)
+    .subscribe({
+
+      next: (response: any) => {
+        console.log('Insertando videojuego al servidor:', response);
+        this.usuarioIniciado.total_games!++;
+        localStorage.setItem('usuarioIniciado', JSON.stringify(this.usuarioIniciado));
+      },
+
+      error: (error: any) => {
+        console.error('Error intentando agregar el videojuego:', error);
+      }
+    });
+
+    // Mensaje snack bar
+    this.openSnackBar(videojuego.title, 'Cerrar', 3500);
+  } */
+
+
+
   // Editar los detalles del videojuego
   editarDetalles() {
 
@@ -77,11 +135,39 @@ export class BibliotecaComponent {
           // de juegos deseados
           if (videojuego.status === 'Lista de deseos') {
             // Funcion restar deseados -1
-            // ...
+            this.usuarioService.restarJuegoDeseado(this.usuarioIniciado)
+            .subscribe({
+
+              // Restado correctamente
+              next: () => {
+                console.log('Deseado restado correctamente');
+                this.usuarioIniciado.desired_games!--;
+                localStorage.setItem('usuarioIniciado', JSON.stringify(this.usuarioIniciado));
+  
+              },
+        
+              error: (error: any) => {
+                console.error('Error al restar deseado al usuario:', error);
+              }
+            });
           }
 
           // Funcion sumar a juegos terminados +1
-          // ...
+          this.usuarioService.sumarJuegoTerminado(this.usuarioIniciado)
+          .subscribe({
+
+            // Sumado correctamente
+            next: () => {
+              console.log('Terminado sumado correctamente');
+              this.usuarioIniciado.finished_games!++;
+              localStorage.setItem('usuarioIniciado', JSON.stringify(this.usuarioIniciado));
+
+            },
+      
+            error: (error: any) => {
+              console.error('Error al sumar terminado deseado al usuario:', error);
+            }
+          });
 
           // Actualizamos estado del videojuego
           videojuego.status = this.estado;
@@ -99,7 +185,21 @@ export class BibliotecaComponent {
           // de juegos terminados
           if (videojuego.status === 'Terminados') {
             // Funcion restar terminados -1
-            // ...
+            this.usuarioService.restarJuegoTerminado(this.usuarioIniciado)
+            .subscribe({
+
+              // Restado correctamente
+              next: () => {
+                console.log('Terminado restado correctamente');
+                this.usuarioIniciado.finished_games!--;
+                localStorage.setItem('usuarioIniciado', JSON.stringify(this.usuarioIniciado));
+  
+              },
+        
+              error: (error: any) => {
+                console.error('Error al restar terminado deseado al usuario:', error);
+              }
+            });
           }
 
           // Funcion sumar a juegos deseados +1
@@ -126,11 +226,30 @@ export class BibliotecaComponent {
 
         case 'Por empezar':
 
+          // Si ya estaba en deseados se queda igual
+          if (this.estado === videojuego.status) {
+            break;
+          }
+
           // Si estaba en lista de terminados se resta del contador
           // de juegos terminados
           if (videojuego.status === 'Terminados') {
             // Funcion restar terminados -1
-            // ...
+            this.usuarioService.restarJuegoTerminado(this.usuarioIniciado)
+            .subscribe({
+
+              // Restado correctamente
+              next: () => {
+                console.log('Terminado restado correctamente');
+                this.usuarioIniciado.finished_games!--;
+                localStorage.setItem('usuarioIniciado', JSON.stringify(this.usuarioIniciado));
+  
+              },
+        
+              error: (error: any) => {
+                console.error('Error al restar terminado deseado al usuario:', error);
+              }
+            });
           }
 
           // Si estaba en lista de deseados se resta del contador
@@ -153,26 +272,79 @@ export class BibliotecaComponent {
               }
             });
           }
+
+          // Actualizamos estado del videojuego
+          videojuego.status = this.estado;
           
           break;
         
         case 'En progreso':
 
-          
+          // Si ya estaba en deseados se queda igual
+          if (this.estado === videojuego.status) {
+            break;
+          }
+
+          // Si estaba en lista de terminados se resta del contador
+          // de juegos terminados
+          if (videojuego.status === 'Terminados') {
+            // Funcion restar terminados -1
+            this.usuarioService.restarJuegoTerminado(this.usuarioIniciado)
+            .subscribe({
+
+              // Restado correctamente
+              next: () => {
+                console.log('Terminado restado correctamente');
+                this.usuarioIniciado.finished_games!--;
+                localStorage.setItem('usuarioIniciado', JSON.stringify(this.usuarioIniciado));
+  
+              },
+        
+              error: (error: any) => {
+                console.error('Error al restar terminado deseado al usuario:', error);
+              }
+            });
+          }
+
+          // Si estaba en lista de deseados se resta del contador
+          // de juegos deseados
+          if (videojuego.status === 'Lista de deseos') {
+            // Funcion restar deseados -1
+            this.usuarioService.restarJuegoDeseado(this.usuarioIniciado)
+            .subscribe({
+
+              // Restado correctamente
+              next: () => {
+                console.log('Deseado restado correctamente');
+                this.usuarioIniciado.desired_games!--;
+                localStorage.setItem('usuarioIniciado', JSON.stringify(this.usuarioIniciado));
+  
+              },
+        
+              error: (error: any) => {
+                console.error('Error al sumar deseado al usuario:', error);
+              }
+            });
+          }
+
+          // Actualizamos estado del videojuego
+          videojuego.status = this.estado;
+
           break;
 
         default:
-          videojuego.status = this.estado;
           break;
       }
 
       videojuego.status = this.estado;
     }
 
+    // Si el campo no está vacío se actualiza
     if (this.comentario !== undefined) {
       videojuego.personal_comment = this.comentario;
     }
 
+    // Si el campo no está vacío se actualiza
     if (this.calificacion !== undefined) {
       videojuego.rating = this.calificacion;
     }

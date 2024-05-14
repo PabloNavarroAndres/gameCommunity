@@ -39,9 +39,17 @@ export class VideojuegosComponent {
     })
   }
 
-  // Aparecer la notificación snackbar
-  openSnackBar(message: string, action: string, duration: number) {
+  // Notificación Snackbar de juego agregado
+  notificacionAgregado(message: string, action: string, duration: number) {
     message = '¡' + message + ' agregado!';
+    this._snackBar.open(message, action, {
+      duration: duration,
+    });
+  }
+
+  // Notificación Snackbar de juego agregado
+  notificacionError(message: string, action: string, duration: number) {
+    message = '¡' + message + ' ya lo has agregado!';
     this._snackBar.open(message, action, {
       duration: duration,
     });
@@ -59,16 +67,21 @@ export class VideojuegosComponent {
     // Agregarlo desde el servicio de usuarios
     this.videojuegoUsuarioService.agregarVideojuegoUsuario(videojuegoUsuario)
     .subscribe({
+
       next: (response: any) => {
         console.log('Insertando videojuego al servidor:', response);
-
+        this.usuarioIniciado.total_games!++;
+        localStorage.setItem('usuarioIniciado', JSON.stringify(this.usuarioIniciado));
+        // Mensaje snack bar
+        this.notificacionAgregado(videojuego.title, 'Cerrar', 3500);
       },
+
       error: (error: any) => {
         console.error('Error intentando agregar el videojuego:', error);
+        // Mensaje snack bar
+        this.notificacionError(videojuego.title, 'Cerrar', 3500);
       }
     });
 
-    // Mensaje snack bar
-    this.openSnackBar(videojuego.title, 'Cerrar', 3500);
   }
 }

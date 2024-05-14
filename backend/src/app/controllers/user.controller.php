@@ -117,6 +117,53 @@ switch ($action) {
         }
         break;
 
+    case 'sumarTerminado':
+        try {
+
+            // Obtener los datos del usuario del cuerpo de la solicitud (POST)
+            $data = json_decode(file_get_contents('php://input'), true);
+
+            // Verificar si se proporcionaron todos los campos necesarios
+            if (!isset($data['email'])) {
+                throw new Exception('Falta el email obligatorio de usuario');
+            }
+            
+            // Datos obtenidos del metodo
+            $userRepository->sumarTerminado($data);
+
+            // Respuesta Json
+            JsonView::actualizadoMsj();
+
+        } catch (Exception $e) {
+            // Manejar la excepción
+            echo json_encode(array('Error en controlador de sumar terminado' => $e->getMessage()));
+        }
+        break;
+
+    case 'restarTerminado':
+        try {
+
+            // Obtener los datos del usuario del cuerpo de la solicitud (POST)
+            $data = json_decode(file_get_contents('php://input'), true);
+
+            // Verificar si se proporcionaron todos los campos necesarios
+            if (!isset($data['email'])) {
+                throw new Exception('Falta el email obligatorio de usuario');
+            }
+            
+            // Datos obtenidos del metodo
+            $userRepository->restarTerminado($data);
+
+            // Respuesta Json
+            JsonView::actualizadoMsj();
+
+        } catch (Exception $e) {
+            // Manejar la excepción
+            echo json_encode(array('Error en controlador de restar terminado' => $e->getMessage()));
+        }
+        break;
+
+
     // Otros casos para agregar y actualizar usuarios
     default:
         echo json_encode(['error' => 'Acción no válida']);

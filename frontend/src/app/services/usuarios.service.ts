@@ -59,6 +59,16 @@ export class UsuarioService {
     return this._http.put<User>(`${this.url}?controller=usuarios&action=restarDeseado`, usuario);
   }
 
+  // Sumar 1+ al contador de juegos terminados
+  sumarJuegoTerminado(usuario: User): Observable<User> {
+    return this._http.put<User>(`${this.url}?controller=usuarios&action=sumarTerminado`, usuario);
+  }
+
+  // Restar 1- al contador de juegos terminados
+  restarJuegoTerminado(usuario: User): Observable<User> {
+    return this._http.put<User>(`${this.url}?controller=usuarios&action=restarTerminado`, usuario);
+  }
+
 
   // Obtener del local storage al usuario que ha iniciado sesión
   public obtenerUsuarioIniciado(): User | null {

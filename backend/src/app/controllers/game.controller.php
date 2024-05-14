@@ -14,9 +14,9 @@ switch ($action) {
         try {
             $email = $_GET['email'];
 
-            /* if(!isset($email)) {
+            if(!isset($email)) {
                 throw new Exception('Falta el email del usuario');
-            } */
+            }
 
             // Datos obtenidos del metodo
             $games = $gameRepository->obtenerVideojuegos($email);

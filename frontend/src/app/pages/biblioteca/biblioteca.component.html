@@ -7,6 +7,9 @@
       <img [src]="videojuego.image" alt="Juego de la biblioteca">
       <h2>{{ videojuego.title }}</h2>
 
+      <!-- Botón de eliminar -->
+      <button class="eliminarBtn" (click)="eliminarVideojuego(videojuego.game_id, $index)">X</button>
+
       <!-- Activar los detalles del juego -->
       <button type="button" data-bs-toggle="modal" data-bs-target="#DetallesModal"
         (click)="mostrarDetalles($index)">Detalles

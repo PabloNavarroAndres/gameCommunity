@@ -104,5 +104,26 @@ class UserRepository {
         $query->execute([$email]);
     }
     
+    public function sumarTerminado($data) {
+
+        $email = $data['email'];
+
+        // Preparar la consulta
+        $query = $this->bd->prepare("UPDATE Users SET finished_games = finished_games + 1 WHERE email = ?");
+
+        // Ejecutar consulta
+        $query->execute([$email]);
+    }
+
+    public function restarTerminado($data) {
+
+        $email = $data['email'];
+
+        // Preparar la consulta
+        $query = $this->bd->prepare("UPDATE Users SET finished_games = finished_games - 1 WHERE email = ?");
+
+        // Ejecutar consulta
+        $query->execute([$email]);
+    }
 
 }
