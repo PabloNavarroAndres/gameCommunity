@@ -22,6 +22,9 @@ export class PerfilComponent {
   // Obtener el usuario con la sesión iniciada
   usuario!: User;
 
+  // Desactivar modo edicion si se ha entrado por parametro de email
+  modoEditar: boolean = true;
+
   // Imagenes de la carpeta
   imagenes = [
     '../../../assets/perfil/user.png',
@@ -59,7 +62,8 @@ export class PerfilComponent {
 
       // Si el email existe es que estamos visitando un perfil de otro usuario
       if (userEmail) {
-        console.log('email: ' + userEmail);
+        // Desactivamos el boton de editar
+        this.modoEditar = false;
 
         // Si hay un parámetro de email en la URL, obtener el perfil del usuario correspondiente
         this._usuarioService.obtenerUsuarioPorEmail(userEmail)
@@ -79,6 +83,9 @@ export class PerfilComponent {
       // Si no existe simplemente es que estamos visitando nuestro perfil,
       // como usuario iniciado
       } else {
+        // Activar boton de editar
+        this.modoEditar = true;
+
         // Si no hay parámetro de email, obtener el usuario con la sesión iniciada
         this.usuario = this._usuarioService.obtenerUsuarioIniciado() as User;
       }

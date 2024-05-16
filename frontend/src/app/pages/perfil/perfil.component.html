@@ -14,7 +14,6 @@
           <tr>
             <th>Usuario</th>
             <td>&#64;{{ usuario.username }}</td>
-            <!-- <p>prueba: {{ userEmail }}</p> -->
           </tr>
 
           <tr>
@@ -22,7 +21,10 @@
             <td><img [src]="usuario.profile_picture" alt="Foto de perfil"></td>
           </tr>
 
-          <button type="button" class="btn btn-outline-info btn-modal" data-bs-toggle="modal" data-bs-target="#EditarPerfilModal" data-bs-whatever="usuario.username">Editar</button>
+          <!-- Boton editar -->
+          @if (modoEditar) {
+            <button type="button" class="btn btn-outline-info btn-modal" data-bs-toggle="modal" data-bs-target="#EditarPerfilModal" data-bs-whatever="usuario.username">Editar</button>
+          }
         </table>
       </div>
     </div>
