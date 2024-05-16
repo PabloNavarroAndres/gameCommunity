@@ -28,6 +28,11 @@ export class UsuarioService {
     return this._http.get<User[]>(`${this.url}?controller=usuarios&action=obtenerUsuarios`);
   }
 
+  // Obtener usuario por email
+  obtenerUsuarioPorEmail(userEmail: string): Observable<User> {
+    return this._http.get<User>(`${this.url}?controller=usuarios&action=obtenerUsuarioEmail&email=${userEmail}`);
+  }
+
   // Insertar usuario
   agregarUsuario(usuario: User): Observable<User> {
     return this._http.post<User>(`${this.url}?controller=usuarios&action=agregarUsuario`, usuario);

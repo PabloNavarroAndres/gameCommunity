@@ -1,9 +1,9 @@
 <h2 class="titulo-ruta">BIBLIOTECA</h2>
 
-<section class="videojuegos">
+<section class="contenedor-fichas">
   @for (videojuego of videojuegos; track $index) {
 
-    <div class="videojuego">
+    <div class="ficha">
       <img [src]="videojuego.image" alt="Juego de la biblioteca">
       <h2>{{ videojuego.title }}</h2>
 

@@ -1,41 +1,28 @@
-<!-- Menú comunidades -->
-<ul class="nav nav-pills mb-3" id="pills-tab" role="tablist">
-    <li class="nav-item" role="presentation">
-        <button class="nav-link active" id="pills-comunidades-tab" data-bs-toggle="pill" data-bs-target="#pills-comunidades"
-            type="button" role="tab" aria-controls="pills-comunidades" aria-selected="true">Comunidades</button>
-    </li>
-    <li class="nav-item" role="presentation">
-        <button class="nav-link" id="pills-global-tab" data-bs-toggle="pill" data-bs-target="#pills-global"
-            type="button" role="tab" aria-controls="pills-global" aria-selected="false">Global</button>
-    </li>
-    <li class="nav-item" role="presentation">
-        <button class="nav-link" id="pills-personalizadas-tab" data-bs-toggle="pill" data-bs-target="#pills-personalizadas"
-            type="button" role="tab" aria-controls="pills-personalizadas" aria-selected="false">Personalizadas</button>
-    </li>
-</ul>
+<h2 class="titulo-ruta">COMUNIDADES</h2>
 
-<!-- Contenido comunidades -->
-<div class="tab-content" id="pills-tabContent">
-
-    <!-- Comunidades opciones -->
-    <div class="tab-pane fade show active" id="pills-comunidades" role="tabpanel" aria-labelledby="pills-comunidades-tab" tabindex="0">
-        <section>
-
-        </section>
-
-        <section>
-
-        </section>
-    </div>
-
+<section class="contenedor-fichas">
+            
     <!-- Comunidad Global -->
-    <div class="tab-pane fade" id="pills-global" role="tabpanel" aria-labelledby="pills-global-tab" tabindex="0">
-        Comunidad Global
-    </div>
+    <div class="ficha">
+        <img src="../../../assets/community_global.jpg" alt="Comunidad global">
+        <h2>Comunidad Global</h2>
 
+        <button type="button" routerLink="/comunidad/global">
+            Entrar
+        </button>
+
+    </div>
+    
     <!-- Comunidades Personalizadas -->
-    <div class="tab-pane fade" id="pills-comunidades" role="tabpanel" aria-labelledby="pills-personalizadas-tab" tabindex="0">
-        Comunidades Personalizadas
+    <div class="ficha">
+        <img src="../../../assets/community_pers_6.jpeg" alt="Comunidades personalizadas">
+        <h2>Comunidades Personalizadas</h2>
+
+        <button type="button">
+            Entrar
+        </button>
+
     </div>
 
-</div>
+
+</section>

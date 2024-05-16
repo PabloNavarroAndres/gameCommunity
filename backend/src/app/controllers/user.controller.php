@@ -23,6 +23,29 @@ switch ($action) {
         }
         break;
 
+    case 'obtenerUsuarioEmail':
+        try {
+
+            // Email obtenido
+            $email = $_GET['email'];
+
+            // Verificar si se proporcionaron todos los campos necesarios
+            if (!isset($email)) {
+                throw new Exception('Falta el email de usuario');
+            }
+            
+            // Datos obtenidos del metodo
+            $user = $userRepository->obtenerUsuarioEmail($email);
+
+            // Devolverlo en Json
+            JsonView::render($user);
+
+        } catch (Exception $e) {
+            // Manejar la excepción
+            echo json_encode(array('Error al obtener usuario' => $e->getMessage()));
+        }
+        break;
+
     case 'agregarUsuario':
         try {
 

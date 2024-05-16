@@ -46,6 +46,47 @@ class UserRepository {
         }
     }
 
+    public function obtenerUsuarioEmail($email) {
+        try {
+
+            // Consulta para obtener un usuario por su email
+            $query = $this->bd->prepare("SELECT * FROM Users WHERE email = ?");
+
+            // Ejecutar consulta
+            $query->execute([$email]);
+
+            // Obtener la primera fila de resultados como un array asociativo
+            $userData = $query->fetch(PDO::FETCH_ASSOC);
+
+            // Verificar si se encontró un usuario
+            if ($userData) {
+                // Crear objeto User a partir de los datos
+                $user = new User(
+                    $userData['email'],
+                    $userData['username'],
+                    $userData['password'],
+                    $userData['profile_picture'],
+                    $userData['total_games'],
+                    $userData['finished_games'],
+                    $userData['desired_games'],
+                    $userData['isAdmin']
+                );
+
+                return $user;
+
+            } else {
+                // Si no se encuentra ningún usuario, lanzar una excepción
+                throw new Exception("No se encontró ningún usuario con el correo electrónico proporcionado.");
+            }
+
+
+        } catch (PDOException $e) {
+            // Manejar la excepción
+            $errorMessage = "Error al obtener usuarios sql: " . $e->getMessage();
+            echo json_encode(array("error" => $errorMessage));
+        }
+    }
+
     public function agregarUsuario($data) {
 
         // Insertar datos en la base de datos
@@ -56,16 +97,12 @@ class UserRepository {
         $total_games = 0;
         $isAdmin = 0;
 
-        $query = "INSERT INTO Users 
+        $query = $this->bd->prepare("INSERT INTO Users 
                 (email, username, password, profile_picture, total_games, isAdmin) 
-                VALUES ('$email', '$username', '$password', '$profile_picture', '$total_games', '$isAdmin')";
+                VALUES (?, ?, ?, ?, ?, ?)");
 
-        if ($this->bd->query($query) === TRUE) {
-
-            // Establecer código de estado 201
-            http_response_code(201);
-
-        }
+        // Ejecutar consulta
+        $query->execute([$email, $username, $password, $profile_picture, $total_games, $isAdmin]);
     }
 
     public function actualizarUsuario($data) {

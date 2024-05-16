@@ -1,0 +1,8 @@
+/* Ficha para usuario */
+.ficha img {
+    object-fit: scale-down;
+}
+
+.ficha h2 {
+    padding: 0;
+}

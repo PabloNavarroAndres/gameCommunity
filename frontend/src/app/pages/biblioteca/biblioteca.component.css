@@ -5,6 +5,7 @@ h2 {
 .lista-detalles {
     list-style-type: none;
     padding: 0;
+    word-wrap: anywhere;
 }
 
 .lista-detalles li {

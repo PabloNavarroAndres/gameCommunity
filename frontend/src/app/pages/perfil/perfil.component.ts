@@ -5,6 +5,7 @@ import { MatCardModule } from '@angular/material/card';
 import { CommonModule } from '@angular/common';
 import { MatIconModule } from '@angular/material/icon';
 import { FormsModule } from '@angular/forms';
+import { ActivatedRoute } from '@angular/router';
 
 @Component({
   selector: 'app-perfil',
@@ -19,7 +20,7 @@ export class PerfilComponent {
   private _usuarioService = inject(UsuarioService);
 
   // Obtener el usuario con la sesión iniciada
-  usuario = this._usuarioService.obtenerUsuarioIniciado() as User;
+  usuario!: User;
 
   // Imagenes de la carpeta
   imagenes = [
@@ -43,10 +44,56 @@ export class PerfilComponent {
   // Nombre del formulario
   nombre: string = '';
 
+  userEmail: string = '';
+
+  private route = inject(ActivatedRoute);
+
   // Al iniciarse buscamos la imagen del usuario
   ngOnInit(): void {
+
+    // Buscamos datos de los parametros
+    this.route.params.subscribe(params => {
+
+      // Parametro de email usuario
+      const userEmail = params['user_email'];
+
+      // Si el email existe es que estamos visitando un perfil de otro usuario
+      if (userEmail) {
+        console.log('email: ' + userEmail);
+
+        // Si hay un parámetro de email en la URL, obtener el perfil del usuario correspondiente
+        this._usuarioService.obtenerUsuarioPorEmail(userEmail)
+        .subscribe({
+          // Array de usuarios obtenido
+          next: (user: User) => {
+            console.log('Usuario obtenido por email: ', user);
+    
+            // Actualizar usuario
+            this.usuario = user;
+          },
+          error: (error: any) => {
+            console.error('Error al obtener el perfil del usuario:', error);
+          }
+        });
+
+      // Si no existe simplemente es que estamos visitando nuestro perfil,
+      // como usuario iniciado
+      } else {
+        // Si no hay parámetro de email, obtener el usuario con la sesión iniciada
+        this.usuario = this._usuarioService.obtenerUsuarioIniciado() as User;
+      }
+      // Pasamos el índice de la imagen del usuario al del array de imagenes
+      this.i = this.imagenes.findIndex(imagen => this.usuario.profile_picture === imagen);
+    });
+
+    //
+    
+    // Obtener el usuario con la sesión iniciada
+    this.usuario = this._usuarioService.obtenerUsuarioIniciado() as User;
+
     // Pasamos el indice de la imagen del usuario al del array de imagenes
     this.i = this.imagenes.findIndex(imagen => this.usuario.profile_picture === imagen)
+    
   }
 
   // Calcular la posicion anterior de la imagen del carrusel en el array
@@ -84,18 +131,18 @@ export class PerfilComponent {
 
     // Mandamos el usuario actualizado al servicio
     this._usuarioService.actualizarUsuario(usuarioActualizado)
-      .subscribe({
-        // Array de usuarios obtenido
-        next: (response: User) => {
-          console.log('Usuario actualizado correctamente', response);
+    .subscribe({
+      // Array de usuarios obtenido
+      next: (response: User) => {
+        console.log('Usuario actualizado correctamente', response);
 
-          // Actualizar usuario iniciado
-          this.usuario = usuarioActualizado;
-        },
-        error: (error: any) => {
-          console.error('Error al obtener usuarios:', error);
-        }
-      });
+        // Actualizar usuario iniciado
+        this.usuario = usuarioActualizado;
+      },
+      error: (error: any) => {
+        console.error('Error al obtener usuarios:', error);
+      }
+    });
 
   }
 

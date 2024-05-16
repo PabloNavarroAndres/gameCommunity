@@ -12,7 +12,39 @@ class GameRepository {
     }
 
 
-    public function obtenerVideojuegos($email) {
+    public function obtenerVideojuegos() {
+        try {
+
+            // Consulta para obtener todos los videojuegos que no tenga
+            // ya agregados el usuario iniciado
+            $sql = $this->bd->query(
+                "SELECT * FROM Games"
+            );
+
+            // Datos obtenidos del SQL, como un array asociativo
+            $gamesData = $sql->fetchAll(PDO::FETCH_ASSOC); 
+
+            // Crear objetos Game a partir de los datos
+            $games = [];
+            foreach ($gamesData as $gameData) {
+                $game = new Game(
+                    $gameData['game_id'],
+                    $gameData['title'],
+                    $gameData['image']
+                );
+                $games[] = $game;
+            }
+
+            return $games;
+
+        } catch (PDOException $e) {
+            // Manejar la excepción
+            $errorMessage = "Error al obtener videojuegos: " . $e->getMessage();
+            echo json_encode(array("error" => $errorMessage));
+        }
+    }
+
+    public function obtenerVideojuegosUsuario($email) {
         try {
 
             // Consulta para obtener todos los videojuegos que no tenga

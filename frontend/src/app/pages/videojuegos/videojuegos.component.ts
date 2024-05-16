@@ -32,11 +32,23 @@ export class VideojuegosComponent {
   videojuegos: Videojuego[] = [];
 
   ngOnInit(): void {
-    // Obtener los videojuegos de la BD
-    this.videojuegoService.obtenerVideojuegos(this.usuarioIniciado.email).subscribe((data: Videojuego[]) => {
-      console.log(data);
-      this.videojuegos = data;
-    })
+    if (this.usuarioIniciado) {
+      // Obtener los videojuegos de la BD, del usuario iniciado
+      this.videojuegoService.obtenerVideojuegosUsuario(this.usuarioIniciado.email).subscribe((data: Videojuego[]) => {
+        console.log(data);
+        this.videojuegos = data;
+      })
+
+    } else {
+
+      // Obtener todos los videojuegos de la BD
+      this.videojuegoService.obtenerVideojuegos().subscribe((data: Videojuego[]) => {
+        console.log(data);
+        this.videojuegos = data;
+      })
+
+    }
+
   }
 
   // Notificación Snackbar de juego agregado
@@ -70,10 +82,13 @@ export class VideojuegosComponent {
 
       next: (response: any) => {
         console.log('Insertando videojuego al servidor:', response);
+        
         this.usuarioIniciado.total_games!++;
         localStorage.setItem('usuarioIniciado', JSON.stringify(this.usuarioIniciado));
+        
         // Mensaje snack bar
         this.notificacionAgregado(videojuego.title, 'Cerrar', 3500);
+
       },
 
       error: (error: any) => {
