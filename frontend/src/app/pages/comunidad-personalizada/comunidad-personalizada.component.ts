@@ -1,12 +1,15 @@
 import { Component } from '@angular/core';
+import { RouterLink } from '@angular/router';
 
 @Component({
   selector: 'app-comunidad-personalizada',
   standalone: true,
-  imports: [],
+  imports: [RouterLink],
   templateUrl: './comunidad-personalizada.component.html',
   styleUrl: './comunidad-personalizada.component.css'
 })
 export class ComunidadPersonalizadaComponent {
+
+  verComunidad: boolean = false;
 
 }

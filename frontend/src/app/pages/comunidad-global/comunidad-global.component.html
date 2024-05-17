@@ -1,4 +1,7 @@
-<h2 class="titulo-ruta">COMUNIDAD GLOBAL</h2>
+<div>
+    <h2 class="titulo-ruta">COMUNIDAD GLOBAL</h2>
+    <button class="boton-general btn-volver" [routerLink]="['/comunidades']">↽ Volver</button>
+</div>
 
 <div class="contenedor-fichas">
     @for (usuario of usuarios; track $index) {
@@ -6,7 +9,7 @@
         <div class="ficha">
             <img [src]="usuario.profile_picture" alt="Juego de la biblioteca">
             <h2>{{ usuario.username }}</h2>
-            <span>{{ usuario.total_games }}</span>
+            <span>Juegos totales: {{ usuario.total_games }}</span>
 
             <button [routerLink]="['/perfil', usuario.email]">Ver Perfil</button>
             

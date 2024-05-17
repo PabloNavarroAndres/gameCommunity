@@ -1,7 +1,12 @@
+
 <section class="perfil">
 
+  @if (!modoEditar) {
+    <button class="boton-general btn-volver" [routerLink]="['/comunidades']">↽ Volver</button>
+  }
+  
   <div class="usuario-info">
-
+    
     <div class="carta">
       
       <div class="carta-header">

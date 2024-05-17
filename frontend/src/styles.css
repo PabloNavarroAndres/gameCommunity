@@ -217,6 +217,13 @@ body {
     border-color: #ff0000;
 }
 
+.btn-volver {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin-left: 30px;
+}
+
 /* Placeholder */
 .placeholderStyle {
     color: gray;
