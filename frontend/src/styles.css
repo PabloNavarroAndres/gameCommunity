@@ -217,6 +217,24 @@ body {
     border-color: #ff0000;
 }
 
+.msj-validadores {
+    text-align: center;
+    background: red;
+    color: white !important;
+    border-radius: 0px 0px 10px 10px;
+    padding: 5px;
+}
+
+.msj-error {
+    text-align: center;
+    background: red;
+    color: white !important;
+    width: 40%;
+    margin: 0 auto;
+    border-radius: 20px;
+    padding: 5px;
+}
+
 .btn-volver {
     display: flex;
     justify-content: center;

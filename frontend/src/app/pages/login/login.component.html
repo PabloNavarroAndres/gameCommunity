@@ -8,11 +8,11 @@
           <input [ngClass]="{'is-invalid': hasErrors('email', 'required') || hasErrors('email', 'email') }" type="email"
             class="form-control" id="email" formControlName="email">
       
-          <div class="text-danger" *ngIf="hasErrors('email', 'email') || hasErrors('email', 'emailInvalido')  && !hasErrors('email', 'required')">
+          <div class="msj-validadores" *ngIf="hasErrors('email', 'email') || hasErrors('email', 'emailInvalido')  && !hasErrors('email', 'required')">
             Email inválido.
           </div>
       
-          <div class="text-danger" *ngIf="hasErrors('email', 'required')">
+          <div class="msj-validadores" *ngIf="hasErrors('email', 'required')">
             Email obligatorio.
           </div>
         </div>
@@ -23,17 +23,17 @@
             <input [ngClass]="{'is-invalid': hasErrors('password', 'required') || hasErrors('password', 'minlength') }"
                 type="password" class="form-control" id="password" formControlName="password">
 
-            <div class="text-danger" *ngIf="hasErrors('password', 'required')">
+            <div class="msj-validadores" *ngIf="hasErrors('password', 'required')">
                 Contraseña obligatoria.
             </div>
 
-            <div class="text-danger" *ngIf="hasErrors('password', 'minlength')">
+            <div class="msj-validadores" *ngIf="hasErrors('password', 'minlength')">
                 La contraseña debe ser de mínimo 8 caracteres.
             </div>
         </div>
         
         <!-- Mensaje de error (usuario existente en la BD) -->
-        <div class="text-danger" *ngIf="msjUsuarioInvalido()">
+        <div class="msj-error" *ngIf="msjUsuarioInvalido()">
           Email o contraseña incorrecto/a
         </div>
 

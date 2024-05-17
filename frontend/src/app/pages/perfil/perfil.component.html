@@ -1,8 +1,11 @@
 
 <section class="perfil">
 
+  <!-- Btn Volver -->
   @if (!modoEditar) {
-    <button class="boton-general btn-volver" [routerLink]="['/comunidades']">↽ Volver</button>
+    <button class="boton-general btn-volver" [routerLink]="['/comunidades']">
+      ↽ Volver
+    </button>
   }
   
   <div class="usuario-info">
@@ -28,7 +31,11 @@
 
           <!-- Boton editar -->
           @if (modoEditar) {
-            <button type="button" class="btn btn-outline-info btn-modal" data-bs-toggle="modal" data-bs-target="#EditarPerfilModal" data-bs-whatever="usuario.username">Editar</button>
+            <button type="button" class="btn btn-outline-info btn-modal" 
+              data-bs-toggle="modal" data-bs-target="#EditarPerfilModal" 
+              data-bs-whatever="usuario.username">
+              Editar
+            </button>
           }
         </table>
       </div>
