@@ -16,10 +16,10 @@ export const routes: Routes = [
     { path: 'videojuegos', component:  VideojuegosComponent},
     { path: 'perfil', component: PerfilComponent},
     { path: 'perfil/:user_email', component: PerfilComponent},
-    { path: 'comunidad/global', component: ComunidadGlobalComponent},
-    { path: 'comunidad-crear', component: ComunidadCrearComponent},
-    { path: 'comunidad/personalizadas', component: ComunidadPersonalizadaComponent },
-    { path: 'comunidad/personalizada/:comunidadId', component: ComunidadPersonalizadaComponent },
+    { path: 'comunidades/global', component: ComunidadGlobalComponent},
+    { path: 'comunidades/crear', component: ComunidadCrearComponent},
+    { path: 'comunidades/personalizadas', component: ComunidadPersonalizadaComponent },
+    { path: 'comunidades/personalizada/:comunidadId', component: ComunidadPersonalizadaComponent },
     /*
     { path: 'comunidad/personalizada/:comunidadId/foro', component: ComunidadPersonalizadaComponent },
     */

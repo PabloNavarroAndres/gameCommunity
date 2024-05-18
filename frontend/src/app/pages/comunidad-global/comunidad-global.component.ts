@@ -15,7 +15,7 @@ export class ComunidadGlobalComponent {
   _usuariosService = inject(UsuarioService);
 
   usuarios!: User[];
-  usuarioIniciado: User = this._usuariosService.obtenerUsuarioIniciado() as User;
+  usuarioIniciado?: User = this._usuariosService.obtenerUsuarioIniciado() as User;
 
   ngOnInit(): void {
     this._usuariosService.obtenerUsuarios()

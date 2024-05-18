@@ -58,7 +58,7 @@ footer {
 .footer-container {
     display: flex;
     justify-content: center;
-    align-items: center;
+    align-items: flex-start;
     flex-wrap: wrap;
     max-width: 1200px;
     margin: 0 auto;
@@ -96,6 +96,35 @@ footer {
 
 .footer-column ul li a:hover {
     text-decoration: underline;
+}
+
+.sections-list {
+    display: flex;
+    gap: 10px;
+    justify-content: space-between;
+    width: 80%;
+    margin: 0 auto;
+}
+
+.sections-list li {
+    margin: 5px 0;
+}
+
+.sections-list a {
+    color: white;
+    text-decoration: none;
+}
+
+.sections-list a:hover {
+    text-decoration: underline;
+}
+
+.sections-left {
+    text-align: left;
+}
+
+.sections-right {
+    text-align: right;
 }
 
 .social-icons {
