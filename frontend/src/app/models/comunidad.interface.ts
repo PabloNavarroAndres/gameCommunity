@@ -1,7 +1,7 @@
 export interface Comunidad {
     community_id?: number;
-    titulo:   string;
-    descripcion?:  string;
-    imagen: string
+    title:   string;
+    description:  string;
+    image: string
     creator_email: string
 }

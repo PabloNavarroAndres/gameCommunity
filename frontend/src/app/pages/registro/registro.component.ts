@@ -48,7 +48,6 @@ export class RegistroComponent {
 
     // Si no hay errores de validacion se procede a enviar
     if (this.formularioRegistro.valid) {
-      console.log('es valido');
 
       // Obtener los datos del formulario
       const formData = this.formularioRegistro.value;

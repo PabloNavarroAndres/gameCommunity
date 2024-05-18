@@ -20,7 +20,7 @@
         <!-- Descripcion -->
         <div class="mb-3">
             <label for="descripcion" class="form-label titulo-label">Descripción</label>
-            <textarea class="form-control" id="descripcion" rows="4" maxlength="250"></textarea>
+            <textarea class="form-control" id="descripcion" formControlName="descripcion" rows="4" maxlength="250"></textarea>
         </div>
         
         <!-- Imagen -->
@@ -36,7 +36,6 @@
                   [attr.data-bs-slide-to]="$index" [ngClass]="{'active': i === $index}" 
                   aria-label="Slide">
                 </button>
-
               }
 
             </div>
@@ -48,7 +47,6 @@
                 <div [ngClass]="{'active': i === $index}" class="carousel-item">
                     <img [src]="img" class="d-block w-100" alt="foto de perfil">
                 </div>
-
               }
 
             </div>

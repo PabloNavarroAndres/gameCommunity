@@ -7,17 +7,17 @@
     </div>
 
     <div class="contenedor-fichas">
-        <!-- @for (comunidad of comunidades; track $index) {
+        @for (comunidad of comunidades; track $index) {
     
             <div class="ficha">
-                <img [src]="comunidad.profile_picture" alt="Juego de la biblioteca">
-                <h2>{{ comunidad.username }}</h2>
-                <span>{{ comunidad.total_games }}</span>
+                <img [src]="comunidad.image" alt="Juego de la biblioteca">
+                <h2>{{ comunidad.title }}</h2>
+                <span>{{ comunidad.description }}</span>
     
-                <button [routerLink]="['/perfil', usuario.email]">Ver Perfil</button>
+                <button [routerLink]="['/comunidades/personalizada/', comunidad.community_id]">Ver Comunidad</button>
                 
             </div>
-        } -->
+        }
     </div>
 
 
