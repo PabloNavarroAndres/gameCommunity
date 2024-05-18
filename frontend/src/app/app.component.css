@@ -3,7 +3,7 @@ h1 {
 }
 
 nav {
-    background-color: #8f008f !important;
+    background-color: var(--fondo-nav) !important;
 }
 
 .logo {
@@ -47,3 +47,79 @@ nav {
     color: #ff8cff;
 }
 
+/* Estilo del Footer */
+footer {
+    background-color: var(--fondo-footer);
+    color: white;
+    text-align: center;
+    padding: 20px 0;
+}
+
+.footer-container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-wrap: wrap;
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 0 20px;
+}
+
+.footer-column {
+    flex: 1;
+    min-width: 200px;
+    margin: 10px;
+}
+
+.footer-column img {
+    max-width: 100%;
+    height: auto;
+}
+
+.footer-column h3 {
+    margin-top: 0;
+}
+
+.footer-column ul {
+    list-style-type: none;
+    padding: 0;
+}
+
+.footer-column ul li {
+    margin: 5px 0;
+}
+
+.footer-column ul li a {
+    color: white;
+    text-decoration: none;
+}
+
+.footer-column ul li a:hover {
+    text-decoration: underline;
+}
+
+.social-icons {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    width: 30%;
+    min-width: 100px;
+    margin: 0 auto;
+    gap: 10px;
+}
+
+.social-icons a {
+    color: white;
+    text-decoration: none;
+}
+
+.social-icons a:hover {
+    text-decoration: underline;
+}
+
+.social-icons li {
+    display: flex;
+    justify-content: center;
+    gap: 10px;
+    align-self: flex-start;
+}

@@ -18,26 +18,14 @@ export class VideojuegosUsuarioService {
   }
 
   agregarVideojuegoUsuario(videojuego: VideojuegoUsuario):Observable<VideojuegoUsuario> {
-    // Msj
-    console.log('insertar: ');
-    console.log(videojuego);
-
     return this._http.post<VideojuegoUsuario>(`${this.url}?controller=videojuegosUsuario&action=agregarVideojuegoUsuario`, videojuego);
   }
 
   actualizarVideojuegoUsuario(videojuego: VideojuegoUsuario):Observable<VideojuegoUsuario> {
-    // Msj
-    console.log('actualizar: ');
-    console.log(videojuego);
-
     return this._http.put<VideojuegoUsuario>(`${this.url}?controller=videojuegosUsuario&action=actualizarVideojuegoUsuario`, videojuego);
   }
 
   eliminarVideojuegoUsuario(videojuego: VideojuegoUsuario):Observable<VideojuegoUsuario> {
-    // Msj
-    console.log('eliminar: ');
-    console.log(videojuego);
-
     return this._http.put<VideojuegoUsuario>(`${this.url}?controller=videojuegosUsuario&action=eliminarVideojuegoUsuario`, videojuego);
   }
   

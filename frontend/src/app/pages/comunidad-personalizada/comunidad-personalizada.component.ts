@@ -11,5 +11,12 @@ import { RouterLink } from '@angular/router';
 export class ComunidadPersonalizadaComponent {
 
   verComunidad: boolean = false;
+  formularioComunidad: boolean = false;
+
+  
+  // Activar/Desactivar formulario
+  mostrarFormulario() {
+    this.formularioComunidad = !this.formularioComunidad;
+  }
 
 }

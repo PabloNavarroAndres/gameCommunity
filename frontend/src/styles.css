@@ -7,6 +7,8 @@
     --titulo-grande: 3rem;
     --fondo-tema: #d004d0;
     --hover-tema: #5d015d;
+    --fondo-nav: #8f008f;
+    --fondo-footer: #8306B1;
     --letra-color-btn: #ff8cff;
 }
 
@@ -15,6 +17,8 @@ html, body {
 }
 
 body {
+    display: flex;
+    flex-direction: column;
     margin: 0;
     font-family: Roboto, "Helvetica Neue", sans-serif;
     background-image: url('../src/assets/portada_tfc.png');
@@ -23,9 +27,19 @@ body {
     background-attachment: fixed;
 }
 
-/* Botones */
+app-root {
+    display: flex;
+    flex-direction: column;
+    flex: 1;
+}
 
+.content {
+    flex: 1;
+}
+
+/* Botones */
 .boton-general {
+    display: block;
     border: 1px solid black;
     border-radius: 10px;
     background: #d004d0;
@@ -55,6 +69,14 @@ body {
     filter: invert();
 }
 
+.btn-volver {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin-left: 30px;
+}
+
+/* Header modal */
 .modal-header {
     background-color: #a65cff !important;
     color: white !important;
@@ -97,22 +119,6 @@ body {
     background-color: var(--fondo-tema);
 }
 
-/* Estilo de la barra de navegación*/
-.nav-item * {
-    font-size: var(--titulo-peque);
-    border: 1px solid transparent;
-    border-radius: 0%;
-    transition: background-color 0.5s ease, color 0.5s ease, border-color 0.5s ease, border-radius 0.5s ease;
-}
-
-.nav-item:hover * {
-    color: white !important;
-    background-color: var(--hover-tema);
-    border-color: black;
-    border-radius: 15%;
-    cursor: pointer;
-}
-
 /* Fichas de videojuego */
 .contenedor-fichas {
     display: flex;
@@ -153,6 +159,7 @@ body {
     height: 70%;
     object-fit: cover;
     border-radius: 10px 10px 0 0;
+    padding: 10px;
 }
 
 .ficha h2 {
@@ -161,6 +168,17 @@ body {
     text-align: center;
     padding: 10px 0;
     margin: 0;
+}
+
+.ficha span {
+    color: white;
+    padding-bottom: 10px;
+}
+
+.ficha hr {
+    height: 2px;
+    background-color: white;
+    width: 100%;
 }
 
 .ficha button {
@@ -177,24 +195,6 @@ body {
 .ficha button:hover {
     background-color: #af0e9d;
     color: white;
-}
-
-@media (max-width: 1200px) {
-    .ficha {
-        width: calc(33.33% - 40px);
-    }
-}
-
-@media (max-width: 768px) {
-    .ficha {
-        width: calc(50% - 40px);
-    }
-}
-
-@media (max-width: 480px) {
-    .ficha {
-        width: calc(100% - 40px);
-    }
 }
 
 /* Boton eliminar juego de Biblioteca */
@@ -235,15 +235,48 @@ body {
     padding: 5px;
 }
 
-.btn-volver {
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    margin-left: 30px;
-}
-
 /* Placeholder */
 .placeholderStyle {
     color: gray;
     font-style: italic;
+}
+
+/* Formulario */
+.form-general {
+    width: 50%;
+    padding: 50px;
+    margin: 0 auto;
+    margin-bottom: 100px;
+    background: purple;
+    border-radius: 20px;
+    word-break: break-all;
+}
+
+.form-general .boton-general {
+    margin-top: 35px;
+}
+
+
+/* Media Query */
+@media (max-width: 1200px) {
+    .ficha {
+        width: calc(33.33% - 40px);
+    }
+}
+
+@media (max-width: 768px) {
+    .ficha {
+        width: calc(50% - 40px);
+    }
+}
+
+@media (max-width: 480px) {
+    .ficha {
+        width: calc(100% - 40px);
+    }
+
+    .form-registro {
+        width: 80%;
+        padding: 20px;
+    }
 }

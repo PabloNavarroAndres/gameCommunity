@@ -1,0 +1,39 @@
+<h2 class="titulo-ruta">CREAR COMUNIDAD</h2>
+
+<button class="boton-general btn-volver" [routerLink]="['/comunidad/personalizadas']">↽ Volver</button>
+
+<section [@fadeInOut] class="form-general">
+    <h2 class="titulo-mediano">Formulario comunidad</h2>
+    <hr>
+    <form [formGroup]="formularioComunidad" (ngSubmit)="enviar($event)">
+
+        <!-- Nombre -->
+        <div class="mb-3">
+            <label for="nombre" class="form-label titulo-label">Nombre</label>
+            <input type="text" class="form-control" id="nombre" formControlName="nombre">
+
+            <div class="msj-validadores" *ngIf="hasErrors('nombre', 'minlength')">
+                El nombre debe ser de mínimo 3 caracteres.
+            </div>
+        </div>
+
+        <!-- Descripcion -->
+        <div class="mb-3">
+            <label for="descripcion" class="form-label titulo-label">Descripción</label>
+            <textarea class="form-control" id="descripcion" rows="4" maxlength="250"></textarea>
+        </div>
+
+        <!-- Imagen -->
+        <!-- ... -->
+
+
+        <!-- Mensaje de error (nombre de comunidad existente en la BD) -->
+        <div class="msj-error" *ngIf="msjTituloExiste()">
+            Ya existe una comunidad con ese nombre
+        </div>
+
+        <!-- Crear Comunidad -->
+        <button type="submit" class="boton-general">Crear</button>
+    </form>
+</section>
+

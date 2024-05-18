@@ -38,9 +38,9 @@ export class UsuarioService {
     return this._http.post<User>(`${this.url}?controller=usuarios&action=agregarUsuario`, usuario);
   }
 
-  // Obtener usuarios
-  eliminarUsuario(): Observable<User[]> {
-    return this._http.get<User[]>(`${this.url}?controller=usuarios&action=eliminarUsuario`);
+  // Eliminar usuario
+  eliminarUsuario(): Observable<User> {
+    return this._http.get<User>(`${this.url}?controller=usuarios&action=eliminarUsuario`);
   }
 
   // Actualizar usuario

@@ -12,9 +12,10 @@ import { RouterLink } from '@angular/router';
 })
 export class ComunidadGlobalComponent {
 
-  usuarios!: User[];
-
   _usuariosService = inject(UsuarioService);
+
+  usuarios!: User[];
+  usuarioIniciado: User = this._usuariosService.obtenerUsuarioIniciado() as User;
 
   ngOnInit(): void {
     this._usuariosService.obtenerUsuarios()
@@ -23,6 +24,5 @@ export class ComunidadGlobalComponent {
       this.usuarios = data;
     })
   }
-
 
 }

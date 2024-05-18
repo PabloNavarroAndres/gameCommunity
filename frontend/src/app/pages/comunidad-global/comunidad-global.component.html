@@ -6,14 +6,20 @@
 <div class="contenedor-fichas">
     @for (usuario of usuarios; track $index) {
 
-        <div class="ficha">
-            <img [src]="usuario.profile_picture" alt="Juego de la biblioteca">
-            <h2>{{ usuario.username }}</h2>
-            <span>Juegos totales: {{ usuario.total_games }}</span>
-
-            <button [routerLink]="['/perfil', usuario.email]">Ver Perfil</button>
+        <!-- Comprobar que no sea el usuario iniciado, para no mostrarlo -->
+        @if (usuario.email !== usuarioIniciado.email) {
             
-        </div>
+            <div class="ficha">
+                <img [src]="usuario.profile_picture" alt="Juego de la biblioteca">
+                <h2>{{ usuario.username }}</h2>
+                <hr>
+                <span>Juegos totales: {{ usuario.total_games }}</span>
+    
+                <button [routerLink]="['/perfil', usuario.email]">Ver Perfil</button>
+                
+            </div>
+        }
+
     }
 </div>
     
