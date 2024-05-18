@@ -90,32 +90,44 @@
               
               <div id="carouselExampleFade" class="carousel slide carousel-fade">
 
-                <div class="carousel-inner">
+                <div class="carousel-indicators">
 
                   @for (img of imagenes; track $index) {
-                    <div [ngClass]="{'active': img === imagenes[this.i]}" class="carousel-item">
-                      <img [src]="img" class="d-block w-100" alt="foto de perfil">
-                    </div>
+
+                    <button type="button" data-bs-target="#carouselExampleFade" 
+                      [attr.data-bs-slide-to]="$index" [ngClass]="{'active': i === $index}" 
+                      aria-label="Slide">
+                    </button>
+
                   }
 
                 </div>
+                
+                <div class="carousel-inner">
 
+                  @for (img of imagenes; track $index) {
+
+                    <div [ngClass]="{'active': i === $index}" class="carousel-item">
+                        <img [src]="img" class="d-block w-100" alt="foto de perfil">
+                    </div>
+
+                  }
+
+                </div>
+            
                 <!-- Boton anterior imagen -->   
                 <button class="carousel-control-prev" type="button" data-bs-target="#carouselExampleFade" data-bs-slide="prev" (click)="anteriorImg()">
-                  <span class="carousel-control-prev-icon" aria-hidden="true" ></span>
-                  <span class="visually-hidden">Anterior</span>
+                    <span class="carousel-control-prev-icon" aria-hidden="true" ></span>
+                    <span class="visually-hidden">Anterior</span>
                 </button>
-
+            
                 <!-- Boton siguiente imagen -->
                 <button class="carousel-control-next" type="button" data-bs-target="#carouselExampleFade" data-bs-slide="next" (click)="siguienteImg()">
-                  <span class="carousel-control-next-icon" aria-hidden="true" ></span>
-                  <span class="visually-hidden" >Siguiente</span>
+                    <span class="carousel-control-next-icon" aria-hidden="true" ></span>
+                    <span class="visually-hidden">Siguiente</span>
                 </button>
-
               </div>
-
-
-
+            
             </div>
           </form>
 

@@ -116,4 +116,44 @@ export class ComunidadCrearComponent {
     return control?.hasError(errorType) && control?.touched;
   }
 
+  // Imagenes de la carpeta
+  imagenes = [
+    '../../../assets/community_pers_1.jpeg',
+    '../../../assets/community_pers_2.jpg',
+    '../../../assets/community_pers_3.png',
+    '../../../assets/community_pers_4.webp',
+    '../../../assets/community_pers_5.jpeg',
+    '../../../assets/community_pers_6.jpeg',
+    '../../../assets/community_pers_7.jpeg',
+  ];
+
+  // Indice de la posicion de imagen en el array "imagenes"
+  i = 0;
+
+  // Propiedad calculada para obtener la imagen seleccionada
+  get selectedImage(): string {
+    return this.imagenes[this.i];
+  }
+
+  // Calcular la posicion anterior de la imagen del carrusel en el array
+  anteriorImg() {
+    if (this.i === 0) {
+      this.i = this.imagenes.length - 1;
+
+    } else {
+      this.i--;
+    }
+  }
+
+  // Calcular la posicion siguiente de la imagen del carrusel en el array
+  siguienteImg() {
+    if (this.i === this.imagenes.length - 1) {
+      this.i = 0;
+
+    } else {
+      this.i++;
+    }
+  }
+
+
 }

@@ -152,3 +152,7 @@ footer {
     gap: 10px;
     align-self: flex-start;
 }
+
+.logo-footer {
+    align-self: center;
+}

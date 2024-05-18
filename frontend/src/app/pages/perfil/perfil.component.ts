@@ -92,14 +92,6 @@ export class PerfilComponent {
       // Pasamos el índice de la imagen del usuario al del array de imagenes
       this.i = this.imagenes.findIndex(imagen => this.usuario.profile_picture === imagen);
     });
-
-    //
-    
-    // Obtener el usuario con la sesión iniciada
-    this.usuario = this._usuarioService.obtenerUsuarioIniciado() as User;
-
-    // Pasamos el indice de la imagen del usuario al del array de imagenes
-    this.i = this.imagenes.findIndex(imagen => this.usuario.profile_picture === imagen)
     
   }
 
