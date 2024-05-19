@@ -2,3 +2,20 @@ h2 {
     margin: 0;
 }
 
+.ficha {
+    height: 450px !important;
+}
+
+.ficha img {
+    padding: 0;
+
+}
+
+.ficha hr {
+    margin: 0;
+}
+
+.ficha span {
+    word-wrap: anywhere;
+    padding: 10px;
+}
