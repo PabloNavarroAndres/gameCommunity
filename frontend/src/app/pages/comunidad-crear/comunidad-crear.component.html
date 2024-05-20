@@ -10,7 +10,7 @@
         <!-- Nombre -->
         <div class="mb-3">
             <label for="nombre" class="form-label titulo-label">Nombre</label>
-            <input type="text" class="form-control" id="nombre" formControlName="nombre" maxlength="25">
+            <input type="text" class="form-control" id="nombre" formControlName="nombre" maxlength="20">
 
             <div class="msj-validadores" *ngIf="hasErrors('nombre', 'minlength')">
                 El nombre debe ser de mínimo 3 caracteres.
@@ -32,7 +32,7 @@
 
               @for (img of imagenes; track $index) {
 
-                <button type="button" data-bs-target="#carouselExampleFade" 
+                <button type="button" (click)="cambiarIndice($index)" data-bs-target="#carouselExampleFade" 
                   [attr.data-bs-slide-to]="$index" [ngClass]="{'active': i === $index}" 
                   aria-label="Slide">
                 </button>

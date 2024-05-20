@@ -149,6 +149,10 @@ export class PerfilComponent {
 
   }
 
+  cambiarIndice(indice: number) {
+    this.i = indice;
+  }
+
   // Volver hacia atras
   goBack(): void {
     this._navegacionService.goBack();

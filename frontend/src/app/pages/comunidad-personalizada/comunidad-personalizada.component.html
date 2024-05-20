@@ -14,7 +14,7 @@
                 <h2>{{ comunidad.title }}</h2>
                 <hr>
 
-                <span>{{ comunidad.description }}</span>
+                <span>{{ comunidad.description | truncate:85 }}</span>
     
                 <button [routerLink]="['/comunidades/personalizada/', comunidad.community_id]">Ver Comunidad</button>
                 
@@ -26,8 +26,11 @@
 } @else {
     
     <div>
-        <h2 class="titulo-ruta">{{ comunidadActiva?.title }} <span class="subtitulo-miembros">Nº Miembros: {{ usuariosComunidad.length }}</span> </h2>
-        <button class="boton-general btn-volver" (click)="goBack()">↽ Volver</button>
+        <h2 class="titulo-ruta">{{ comunidadActiva?.title }} 
+            <button class="boton-general btn-volver" (click)="goBack()">↽ Volver</button>
+            <span class="subtitulo-descripcion">{{ comunidadActiva?.description }}</span> 
+        </h2>
+        <p class="texto-miembros">Nº Miembros: {{ usuariosComunidad.length }}</p>
 
         <!-- Botones -->
         <div class="botones-comunidad">

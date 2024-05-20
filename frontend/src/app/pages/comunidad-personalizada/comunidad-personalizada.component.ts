@@ -5,11 +5,13 @@ import { Comunidad } from '../../models/comunidad.interface';
 import { UsuarioComunidad } from '../../models/usuarioComunidad.interface';
 import { UsuariosComunidadService } from '../../services/usuarios-comunidad.service';
 import { NavegacionService } from '../../services/navegacion.service';
+import { TruncatePipe } from '../../pipes/truncate.pipe';
+
 
 @Component({
   selector: 'app-comunidad-personalizada',
   standalone: true,
-  imports: [RouterLink],
+  imports: [RouterLink, TruncatePipe],
   templateUrl: './comunidad-personalizada.component.html',
   styleUrl: './comunidad-personalizada.component.css'
 })
@@ -106,7 +108,6 @@ export class ComunidadPersonalizadaComponent {
         });
     });
   }
-
 
   // Activar/Desactivar formulario
   mostrarFormulario() {
