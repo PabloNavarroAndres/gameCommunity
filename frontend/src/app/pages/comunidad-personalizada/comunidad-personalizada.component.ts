@@ -37,81 +37,72 @@ export class ComunidadPersonalizadaComponent {
 
   ngOnInit(): void {
 
-    // Comprobamos si se han pasado parametros,
-    // de ver comunidad personalizada
+    // Comprobamos si se han pasado parametros, de ver comunidad personalizada
     this.route.params.subscribe(params => {
 
       // Parametro de id de comunidad
-      const idComunidad: number = params['comunidadId'];
-      
-      // Si el idComunidad existe es que estamos visitando una comunidad
-      if (idComunidad) {
+      const idComunidad: number = +params['comunidadId'];
 
-        // Guardamos la comunidad buscada por id
-        this.comunidadActiva = this.comunidades.find(comunidad => idComunidad === comunidad.community_id);
-
-        // Activamos el modo de ver comunidad
-        this.verComunidad = true;
-
-        // Buscamos los usuarios de esa comunidad (usuariosComunidad)
-        this._usuariosComunidadService.obtenerUsuariosComunidad(idComunidad)
+      // Obtener comunidades de la BD
+      this._comunidadService.obtenerComunidades()
         .subscribe({
-          // Array de usuarios obtenido
-          next: (usuarios: UsuarioComunidad[]) => {
-            
-            this.usuariosComunidad = usuarios;
-            console.log('Usuarios de comunidad obtenidos: ', usuarios);
+          next: (comunidades: Comunidad[]) => {
 
+            // Establecemos las comunidades obtenidas
+            this.comunidades = comunidades;
+
+            /* console.log('Comunidades cargadas desde la BD:', this.comunidades); */
+
+            // Si el idComunidad existe es que estamos visitando una comunidad
+            if (idComunidad) {
+
+              /* console.log('Tipo de idComunidad:', typeof idComunidad); // Verifica el tipo de idComunidad
+              console.log('ID de Comunidad:', idComunidad);
+
+              this.comunidades.forEach(comunidad => {
+                console.log('Verificando comunidad:', comunidad);
+              }); */
+
+              // Guardamos la comunidad buscada por id
+              this.comunidadActiva = this.comunidades.find(comunidad => {
+                console.log('Comparando:', idComunidad, 'con', comunidad.community_id);
+                return idComunidad === comunidad.community_id;
+              });
+
+              // Guardamos la comunidad que visitamos como la activa
+              if (this.comunidadActiva) {
+                console.log('Comunidad activa encontrada:', this.comunidadActiva);
+
+                // Activamos el modo de ver comunidad activa
+                this.verComunidad = true;
+
+                // Buscamos los usuarios de esa comunidad
+                this._usuariosComunidadService.obtenerUsuariosComunidad(idComunidad)
+                  .subscribe({
+                    next: (usuarios: UsuarioComunidad[]) => {
+                      this.usuariosComunidad = usuarios;
+                      console.log('Usuarios de comunidad obtenidos:', usuarios);
+                    },
+                    error: (error: any) => {
+                      console.error('Error al obtener usuarios de comunidad:', error);
+                    }
+                  });
+              } else {
+                console.error('No se encontró la comunidad activa.');
+              }
+            } else {
+              // Si no existe simplemente es que estamos visitando nuestro perfil,
+              // como usuario iniciado
+              this.verComunidad = false;
+            }
           },
           error: (error: any) => {
-            console.error('Error al obtener usuarios de comunidad:', error);
+            console.error('Error al obtener comunidades:', error);
           }
         });
-
-
-        // Si hay un parámetro de email en la URL, obtener el perfil del usuario correspondiente
-        /* this._usuarioService.obtenerUsuarioPorEmail(userEmail)
-          .subscribe({
-            // Array de usuarios obtenido
-            next: (user: User) => {
-              console.log('Usuario obtenido por email: ', user);
-
-              // Actualizar usuario
-              this.usuario = user;
-            },
-            error: (error: any) => {
-              console.error('Error al obtener el perfil del usuario:', error);
-            }
-        });
- */
-        // Si no existe simplemente es que estamos visitando nuestro perfil,
-        // como usuario iniciado
-      } else {
-        // Activar boton de editar
-        this.verComunidad = false;
-
-        // Si no hay parámetro de email, obtener el usuario con la sesión iniciada
-/*         this.usuario = this._usuarioService.obtenerUsuarioIniciado() as User;
- */      }
-      // Pasamos el índice de la imagen del usuario al del array de imagenes
-/*       this.i = this.imagenes.findIndex(imagen => this.usuario.profile_picture === imagen);
- */
     });
-
-    // Obtener comunidades
-    // Obtener las comunidades de la BD
-    this._comunidadService.obtenerComunidades()
-      .subscribe({
-        next: (comunidades: Comunidad[]) => {
-          this.comunidades = comunidades;
-          console.log('Comunidad cargada desde la BD:');
-          console.log(this.comunidades)
-        },
-        error: (error: any) => {
-          console.error('Error al obtener comunidades:', error);
-        }
-      });
   }
+
 
   // Activar/Desactivar formulario
   mostrarFormulario() {

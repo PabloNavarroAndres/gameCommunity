@@ -26,25 +26,23 @@
 } @else {
     
     <div>
-        <h2 class="titulo-ruta">COMUNIDAD GLOBAL</h2>
-        <button class="boton-general btn-volver" routerLink="/comunidades">↽ Volver</button>
+        <h2 class="titulo-ruta">{{ comunidadActiva?.title }}</h2>
+        <button class="boton-general btn-volver" routerLink="/comunidades/personalizadas">↽ Volver</button>
     </div>
     
     <div class="contenedor-fichas">
         @for (usuario of usuariosComunidad; track $index) {
        
-            <div class="ficha">
+            <div class="ficha usuario">
                 <img [src]="usuario.profile_picture" alt="Juego de la biblioteca">
                 <h2>{{ usuario.username }}</h2>
                 <hr>
                 <span>Juegos totales: {{ usuario.total_games }}</span>
     
-                <button [routerLink]="['/perfil', usuario.email]">Ver Perfil</button>
+                <button [routerLink]="['/perfil', usuario.user_email]">Ver Perfil</button>
             </div>
 
         }
     </div>    
 
 }
-
-    

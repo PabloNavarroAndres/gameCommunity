@@ -3,7 +3,7 @@ h2 {
 }
 
 .ficha {
-    height: 450px !important;
+    height: 450px;
 }
 
 .ficha img {
@@ -18,4 +18,21 @@ h2 {
 .ficha span {
     word-wrap: anywhere;
     padding: 10px;
+}
+
+.ficha img {
+    object-fit: cover;
+}
+
+.ficha h2 {
+    padding: 0;
+}
+
+/* Ficha para usuario */
+.usuario {
+    height: 300px;
+}
+
+.usuario img {
+    object-fit: scale-down;
 }
