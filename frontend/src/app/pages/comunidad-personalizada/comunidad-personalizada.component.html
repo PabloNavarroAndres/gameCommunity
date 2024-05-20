@@ -16,7 +16,9 @@
 
                 <span>{{ comunidad.description | truncate:85 }}</span>
     
-                <button [routerLink]="['/comunidades/personalizada/', comunidad.community_id]">Ver Comunidad</button>
+                <button [routerLink]="['/comunidades/personalizada/', comunidad.community_id]">
+                    Ver Comunidad
+                </button>
                 
             </div>
         }
@@ -34,7 +36,7 @@
 
         <!-- Botones -->
         <div class="botones-comunidad">
-            <button class="boton-general">Unirse</button>
+            <button class="boton-general" (click)="unirseComunidad()">Unirse</button>
             <button class="boton-general boton-salir">Salir</button>
             <button class="boton-general boton-eliminar">Eliminar</button>
         </div>

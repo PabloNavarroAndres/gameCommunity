@@ -16,7 +16,7 @@ class UserCommunityRepository {
         try {
             // Consulta para obtener los datos
             $sql = $this->bd->prepare(
-                "SELECT u.email, u.username, u.password, u.profile_picture, u.total_games, uc.community_id, uc.isAdmin
+                "SELECT u.email, u.username, u.password, u.profile_picture, u.total_games, u.isAdmin, uc.community_id, uc.isCreator
                 FROM Users_in_communities uc
                 JOIN Users u ON uc.user_email = u.email
                 WHERE uc.community_id = ?"
@@ -33,12 +33,14 @@ class UserCommunityRepository {
                 $userCommunity = new UserCommunity(
                     $userCommunityData['email'],
                     $userCommunityData['community_id'],
-                    $userCommunityData['isAdmin'],
+                    $userCommunityData['isCreator'],
                     $userCommunityData['username'],
+                    $userCommunityData['isAdmin'],
                     $userCommunityData['password'],
                     $userCommunityData['profile_picture'],
                     $userCommunityData['total_games']
                 );
+                
                 $usersCommunity[] = $userCommunity;
             }
 

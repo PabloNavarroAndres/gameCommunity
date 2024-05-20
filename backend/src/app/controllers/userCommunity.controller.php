@@ -35,12 +35,11 @@ switch ($action) {
     case 'agregarUsuariosComunidad':
         try {
 
-            // Crear un nuevo usuario de comunidad
             // Obtener los datos del usuario del cuerpo de la solicitud (POST)
             $data = json_decode(file_get_contents('php://input'), true);
 
             // Verificar si se proporcionaron todos los campos necesarios
-            if (!isset($data['game_id']) || !isset($data['user_email'])) {
+            if (!isset($data['user_email']) || !isset($data['community_id']) || !isset($data['isAdmin']) ) {
                 throw new Exception('Faltan campos obligatorios del usuario de comunidad');
             }
 

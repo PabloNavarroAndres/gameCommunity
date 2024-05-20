@@ -143,6 +143,10 @@ export class ComunidadCrearComponent {
 
             // Vaciar campos del formulario
             this.formularioComunidad.reset();
+
+            // Agregar al usuario a la comunidad como creador (administrador)
+            // ...
+
           },
           error: (error: any) => {
             console.error('Error al agregar comunidad:', error);

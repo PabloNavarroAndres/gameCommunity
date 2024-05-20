@@ -6,6 +6,8 @@ import { UsuarioComunidad } from '../../models/usuarioComunidad.interface';
 import { UsuariosComunidadService } from '../../services/usuarios-comunidad.service';
 import { NavegacionService } from '../../services/navegacion.service';
 import { TruncatePipe } from '../../pipes/truncate.pipe';
+import { User } from '../../models/user.interface';
+import { UsuarioService } from '../../services/usuarios.service';
 
 
 @Component({
@@ -21,6 +23,9 @@ export class ComunidadPersonalizadaComponent {
   formularioComunidad: boolean = false;
 
   // Servicio de comunidades
+  private _usuarioService= inject(UsuarioService);
+
+  // Servicio de comunidades
   private _comunidadService = inject(ComunidadesService);
 
   // Servicio de comunidades
@@ -31,6 +36,9 @@ export class ComunidadPersonalizadaComponent {
 
   // Servicio ruta parametros
   private route = inject(ActivatedRoute);
+
+  // Usuario iniciado
+  usuarioIniciado: User = this._usuarioService.obtenerUsuarioIniciado() as User;
 
   // Array comunidades
   comunidades: Comunidad[] = [];
@@ -57,21 +65,11 @@ export class ComunidadPersonalizadaComponent {
             // Establecemos las comunidades obtenidas
             this.comunidades = comunidades;
 
-            /* console.log('Comunidades cargadas desde la BD:', this.comunidades); */
-
             // Si el idComunidad existe es que estamos visitando una comunidad
             if (idComunidad) {
 
-              /* console.log('Tipo de idComunidad:', typeof idComunidad); // Verifica el tipo de idComunidad
-              console.log('ID de Comunidad:', idComunidad);
-
-              this.comunidades.forEach(comunidad => {
-                console.log('Verificando comunidad:', comunidad);
-              }); */
-
               // Guardamos la comunidad buscada por id
               this.comunidadActiva = this.comunidades.find(comunidad => {
-                console.log('Comparando:', idComunidad, 'con', comunidad.community_id);
                 return idComunidad === comunidad.community_id;
               });
 
@@ -87,6 +85,7 @@ export class ComunidadPersonalizadaComponent {
                   .subscribe({
                     next: (usuarios: UsuarioComunidad[]) => {
                       this.usuariosComunidad = usuarios;
+                      console.log(this.usuariosComunidad);
                       console.log('Usuarios de comunidad obtenidos:', usuarios);
                     },
                     error: (error: any) => {
@@ -107,6 +106,40 @@ export class ComunidadPersonalizadaComponent {
           }
         });
     });
+  }
+
+  // Agregar usuario iniciado
+  unirseComunidad() {
+    // Buscamos si el usuario existe
+    const usuarioExiste = this.usuariosComunidad.find(usuario => {usuario.user_email === this.usuarioIniciado.email});
+
+    if (usuarioExiste) {
+
+      console.log('El usuario ya existe');
+
+    } else {      
+
+      const usuarioComunidad: UsuarioComunidad = {
+        user_email: this.usuarioIniciado.email,
+        community_id: this.comunidadActiva?.community_id as number,
+        isCreator:  0,
+        isAdmin:  this.usuarioIniciado.isAdmin as number,
+        username:  this.usuarioIniciado.username,
+        total_games:  this.usuarioIniciado.total_games
+      };
+
+      this._usuariosComunidadService.agregarUsuarioComunidad(usuarioComunidad)
+      .subscribe({
+        next: (response: any) => {
+          console.log('Usuario agregado correctamente:', response);
+          this.usuariosComunidad.push(usuarioComunidad);
+        },
+        error: (error: any) => {
+          console.error('Error al agregar usuario:', error);
+        }
+      });
+    }
+
   }
 
   // Activar/Desactivar formulario
