@@ -6,6 +6,7 @@ import { User } from '../../models/user.interface';
 import { CommonModule } from '@angular/common';
 import { Comunidad } from '../../models/comunidad.interface';
 import { UsuarioService } from '../../services/usuarios.service';
+import { NavegacionService } from '../../services/navegacion.service';
 
 @Component({
   selector: 'app-comunidad-crear',
@@ -21,6 +22,9 @@ export class ComunidadCrearComponent {
 
   // Servicio de usuarios
   private _usuarioService = inject(UsuarioService);
+
+  // Servicio de navegacion
+  private _navegacionService = inject(NavegacionService);
 
   // Usuario iniciado
   usuarioIniciado!: User;
@@ -182,5 +186,9 @@ export class ComunidadCrearComponent {
     }
   }
 
+  // Volver hacia atras
+  goBack(): void {
+    this._navegacionService.goBack();
+  }
 
 }

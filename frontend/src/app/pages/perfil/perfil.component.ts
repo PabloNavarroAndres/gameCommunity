@@ -6,6 +6,7 @@ import { CommonModule } from '@angular/common';
 import { MatIconModule } from '@angular/material/icon';
 import { FormsModule } from '@angular/forms';
 import { ActivatedRoute, RouterLink } from '@angular/router';
+import { NavegacionService } from '../../services/navegacion.service';
 
 @Component({
   selector: 'app-perfil',
@@ -18,6 +19,9 @@ export class PerfilComponent {
 
   // Servicio de usuarios
   private _usuarioService = inject(UsuarioService);
+
+  // Servicio de navegacion
+  private _navegacionService = inject(NavegacionService);
 
   // Obtener el usuario con la sesión iniciada
   usuario!: User;
@@ -143,6 +147,11 @@ export class PerfilComponent {
       }
     });
 
+  }
+
+  // Volver hacia atras
+  goBack(): void {
+    this._navegacionService.goBack();
   }
 
 }

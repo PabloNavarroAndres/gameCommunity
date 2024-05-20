@@ -4,6 +4,7 @@ import { ComunidadesService } from '../../services/comunidades.service';
 import { Comunidad } from '../../models/comunidad.interface';
 import { UsuarioComunidad } from '../../models/usuarioComunidad.interface';
 import { UsuariosComunidadService } from '../../services/usuarios-comunidad.service';
+import { NavegacionService } from '../../services/navegacion.service';
 
 @Component({
   selector: 'app-comunidad-personalizada',
@@ -22,6 +23,9 @@ export class ComunidadPersonalizadaComponent {
 
   // Servicio de comunidades
   private _usuariosComunidadService = inject(UsuariosComunidadService);
+
+  // Servicio de navegacion
+  private _navegacionService = inject(NavegacionService);
 
   // Servicio ruta parametros
   private route = inject(ActivatedRoute);
@@ -107,6 +111,11 @@ export class ComunidadPersonalizadaComponent {
   // Activar/Desactivar formulario
   mostrarFormulario() {
     this.formularioComunidad = !this.formularioComunidad;
+  }
+
+  // Volver hacia atras
+  goBack(): void {
+    this._navegacionService.goBack();
   }
 
 }
