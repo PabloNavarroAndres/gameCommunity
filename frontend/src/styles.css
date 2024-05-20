@@ -54,6 +54,26 @@ app-root {
     color: white !important;
 }
 
+.boton-salir {
+    background-color: #1b2838;
+    color: white;
+}
+
+.boton-salir:hover {
+    background-color: white;
+    color: black !important;
+}
+
+.boton-eliminar {
+    background-color: red;
+    color: white;
+}
+
+.boton-eliminar:hover {
+    background-color: rgb(100, 0, 0);
+    color: white;
+}
+
 .btn-modal {
     border: 2px solid #7a3cff !important;
     color: #7a3cff !important;

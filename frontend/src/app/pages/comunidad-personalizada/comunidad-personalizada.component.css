@@ -36,3 +36,18 @@ h2 {
 .usuario img {
     object-fit: scale-down;
 }
+
+.subtitulo-miembros {
+    display: block;
+    font-size: 20px;
+    padding-top: 20px;
+    color: #d004d0;
+}
+
+/* Botones Comunidad */
+.botones-comunidad {
+    display: flex;
+    gap: 20px;
+    justify-content: center;
+    align-items: center;
+}

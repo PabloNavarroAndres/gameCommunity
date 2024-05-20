@@ -2,7 +2,7 @@
 
     <div>
         <h2 class="titulo-ruta">COMUNIDADES PERSONALIZADAS</h2>
-        <button class="boton-general btn-volver" routerLink="/comunidades">↽ Volver</button>
+        <button class="boton-general btn-volver" (click)="goBack()">↽ Volver</button>
         <button style="margin: 0 auto;" class="boton-general btn-volver" routerLink="/comunidades/crear">+ Crear</button>
     </div>
 
@@ -26,8 +26,15 @@
 } @else {
     
     <div>
-        <h2 class="titulo-ruta">{{ comunidadActiva?.title }}</h2>
+        <h2 class="titulo-ruta">{{ comunidadActiva?.title }} <span class="subtitulo-miembros">Nº Miembros: {{ usuariosComunidad.length }}</span> </h2>
         <button class="boton-general btn-volver" (click)="goBack()">↽ Volver</button>
+
+        <!-- Botones -->
+        <div class="botones-comunidad">
+            <button class="boton-general">Unirse</button>
+            <button class="boton-general boton-salir">Salir</button>
+            <button class="boton-general boton-eliminar">Eliminar</button>
+        </div>
     </div>
     
     <div class="contenedor-fichas">
@@ -41,7 +48,6 @@
     
                 <button [routerLink]="['/perfil', usuario.user_email]">Ver Perfil</button>
             </div>
-
         }
     </div>    
 
