@@ -4,7 +4,7 @@ require_once 'app/models/repository/user.repository.php';
 require_once 'app/views/json.view.php';
 
 // Crear instancia de UserRepository con la conexión a la base de datos
-$userRepository = new UserRepository;
+$communityRepository = new UserRepository;
 
 $action = $_GET['action'];
 
@@ -13,7 +13,7 @@ switch ($action) {
     case 'obtenerUsuarios':
         try {
             // Datos obtenidos del metodo
-            $users = $userRepository->obtenerUsuarios();
+            $users = $communityRepository->obtenerUsuarios();
 
             // Devolverlo en Json
             JsonView::render($users);
@@ -35,7 +35,7 @@ switch ($action) {
             }
             
             // Datos obtenidos del metodo
-            $user = $userRepository->obtenerUsuarioEmail($email);
+            $user = $communityRepository->obtenerUsuarioEmail($email);
 
             // Devolverlo en Json
             JsonView::render($user);
@@ -59,7 +59,7 @@ switch ($action) {
             }
             
             // Datos obtenidos del metodo
-            $userRepository->agregarUsuario($data);
+            $communityRepository->agregarUsuario($data);
 
             // Devolverlo en Json
             JsonView::agregadoMsj();
@@ -83,7 +83,7 @@ switch ($action) {
             }
             
             // Datos obtenidos del metodo
-            $userRepository->actualizarUsuario($data);
+            $communityRepository->actualizarUsuario($data);
 
             // Devolverlo en Json
             JsonView::actualizadoMsj();
@@ -106,7 +106,7 @@ switch ($action) {
             }
             
             // Datos obtenidos del metodo
-            $userRepository->sumarDeseado($data);
+            $communityRepository->sumarDeseado($data);
 
             // Respuesta Json
             JsonView::actualizadoMsj();
@@ -129,7 +129,7 @@ switch ($action) {
             }
             
             // Datos obtenidos del metodo
-            $userRepository->restarDeseado($data);
+            $communityRepository->restarDeseado($data);
 
             // Respuesta Json
             JsonView::actualizadoMsj();
@@ -152,7 +152,7 @@ switch ($action) {
             }
             
             // Datos obtenidos del metodo
-            $userRepository->sumarTerminado($data);
+            $communityRepository->sumarTerminado($data);
 
             // Respuesta Json
             JsonView::actualizadoMsj();
@@ -175,7 +175,7 @@ switch ($action) {
             }
             
             // Datos obtenidos del metodo
-            $userRepository->restarTerminado($data);
+            $communityRepository->restarTerminado($data);
 
             // Respuesta Json
             JsonView::actualizadoMsj();

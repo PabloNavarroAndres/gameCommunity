@@ -22,6 +22,14 @@ if (isset($_GET['controller'])) {
             include_once 'app/controllers/userGame.controller.php';
             break;
 
+        case 'comunidades':
+            include_once 'app/controllers/community.controller.php';
+            break;
+
+        case 'comunidadUsuario':
+            include_once 'app/controllers/userCommunity.controller.php';
+            break;
+
         default:
             echo json_encode(['error' => 'Controlador no válido']);
             break;

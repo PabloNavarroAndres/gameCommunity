@@ -4,7 +4,7 @@ require_once 'app/models/repository/game.repository.php';
 require_once 'app/views/json.view.php';
 
 // Crear instancia de GameRepository con la conexión a la base de datos
-$gameRepository = new GameRepository;
+$communityRepository = new GameRepository;
 
 $action = $_GET['action'];
 
@@ -14,10 +14,10 @@ switch ($action) {
         try {
 
             // Datos obtenidos del metodo
-            $games = $gameRepository->obtenerVideojuegos();
+            $community = $communityRepository->obtenerVideojuegos();
 
             // Devolverlo en Json
-            JsonView::render($games);
+            JsonView::render($community);
 
         } catch (Exception $e) {
             echo json_encode(['error' => $e->getMessage()]);
@@ -33,10 +33,10 @@ switch ($action) {
             }
 
             // Datos obtenidos del metodo
-            $games = $gameRepository->obtenerVideojuegosUsuario($email);
+            $community = $communityRepository->obtenerVideojuegosUsuario($email);
 
             // Devolverlo en Json
-            JsonView::render($games);
+            JsonView::render($community);
 
         } catch (Exception $e) {
             echo json_encode(['error' => $e->getMessage()]);

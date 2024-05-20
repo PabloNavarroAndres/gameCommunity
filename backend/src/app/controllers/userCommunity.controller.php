@@ -1,19 +1,28 @@
 <?php
 
-require_once 'app/models/repository/userGame.repository.php';
+require_once 'app/models/repository/userCommunity.repository.php';
 require_once 'app/views/json.view.php';
 
-// Crear instancia de GameRepository con la conexión a la base de datos
-$userCommunityRepository = new UserGameRepository;
+// Crear instancia del repositorio con la conexión a la base de datos
+$userCommunityRepository = new UserCommunityRepository;
 
 $action = $_GET['action'];
 
 switch ($action) {
 
-    case 'obtenerVideojuegosUsuario':
+    case 'obtenerUsuariosComunidad':
         try {
+
+            // Comunidad id
+            $community_id = $_GET['community_id'];
+
+            // Verificar si se proporcionaron todos los campos necesarios
+            if (!isset($community_id)) {
+                throw new Exception('Falta el id de la comunidad');
+            }
+
             // Datos obtenidos del metodo
-            $usersCommunity = $userCommunityRepository->obtenerVideojuegosUsuario();
+            $usersCommunity = $userCommunityRepository->obtenerUsuariosComunidad($community_id);
 
             // Devolverlo en Json
             JsonView::render($usersCommunity);
@@ -23,16 +32,16 @@ switch ($action) {
         }
         break;
 
-    case 'agregarVideojuegoUsuario':
+    case 'agregarUsuariosComunidad':
         try {
 
-            // Crear un nuevo videojuego de usuario
+            // Crear un nuevo usuario de comunidad
             // Obtener los datos del usuario del cuerpo de la solicitud (POST)
             $data = json_decode(file_get_contents('php://input'), true);
 
             // Verificar si se proporcionaron todos los campos necesarios
             if (!isset($data['game_id']) || !isset($data['user_email'])) {
-                throw new Exception('Faltan campos obligatorios del videojuego de usuario');
+                throw new Exception('Faltan campos obligatorios del usuario de comunidad');
             }
 
             // Datos obtenidos del metodo
@@ -43,20 +52,20 @@ switch ($action) {
 
         } catch (Exception $e) {
             // Manejar la excepción
-            echo json_encode(array('Error al insertar videojuego de usuario' => $e->getMessage()));
+            echo json_encode(array('Error al insertar usuario de comunidad' => $e->getMessage()));
         }
         break;
         
-    case 'eliminarVideojuegoUsuario':
+    case 'eliminarUsuariosComunidad':
         try {
 
-            // Crear un nuevo videojuego de usuario
+            // Crear un nuevo usuario de comunidad
             // Obtener los datos del usuario del cuerpo de la solicitud (POST)
             $data = json_decode(file_get_contents('php://input'), true);
 
             // Verificar si se proporcionaron todos los campos necesarios
             if (!isset($data['game_id']) || !isset($data['user_email'])) {
-                throw new Exception('Faltan campos obligatorios del videojuego de usuario');
+                throw new Exception('Faltan campos obligatorios del usuario de comunidad');
             }
 
             // Datos obtenidos del metodo
@@ -67,11 +76,11 @@ switch ($action) {
 
         } catch (Exception $e) {
             // Manejar la excepción
-            echo json_encode(array('Error al eliminar videojuego de usuario' => $e->getMessage()));
+            echo json_encode(array('Error al eliminar usuario de comunidad' => $e->getMessage()));
         }
         break;
 
-    case 'actualizarVideojuegoUsuario':
+    case 'actualizarUsuariosComunidad':
         try {
 
             // Obtener los datos de los detalles de videojuego del cuerpo de la solicitud (POST)
@@ -80,7 +89,7 @@ switch ($action) {
             // Verificar si se proporcionaron los campos necesarios
             if ( !isset($data['user_email']) || !isset($data['game_id']) ) {
 
-                throw new Exception('Faltan campos obligatorios del videojuego de usuario');
+                throw new Exception('Faltan campos obligatorios del usuario de comunidad');
 
             } else if (!isset($data['status']) && !isset($data['personal_comment']) && !isset($data['rating'])) {
 
@@ -95,7 +104,7 @@ switch ($action) {
 
         } catch (Exception $e) {
             // Manejar la excepción
-            echo json_encode(array('Error al actualizar videojuego de usuario' => $e->getMessage()));
+            echo json_encode(array('Error al actualizar usuario de comunidad' => $e->getMessage()));
         }
         break;
 
