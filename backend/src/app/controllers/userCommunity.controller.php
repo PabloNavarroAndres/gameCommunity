@@ -32,19 +32,19 @@ switch ($action) {
         }
         break;
 
-    case 'agregarUsuariosComunidad':
+    case 'agregarUsuarioComunidad':
         try {
 
             // Obtener los datos del usuario del cuerpo de la solicitud (POST)
             $data = json_decode(file_get_contents('php://input'), true);
 
             // Verificar si se proporcionaron todos los campos necesarios
-            if (!isset($data['user_email']) || !isset($data['community_id']) || !isset($data['isAdmin']) ) {
+            if (!isset($data['user_email']) || !isset($data['community_id']) || !isset($data['isCreator']) ) {
                 throw new Exception('Faltan campos obligatorios del usuario de comunidad');
             }
 
             // Datos obtenidos del metodo
-            $userCommunityRepository->agregarVideojuegoUsuario($data);
+            $userCommunityRepository->agregarUsuarioComunidad($data);
 
             // Devolverlo en Json
             JsonView::agregadoMsj();

@@ -7,6 +7,8 @@ import { CommonModule } from '@angular/common';
 import { Comunidad } from '../../models/comunidad.interface';
 import { UsuarioService } from '../../services/usuarios.service';
 import { NavegacionService } from '../../services/navegacion.service';
+import { UsuariosComunidadService } from '../../services/usuarios-comunidad.service';
+import { UsuarioComunidad } from '../../models/usuarioComunidad.interface';
 
 @Component({
   selector: 'app-comunidad-crear',
@@ -19,6 +21,9 @@ export class ComunidadCrearComponent {
 
   // Servicio de comunidades
   private _comunidadService = inject(ComunidadesService);
+
+  // Servicio de usuarios de comunidad
+  private _usuariosComunidadService = inject(UsuariosComunidadService);
 
   // Servicio de usuarios
   private _usuarioService = inject(UsuarioService);
@@ -144,8 +149,27 @@ export class ComunidadCrearComponent {
             // Vaciar campos del formulario
             this.formularioComunidad.reset();
 
-            // Agregar al usuario a la comunidad como creador (administrador)
-            // ...
+            /* console.log('usuario iniciado: ');
+            console.log(this.usuarioIniciado);
+
+            // Crear Usuario Comunidad con datos del usuario
+            // y como creador
+            const usuarioComunidad: UsuarioComunidad = {
+              user_email: this.usuarioIniciado.email,
+              community_id: response.community_ as number,
+              isCreator:  1
+            };
+
+            // Agregar al usuario creador de la comunidad
+            this._usuariosComunidadService.agregarUsuarioComunidad(usuarioComunidad)
+            .subscribe({
+              next: (response: UsuarioComunidad) => {
+                console.log('Usuario agregado correctamente:', response);
+              },
+              error: (error: any) => {
+                console.error('Error al agregar usuario:', error);
+              }
+            }); */
 
           },
           error: (error: any) => {

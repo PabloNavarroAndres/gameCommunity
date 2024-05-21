@@ -28,7 +28,7 @@ export class ComunidadPersonalizadaComponent {
   // Servicio de comunidades
   private _comunidadService = inject(ComunidadesService);
 
-  // Servicio de comunidades
+  // Servicio de usuarios de comunidad
   private _usuariosComunidadService = inject(UsuariosComunidadService);
 
   // Servicio de navegacion
@@ -110,8 +110,11 @@ export class ComunidadPersonalizadaComponent {
 
   // Agregar usuario iniciado
   unirseComunidad() {
+
     // Buscamos si el usuario existe
-    const usuarioExiste = this.usuariosComunidad.find(usuario => {usuario.user_email === this.usuarioIniciado.email});
+    const usuarioExiste = this.usuariosComunidad.find(
+      usuario => {usuario.user_email === this.usuarioIniciado.email
+    });
 
     if (usuarioExiste) {
 
@@ -119,15 +122,19 @@ export class ComunidadPersonalizadaComponent {
 
     } else {      
 
+      // Crear Usuario Comunidad con datos del usuario
+      // iniciado y la comunidad activa
       const usuarioComunidad: UsuarioComunidad = {
         user_email: this.usuarioIniciado.email,
         community_id: this.comunidadActiva?.community_id as number,
         isCreator:  0,
         isAdmin:  this.usuarioIniciado.isAdmin as number,
         username:  this.usuarioIniciado.username,
+        profile_picture: this.usuarioIniciado.profile_picture,
         total_games:  this.usuarioIniciado.total_games
       };
 
+      // Agregar el nuevo usuario
       this._usuariosComunidadService.agregarUsuarioComunidad(usuarioComunidad)
       .subscribe({
         next: (response: any) => {

@@ -53,40 +53,25 @@ class UserCommunityRepository {
         }
     }
 
-    public function agregarVideojuegoUsuario($data) {
+    public function agregarUsuarioComunidad($data) {
         try {
 
-            // Comenzar la transacción
-            $this->bd->beginTransaction();
-
             // Insertar datos en la base de datos
-            $game_id = $data['game_id'];
             $user_email = $data['user_email'];
+            $community_id = $data['community_id'];
+            $isCreator = $data['isCreator'];
 
             // Query para agregar el juego de usuario
-            $queryInsert = $this->bd->prepare(
-                "INSERT INTO User_games 
-                (game_id, user_email) 
-                VALUES (?, ?)"
+            $sql = $this->bd->prepare(
+                "INSERT INTO Users_in_communities 
+                (user_email, community_id, isCreator) 
+                VALUES (?, ?, ?)"
             );
 
-            $queryInsert->execute([$game_id, $user_email]);
-
-
-            // Query para actualizar el contador total_games
-            $sqlUpdateTotalGames = $this->bd->prepare(
-                "UPDATE Users SET total_games = total_games + 1 WHERE email = ?"
-            );
-
-            $sqlUpdateTotalGames->execute([$user_email]);            
-
-
-            // Confirmar la transacción
-            $this->bd->commit();
+            $sql->execute([$user_email, $community_id, $isCreator]);
+         
 
         } catch (Exception $e) {
-            // Si ocurre un error, revertir la transacción
-            $this->bd->rollBack();
 
             // Manejar la excepción
             echo json_encode(array('Error al insertar videojuego de usuario' => $e->getMessage()));
