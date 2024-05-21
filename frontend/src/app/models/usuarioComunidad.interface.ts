@@ -1,7 +1,7 @@
 export interface UsuarioComunidad {
     user_email: string;
     community_id:   number;
-    isCreator:  number;
+    isCreator?:  number;
     isAdmin?:  number;
     username?: string;
     password?: string;

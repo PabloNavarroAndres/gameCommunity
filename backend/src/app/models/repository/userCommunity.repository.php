@@ -78,38 +78,25 @@ class UserCommunityRepository {
         }
     }
 
-    public function eliminarVideojuegoUsuario($data) {
+    public function eliminarUsuarioComunidad($data) {
         try {
-            // Comenzar la transacción
-            $this->bd->beginTransaction();
         
-            // Obtener los datos del juego de usuario a eliminar
-            $game_id = $data['game_id'];
+            // Obtener datos
             $user_email = $data['user_email'];
+            $community_id = $data['community_id'];
         
             // Query para eliminar el juego de usuario
             $queryDelete = $this->bd->prepare(
-                "DELETE FROM User_games WHERE game_id = ? AND user_email = ?"
+                "DELETE FROM Users_in_communities 
+                WHERE user_email = ? AND community_id = ?"
             );
         
-            $queryDelete->execute([$game_id, $user_email]);
-        
-            // Query para actualizar el contador total_games
-            $sqlUpdateTotalGames = $this->bd->prepare(
-                "UPDATE Users SET total_games = total_games - 1 WHERE email = ?"
-            );
-
-            $sqlUpdateTotalGames->execute([$user_email]);
-        
-            // Confirmar la transacción
-            $this->bd->commit();
+            $queryDelete->execute([$user_email, $community_id]);
         
             // Devolver algún tipo de confirmación o mensaje de éxito si es necesario
         } catch (PDOException $e) {
-            // Si ocurre un error, revertir la transacción
-            $this->bd->rollBack();
             // Manejar la excepción
-            $errorMessage = "Error al eliminar el juego de usuario: " . $e->getMessage();
+            $errorMessage = "Error al eliminar al usuario de comunidad: " . $e->getMessage();
             echo json_encode(array("error" => $errorMessage));
         }
         

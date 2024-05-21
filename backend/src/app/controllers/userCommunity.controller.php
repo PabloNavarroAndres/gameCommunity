@@ -55,7 +55,7 @@ switch ($action) {
         }
         break;
         
-    case 'eliminarUsuariosComunidad':
+    case 'eliminarUsuarioComunidad':
         try {
 
             // Crear un nuevo usuario de comunidad
@@ -63,12 +63,12 @@ switch ($action) {
             $data = json_decode(file_get_contents('php://input'), true);
 
             // Verificar si se proporcionaron todos los campos necesarios
-            if (!isset($data['game_id']) || !isset($data['user_email'])) {
+            if (!isset($data['community_id']) || !isset($data['user_email'])) {
                 throw new Exception('Faltan campos obligatorios del usuario de comunidad');
             }
 
             // Datos obtenidos del metodo
-            $userCommunityRepository->eliminarVideojuegoUsuario($data);
+            $userCommunityRepository->eliminarUsuarioComunidad($data);
 
             // Devolverlo en Json
             JsonView::eliminadoMsj();

@@ -40,6 +40,12 @@ export class ComunidadPersonalizadaComponent {
   // Usuario iniciado
   usuarioIniciado: User = this._usuarioService.obtenerUsuarioIniciado() as User;
 
+  // Comprobar si es miembro de la comunidad
+  esMiembro: boolean = false;
+
+  // Comprobar si es creador de la comunidad
+  usuarioCreador: boolean = false;
+
   // Array comunidades
   comunidades: Comunidad[] = [];
 
@@ -87,6 +93,18 @@ export class ComunidadPersonalizadaComponent {
                       this.usuariosComunidad = usuarios;
                       console.log(this.usuariosComunidad);
                       console.log('Usuarios de comunidad obtenidos:', usuarios);
+
+                      // Se busca si el usuario iniciado es parte de la comunidad
+                      const iniciadoMiembro = usuarios.find(usuario => usuario.user_email === this.usuarioIniciado.email);
+
+                      if (iniciadoMiembro) {
+                        this.esMiembro = true;
+                      }
+
+                      // Comprobamos si es creador 
+                      if (iniciadoMiembro?.isCreator) {
+                        this.usuarioCreador = true;
+                      }
                     },
                     error: (error: any) => {
                       console.error('Error al obtener usuarios de comunidad:', error);
@@ -108,17 +126,12 @@ export class ComunidadPersonalizadaComponent {
     });
   }
 
-  // Agregar usuario iniciado
+  // Agregar usuario iniciado a la comunidad
   unirseComunidad() {
 
-    // Buscamos si el usuario existe
-    const usuarioExiste = this.usuariosComunidad.find(
-      usuario => {usuario.user_email === this.usuarioIniciado.email
-    });
+    if (this.esMiembro) {
 
-    if (usuarioExiste) {
-
-      console.log('El usuario ya existe');
+      console.log('El usuario ya es miembro');
 
     } else {      
 
@@ -139,13 +152,64 @@ export class ComunidadPersonalizadaComponent {
       .subscribe({
         next: (response: any) => {
           console.log('Usuario agregado correctamente:', response);
+          // Añadimos usuario al array
           this.usuariosComunidad.push(usuarioComunidad);
+
+          // Se activa condición de miembro
+          this.esMiembro = true;
+          
         },
         error: (error: any) => {
           console.error('Error al agregar usuario:', error);
         }
       });
     }
+
+  }
+
+  // Eliminar usuario iniciado de la comunidad
+  salirseComunidad() {
+   
+    if (this.esMiembro) {
+
+      // Crear Usuario Comunidad con datos del usuario
+      // iniciado y la comunidad activa
+      const usuarioComunidad: UsuarioComunidad = {
+        user_email: this.usuarioIniciado.email,
+        community_id: this.comunidadActiva?.community_id as number,
+      };
+
+      // Eliminar el usuario
+      this._usuariosComunidadService.eliminarUsuarioComunidad(usuarioComunidad)
+      .subscribe({
+        next: (response: any) => {
+          console.log('Usuario eliminado correctamente:', response);
+
+          // Se busca si el usuario iniciado es parte de la comunidad
+          const indiceMiembro = this.usuariosComunidad.findIndex(usuario => usuario.user_email === this.usuarioIniciado.email);
+
+          this.esMiembro = false;
+
+          // Verificar si se encontró el usuario en el array
+          if (indiceMiembro !== -1) {
+            // Eliminar el usuario del array
+            this.usuariosComunidad.splice(indiceMiembro, 1);
+          } else {
+            console.warn('Usuario no encontrado en la comunidad.');
+          }
+        },
+        error: (error: any) => {
+          console.error('Error al eliminar usuario:', error);
+        }
+      });
+
+    }
+  }
+
+  // Eliminar la comunidad activa
+  eliminarComunidad() {
+
+
 
   }
 
