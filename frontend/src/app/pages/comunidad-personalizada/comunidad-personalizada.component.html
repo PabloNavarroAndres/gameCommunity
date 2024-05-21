@@ -36,9 +36,9 @@
 
         <!-- Botones -->
         <div class="botones-comunidad">
-            @if (esMiembro) {
+            @if (esMiembro && !usuarioCreador) {
                 <button class="boton-general boton-salir" (click)="salirseComunidad()">Salir</button>
-            } @else {
+            } @else if (!esMiembro) {
                 <button class="boton-general" (click)="unirseComunidad()">Unirse</button>
             }
             @if (usuarioCreador) {
