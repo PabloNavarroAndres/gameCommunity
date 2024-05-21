@@ -46,7 +46,7 @@ switch ($action) {
             // Datos obtenidos del metodo
             $userCommunityRepository->agregarUsuarioComunidad($data);
 
-            // Devolverlo en Json
+            // Devolverlo mensaje correcto en Json
             JsonView::agregadoMsj();
 
         } catch (Exception $e) {

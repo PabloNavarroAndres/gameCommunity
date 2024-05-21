@@ -74,7 +74,7 @@ class UserCommunityRepository {
         } catch (Exception $e) {
 
             // Manejar la excepción
-            echo json_encode(array('Error al insertar videojuego de usuario' => $e->getMessage()));
+            echo json_encode(array('Error al insertar usuario de comunidad' => $e->getMessage()));
         }
     }
 

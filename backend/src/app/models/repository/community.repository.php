@@ -53,12 +53,24 @@ class CommunityRepository {
         $image = $data['image'];
         $creator_email = $data['creator_email'];
 
-        $query = $this->bd->prepare("INSERT INTO Communities 
+        $queryCommunity = $this->bd->prepare("INSERT INTO Communities 
                 (title, description, image, creator_email) 
                 VALUES (?, ?, ?, ?)");
 
         // Ejecutar consulta
-        $query->execute([$title, $description, $image, $creator_email]);
+        $queryCommunity->execute([$title, $description, $image, $creator_email]);
+
+        // Obtener el ID de la última fila insertada
+        $community_id = $this->bd->lastInsertId();
+
+        // Colocar al usuario de la comunidad como creador
+        $queryUsuario = $this->bd->prepare("INSERT INTO Users_in_communities 
+                (user_email, community_id, isCreator) 
+                VALUES (?, ?, 1)");
+
+        // Ejecutar consulta
+        $queryUsuario->execute([$creator_email, $community_id]);
+
     }
 
 }
