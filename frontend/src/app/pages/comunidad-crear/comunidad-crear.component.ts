@@ -149,28 +149,6 @@ export class ComunidadCrearComponent {
             // Vaciar campos del formulario
             this.formularioComunidad.reset();
 
-            /* console.log('usuario iniciado: ');
-            console.log(this.usuarioIniciado);
-
-            // Crear Usuario Comunidad con datos del usuario
-            // y como creador
-            const usuarioComunidad: UsuarioComunidad = {
-              user_email: this.usuarioIniciado.email,
-              community_id: response.community_ as number,
-              isCreator:  1
-            };
-
-            // Agregar al usuario creador de la comunidad
-            this._usuariosComunidadService.agregarUsuarioComunidad(usuarioComunidad)
-            .subscribe({
-              next: (response: UsuarioComunidad) => {
-                console.log('Usuario agregado correctamente:', response);
-              },
-              error: (error: any) => {
-                console.error('Error al agregar usuario:', error);
-              }
-            }); */
-
           },
           error: (error: any) => {
             console.error('Error al agregar comunidad:', error);

@@ -70,6 +70,7 @@ export class ComunidadPersonalizadaComponent {
 
             // Establecemos las comunidades obtenidas
             this.comunidades = comunidades;
+            console.log(this.comunidades);
 
             // Si el idComunidad existe es que estamos visitando una comunidad
             if (idComunidad) {
@@ -209,7 +210,27 @@ export class ComunidadPersonalizadaComponent {
   // Eliminar la comunidad activa
   eliminarComunidad() {
 
+    this._comunidadService.eliminarComunidad(this.comunidadActiva?.community_id as number)
+    .subscribe({
+      next: (response: any) => {
 
+        // Eliminar comunidad del array
+        const comunidadIndex = this.comunidades.findIndex(comunidad => comunidad.title === this.comunidadActiva?.title);
+
+        if (comunidadIndex !== -1) {
+
+          this.comunidades.splice(comunidadIndex, 1);
+
+          this.goBack();
+        } else {
+          console.error('Comunidad no encontrada en el array');
+        }
+
+      },
+      error: (error: any) => {
+        console.error('Error al eliminar comunidad:', error);
+      }
+    });
 
   }
 

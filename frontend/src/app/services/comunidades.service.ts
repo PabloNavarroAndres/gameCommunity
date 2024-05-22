@@ -24,8 +24,8 @@ export class ComunidadesService {
   }
 
   // Obtener comunidad
-  eliminarComunidad(): Observable<Comunidad> {
-    return this._http.get<Comunidad>(`${this.url}?controller=comunidades&action=eliminarComunidad`);
+  eliminarComunidad(community_id: number): Observable<Comunidad> {
+    return this._http.delete<Comunidad>(`${this.url}?controller=comunidades&action=eliminarComunidad&community_id=${community_id}`);
   }
 
   // Actualizar comunidad

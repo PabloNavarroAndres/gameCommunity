@@ -37,11 +37,34 @@ switch ($action) {
                 throw new Exception('Faltan campos obligatorios de comunidad');
             }
             
-            // Datos obtenidos del metodo
+            // Funcion de agregar
             $communityRepository->agregarComunidad($data);
 
             // Devolverlo en Json
             JsonView::agregadoMsj();
+
+        } catch (Exception $e) {
+            // Manejar la excepción
+            echo json_encode(array('Error al insertar comunidad' => $e->getMessage()));
+        }
+        break;
+
+    case 'eliminarComunidad':
+        try {
+
+            // Obtener los datos
+            $community_id = $_GET['community_id'];
+
+            // Verificar si se proporcionaron todos los campos necesarios
+            if ( !isset($community_id)) {
+                throw new Exception('Falta el id de comunidad');
+            }
+            
+            // Funcion de eliminar
+            $communityRepository->eliminarComunidad($community_id);
+
+            // Devolverlo en Json
+            JsonView::eliminadoMsj();
 
         } catch (Exception $e) {
             // Manejar la excepción
