@@ -288,6 +288,18 @@ app-root {
     .ficha {
         width: calc(50% - 40px);
     }
+
+    .form-general {
+        width: 90%;
+        padding: 20px;
+        margin-top: 30px;
+    }
+
+    .titulo-mediano {
+        font-size: 2rem !important;
+    }
+
+    
 }
 
 @media (max-width: 480px) {

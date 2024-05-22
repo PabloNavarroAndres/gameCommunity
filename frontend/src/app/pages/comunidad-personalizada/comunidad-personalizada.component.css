@@ -73,6 +73,21 @@ h2 {
     align-items: center;
 }
 
+.botones-lados {
+    display: flex;
+    justify-content: space-evenly;
+
+}
+
+.botones-lados button {
+    margin: 0;
+}
+
+.botones-lados button:nth-child(2) {
+    padding-left: 20px;
+    padding-right: 20px;
+}
+
 /* Media Query */
 @media (max-width: 460px) {
     .subtitulo-descripcion {
