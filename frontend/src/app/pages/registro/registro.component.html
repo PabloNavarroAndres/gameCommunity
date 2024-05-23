@@ -31,6 +31,10 @@
             <div class="msj-validadores" *ngIf="hasErrors('nombre', 'minlength')">
                 El nombre debe ser de mínimo 4 caracteres.
             </div>
+
+            <div class="msj-validadores" *ngIf="hasErrors('nombre', 'maxlength')">
+                El nombre debe ser de máximo 12 caracteres.
+            </div>
         </div>
 
         <!-- Contraseña -->

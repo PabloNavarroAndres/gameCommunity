@@ -30,7 +30,7 @@ export class RegistroComponent {
     // Añadir validadores a los campos del formulario
     this.formularioRegistro = this.form.group({
       email: ['', [Validators.required, Validators.email, this.validarEmailExtension]],
-      nombre: ['', [Validators.required, Validators.minLength(4)]],
+      nombre: ['', [Validators.required, Validators.minLength(4), Validators.maxLength(12)]],
       password: ['', [Validators.required, Validators.minLength(8)]]
     });
   }
