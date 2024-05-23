@@ -255,6 +255,16 @@ app-root {
     padding: 5px;
 }
 
+.msj-exito {
+    text-align: center;
+    background: rgb(22, 120, 0);
+    color: white !important;
+    width: 40%;
+    margin: 0 auto;
+    border-radius: 20px;
+    padding: 5px;
+}
+
 /* Placeholder */
 .placeholderStyle {
     color: gray;

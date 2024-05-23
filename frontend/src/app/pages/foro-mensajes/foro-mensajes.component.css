@@ -118,6 +118,17 @@
     background-color: #3a005e;
 }
 
+#send-disabled {
+    width: 20%;
+    padding: 10px;
+    background-color: gray;
+    color: white;
+    border: none;
+    border-radius: 0 10px 10px 0;
+    cursor: pointer;
+    font-size: 16px;
+}
+
 
 
 /* Media Query */

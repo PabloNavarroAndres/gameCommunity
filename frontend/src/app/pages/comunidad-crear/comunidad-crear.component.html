@@ -69,6 +69,11 @@
             Ya existe una comunidad con ese nombre
         </div>
 
+        <!-- Mensaje de éxito -->
+        <div class="msj-exito" *ngIf="msjComunidadCreada()">
+            ¡Comunidad creada con éxito!
+        </div>
+
         <!-- Crear Comunidad -->
         <button type="submit" class="boton-general">Crear</button>
     </form>

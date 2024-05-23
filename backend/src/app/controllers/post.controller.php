@@ -26,7 +26,7 @@ switch ($action) {
         }
         break;
 
-    /* case 'crearPost':
+    case 'crearPost':
         try {
 
             // Obtener los datos del usuario del cuerpo de la solicitud (POST)
@@ -46,7 +46,7 @@ switch ($action) {
         } catch (Exception $e) {
             echo json_encode(['error' => $e->getMessage()]);
         }
-        break; */
+        break;
 
     default:
         echo json_encode(['error' => 'Acción no válida']);

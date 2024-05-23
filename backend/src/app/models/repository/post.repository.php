@@ -29,7 +29,8 @@ class PostRepository {
                     u.profile_picture
                 FROM Posts p
                 JOIN Users u ON p.user_email = u.email
-                WHERE  p.community_id = ?"
+                WHERE  p.community_id = ?
+                ORDER BY p.post_id ASC"
             );
 
             $sql->execute([$community_id]);
@@ -62,7 +63,30 @@ class PostRepository {
         }
     }
 
-    public function obtenerUsuarioEmail($email) {
+    public function crearPost($data) {
+        try {
+
+            $content = $data['content'];
+            $user_email = $data['user_email'];
+            $community_id = $data['community_id'];
+
+            // Consulta para obtener todos los posts de una comunidad,
+            // con la informacion asociada al usuario del post
+            $sql = $this->bd->prepare(
+                "INSERT INTO Posts (content, user_email, community_id) 
+                VALUES (?, ?, ?)"
+            );
+
+            $sql->execute([$content, $user_email, $community_id]);
+
+        } catch (PDOException $e) {
+            // Manejar la excepción
+            $errorMessage = "Error al insertar post: " . $e->getMessage();
+            echo json_encode(array("error" => $errorMessage));
+        }
+    }
+
+    /* public function obtenerUsuarioEmail($email) {
         try {
 
             // Consulta para obtener un usuario por su email
@@ -109,9 +133,6 @@ class PostRepository {
         $email = $data['email'];
         $username = $data['username'];
         $password = $data['password'];
-        $profile_picture = '../../../assets/perfil/user.png';
-        $total_games = 0;
-        $isAdmin = 0;
 
         $query = $this->bd->prepare("INSERT INTO Users 
                 (email, username, password, profile_picture, total_games, isAdmin) 
@@ -119,7 +140,7 @@ class PostRepository {
 
         // Ejecutar consulta
         $query->execute([$email, $username, $password, $profile_picture, $total_games, $isAdmin]);
-    }
+    } */
 }
 
 /* Idea para la BD

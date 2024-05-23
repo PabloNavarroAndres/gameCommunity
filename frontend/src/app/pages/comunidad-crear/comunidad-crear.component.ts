@@ -40,6 +40,9 @@ export class ComunidadCrearComponent {
   // Mostrar mensaje de usuario existente
   comunidadExiste: boolean = false;
 
+  // Mostrar mensaje de comunidad creada
+  comunidadCreada: boolean = false;
+
   // Array comunidades
   comunidades: Comunidad[] = [];
 
@@ -88,14 +91,17 @@ export class ComunidadCrearComponent {
         console.error('Error al obtener comunidades:', error);
       }
     });
-
-    // Pasamos el índice de la imagen del usuario al del array de imagenes
-    /* this.i = this.imagenes.findIndex(imagen => this.comunidad.image === imagen); */
+  
   }
 
   // Comprobar si el usuario existe en la BD
   msjTituloExiste() {
     return this.comunidadExiste;
+  }
+
+  // Activar mensaje de comunidad creada
+  msjComunidadCreada() {
+    return this.comunidadCreada;
   }
 
   // Envio del formulario
@@ -131,7 +137,7 @@ export class ComunidadCrearComponent {
         // (esto activará el mensaje que lo indica)
         this.comunidadExiste = true;
 
-        // Desactivar el mensaje después de 5 segundos
+        // Desactivar el mensaje de error después de 5 segundos
         setTimeout(() => {
           this.comunidadExiste = false;
         }, 5000);
@@ -145,6 +151,13 @@ export class ComunidadCrearComponent {
         .subscribe({
           next: (response: any) => {
             console.log('Comunidad agregada correctamente:', response);
+
+            this.comunidadCreada = true;
+
+            // Desactivar el mensaje de éxito después de 5 segundos
+            setTimeout(() => {
+              this.comunidadCreada = false;
+            }, 5000);
 
             // Vaciar campos del formulario
             this.formularioComunidad.reset();
