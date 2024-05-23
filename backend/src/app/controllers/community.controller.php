@@ -4,7 +4,7 @@ require_once 'app/models/repository/community.repository.php';
 require_once 'app/views/json.view.php';
 
 // Crear instancia de GameRepository con la conexión a la base de datos
-$communityRepository = new CommunityRepository;
+$postRepository = new CommunityRepository;
 
 $action = $_GET['action'];
 
@@ -14,10 +14,10 @@ switch ($action) {
         try {
 
             // Datos obtenidos del metodo
-            $community = $communityRepository->obtenerComunidades();
+            $post = $postRepository->obtenerComunidades();
 
             // Devolverlo en Json
-            JsonView::render($community);
+            JsonView::render($post);
 
         } catch (Exception $e) {
             echo json_encode(['error' => $e->getMessage()]);
@@ -38,7 +38,7 @@ switch ($action) {
             }
             
             // Funcion de agregar
-            $communityRepository->agregarComunidad($data);
+            $postRepository->agregarComunidad($data);
 
             // Devolverlo en Json
             JsonView::agregadoMsj();
@@ -61,7 +61,7 @@ switch ($action) {
             }
             
             // Funcion de eliminar
-            $communityRepository->eliminarComunidad($community_id);
+            $postRepository->eliminarComunidad($community_id);
 
             // Devolverlo en Json
             JsonView::eliminadoMsj();

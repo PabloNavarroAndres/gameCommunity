@@ -1,7 +1,25 @@
 <h2 class="titulo-ruta">FORO DE MENSAJES</h2>
+<button class="boton-general btn-volver" (click)="goBack()">↽ Volver</button>
 
 <div class="message-container">
-    <div class="message">
+
+    @for (post of posts; track $index) {
+        <div class="message">
+
+            <div class="user-profile">
+                <img [src]="post.profile_picture" alt="Foto" class="message-img">
+                <span class="user-name">{{post.username}}</span>
+            </div>
+
+            <div class="message-text">
+                {{post.content}}
+            </div>
+        </div>
+        
+        <div class="separator"></div>
+    }
+
+    <!-- <div class="message">
         <div class="user-profile">
             <img src="../../../assets/perfil/user.png" alt="Foto" class="message-img">
             <span class="user-name">Nombre</span>
@@ -67,46 +85,11 @@
         <div class="message-text">
             Este es un mensaje de prueba que ocupa todo el ancho del contenedor y tiene el texto alineado a la izquierda.
         </div>
-    </div>
-
-    <div class="message">
-        <div class="user-profile">
-            <img src="../../../assets/perfil/user.png" alt="Foto" class="message-img">
-            <span>Nombre</span>
-        </div>
-        <div class="message-text">
-            Este es un mensaje de prueba que ocupa todo el ancho del contenedor y tiene el texto alineado a la izquierda.
-        </div>
-    </div>
-
-    <div class="message">
-        <div class="user-profile">
-            <img src="../../../assets/perfil/user.png" alt="Foto" class="message-img">
-            <span>Nombre</span>
-        </div>
-        <div class="message-text">
-            Este es un mensaje de prueba que ocupa todo el ancho del contenedor y tiene el texto alineado a la izquierda.
-        </div>
-    </div>
-
-    <div class="message">
-        <div class="user-profile">
-            <img src="../../../assets/perfil/user.png" alt="Foto" class="message-img">
-            <span class="user-name">Nombre</span>
-        </div>
-        <div class="message-text">
-            Este es un mensaje de prueba que ocupa todo el ancho del contenedor y tiene el texto alineado a la izquierda.
-        </div>
-    </div>
-
-    <div class="message">
-        <div class="user-profile">
-            <img src="../../../assets/perfil/user.png" alt="Foto" class="message-img">
-            <span>Nombre</span>
-        </div>
-        <div class="message-text">
-            Este es un mensaje de prueba que ocupa todo el ancho del contenedor y tiene el texto alineado a la izquierda.
-        </div>
-    </div>
+    </div> -->
         
+</div>
+
+<div class="input-container">
+    <input type="text" id="message-input" maxlength="200" placeholder="Escribe tu mensaje...">
+    <button id="send-button">Enviar</button>
 </div>

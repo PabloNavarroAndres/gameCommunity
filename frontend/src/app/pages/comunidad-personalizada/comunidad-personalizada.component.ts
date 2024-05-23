@@ -123,7 +123,7 @@ export class ComunidadPersonalizadaComponent {
           error: (error: any) => {
             console.error('Error al obtener comunidades:', error);
           }
-        });
+      });
     });
   }
 

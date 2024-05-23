@@ -89,22 +89,6 @@ h2 {
 }
 
 /* Media Query */
-@media (max-width: 460px) {
-    .subtitulo-descripcion {
-        font-size: 15px;
-        max-width: 90%;
-    }
-
-    .titulo-ruta {
-        font-size: 30px !important;
-    }
-
-    .boton-general {
-        padding: 7px;
-        margin-top: 20px;
-    }
-}
-
 @media (max-width: 768px) {
     .subtitulo-descripcion {
         font-size: 20px;
@@ -116,6 +100,18 @@ h2 {
     }
 
     .boton-general {
+        margin-top: 20px;
+    }
+}
+
+@media (max-width: 460px) {
+    .subtitulo-descripcion {
+        font-size: 15px;
+        max-width: 90%;
+    }
+
+    .boton-general {
+        padding: 7px;
         margin-top: 20px;
     }
 }

@@ -1,6 +1,6 @@
 .message-container {
     height: 500px;
-    width: 70%;
+    width: 80%;
     margin: 0 auto;
     background: linear-gradient(to bottom, #e0b3ff, #800080);
     overflow-y: scroll;
@@ -49,6 +49,8 @@
 }
 
 .user-name {
+    width: 100%;
+    text-align: center;
     background: white;
     border-radius: 20px;
     padding: 2px 10px;
@@ -76,6 +78,48 @@
     border-radius: 10px;
 }
 
+.input-container {
+    display: flex;
+    width: 80%;
+    margin: 0 auto;
+    margin-top: 5px;
+}
+
+#message-input {
+    width: 80%;
+    padding: 10px;
+    border: 2px solid #800080;
+    border-radius: 10px 0 0 10px;
+    outline: none;
+    font-size: 16px;
+    box-shadow: 0 0 5px rgba(0, 0, 0, 0.1);
+}
+
+#send-button {
+    width: 20%;
+    padding: 10px;
+    background-color: #800080;
+    color: white;
+    border: none;
+    border-radius: 0 10px 10px 0;
+    cursor: pointer;
+    font-size: 16px;
+    box-shadow: 0 0 5px rgba(0, 0, 0, 0.1);
+    transition: background-color 0.5s ease, color 0.5s ease;
+}
+
+#send-button:hover {
+    background: #d004d0;
+    color: var(--letra-color-btn);
+
+}
+
+#send-button:active {
+    background-color: #3a005e;
+}
+
+
+
 /* Media Query */
 @media (max-width: 1200px) {
     .message-container {
@@ -83,7 +127,7 @@
     }
 
     .user-profile {
-        width: 15%;
+        width: 25% !important;
     }
 }
 
@@ -94,13 +138,13 @@
         padding: 15px;
     }
 
-    .message-text {
-        width: 80%;
+    .input-container {
+        width: 95%;
     }
 
-    .user-profile {
-        width: 20% !important;
-    }   
+    .message-text {
+        width: 80%;
+    }  
 }
 
 @media (max-width: 480px) {

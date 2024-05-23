@@ -30,6 +30,10 @@ if (isset($_GET['controller'])) {
             include_once 'app/controllers/userCommunity.controller.php';
             break;
 
+        case 'post':
+            include_once 'app/controllers/post.controller.php';
+            break;
+
         default:
             echo json_encode(['error' => 'Controlador no válido']);
             break;
