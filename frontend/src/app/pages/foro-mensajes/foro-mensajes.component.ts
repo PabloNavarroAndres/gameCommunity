@@ -83,7 +83,9 @@ export class ForoMensajesComponent {
           next: (usuarios: UsuarioComunidad[]) => {
 
             // Se busca si el usuario iniciado es parte de la comunidad
-            const iniciadoMiembro = usuarios.find(usuario => usuario.user_email === this.usuarioIniciado.email);
+            const iniciadoMiembro = usuarios.find(
+              usuario => usuario.user_email === this.usuarioIniciado.email
+            );
 
             if (iniciadoMiembro) {
               this.esMiembro = true;
@@ -99,10 +101,6 @@ export class ForoMensajesComponent {
 
     });
   }
-
-  /* ngAfterViewChecked() {
-    this.scrollToBottom();
-  } */
 
   // Enviar mensaje al foro
   enviarMsj() {
@@ -133,13 +131,13 @@ export class ForoMensajesComponent {
         console.error('Error al crear post:', error);
       }
     });
-
   }
 
   // Bajar hasta el ultimo post
   private scrollToBottom(): void {
     try {
-      this.messageContainer.nativeElement.scrollTop = this.messageContainer.nativeElement.scrollHeight;
+      const messageContainer = this.messageContainer.nativeElement;
+      messageContainer.scrollTop = messageContainer.scrollHeight;
     } catch(err) {
       console.error('Error al desplazar el scroll:', err);
     }

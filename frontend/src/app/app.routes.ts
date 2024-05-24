@@ -8,6 +8,7 @@ import { ComunidadGlobalComponent } from './pages/comunidad-global/comunidad-glo
 import { ComunidadPersonalizadaComponent } from './pages/comunidad-personalizada/comunidad-personalizada.component';
 import { ComunidadCrearComponent } from './pages/comunidad-crear/comunidad-crear.component';
 import { ForoMensajesComponent } from './pages/foro-mensajes/foro-mensajes.component';
+import { PanelAdministradorComponent } from './pages/panel-administrador/panel-administrador.component';
 
 export const routes: Routes = [
     { path: '', component: HomeComponent },
@@ -22,5 +23,6 @@ export const routes: Routes = [
     { path: 'comunidades/personalizadas', component: ComunidadPersonalizadaComponent },
     { path: 'comunidades/personalizada/:comunidadId', component: ComunidadPersonalizadaComponent },
     { path: 'comunidades/personalizada/:comunidadId/foro', component: ForoMensajesComponent },
+    { path: 'administrador', component:  PanelAdministradorComponent},
     { path: '**', redirectTo: '', pathMatch: 'full' }
 ];

@@ -31,6 +31,9 @@
                     </a>
                     <ul class="dropdown-menu">
                       <li><a class="dropdown-item" routerLink="/perfil">Mi Perfil</a></li>
+                      @if (comprobarAdmin()) {
+                        <li><a class="dropdown-item" routerLink="/administrador">Panel Administrador</a></li>
+                      }
                       <li><a class="dropdown-item" (click)="cerrarSesion()" routerLink="">Cerrar sesión</a></li>
                     </ul>
                 </li>

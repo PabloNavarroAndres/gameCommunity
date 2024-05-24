@@ -6,6 +6,7 @@ import { Router, RouterLink, RouterOutlet } from '@angular/router';
 import { LoginService } from './services/login.service';
 import { RegistroService } from './services/registro.service';
 import { UsuarioService } from './services/usuarios.service';
+import { User } from './models/user.interface';
 
 @Component({
   selector: 'app-root',
@@ -49,6 +50,9 @@ export class AppComponent {
       case 'perfil':
         return this.usuarioIniciado();
 
+      case 'administrador':
+        return this.usuarioIniciado()
+
       default:
         return false;
     }
@@ -87,6 +91,14 @@ export class AppComponent {
     // Tiene que devolver falso para que no se muestre,
     // en caso de que no tenga nada el local storage
     return sesionIniciada !== null;
+  }
+
+  // Comprueba si la sesion del usuario está iniciada
+  comprobarAdmin() {
+    // Comprobamos si el usuario iniciado es admin
+    const usuarioIniciado = this.usuariosService.obtenerUsuarioIniciado() as User;
+
+    return usuarioIniciado.isAdmin;
   }
 
 }

@@ -7,8 +7,6 @@ import { CommonModule } from '@angular/common';
 import { Comunidad } from '../../models/comunidad.interface';
 import { UsuarioService } from '../../services/usuarios.service';
 import { NavegacionService } from '../../services/navegacion.service';
-import { UsuariosComunidadService } from '../../services/usuarios-comunidad.service';
-import { UsuarioComunidad } from '../../models/usuarioComunidad.interface';
 
 @Component({
   selector: 'app-comunidad-crear',
@@ -192,7 +190,7 @@ export class ComunidadCrearComponent {
         // Desactivar el mensaje de error después de 5 segundos
         setTimeout(() => {
           this.comunidadExiste = false;
-        }, 5000);
+        }, 4000);
 
         // La comunidad no existe en la bd
       } else {
@@ -209,7 +207,7 @@ export class ComunidadCrearComponent {
               // Desactivar el mensaje de éxito después de 5 segundos
               setTimeout(() => {
                 this.comunidadCreada = false;
-              }, 5000);
+              }, 4000);
 
               // Vaciar campos del formulario
               this.formularioComunidad.reset();
@@ -236,23 +234,27 @@ export class ComunidadCrearComponent {
       // Obtener los datos del formulario
       const formData = this.formularioComunidad.value;
 
-      /* if (formData.nombre == '')
-      const nuevoNombre = 
- */
       // El usuario con los datos del formulario
-      const nuevaComunidad: Comunidad = {
+      const comunidadActualizada: Comunidad = {
         community_id: this.comunidadActiva?.community_id,
         title: formData.nombre,
         description: formData.descripcion,
         image: this.imagenes[this.i],
       };
 
-      this._comunidadService.actualizarComunidad(nuevaComunidad)
+      this._comunidadService.actualizarComunidad(comunidadActualizada)
       .subscribe({
         next: (response: any) => {
 
           console.log('comunidad agregada:');
           console.log(response);
+
+          this.comunidadActualizada = true;
+
+          // Desactivar el mensaje de éxito después de 5 segundos
+          setTimeout(() => {
+            this.comunidadActualizada = false;
+          }, 4000);
         },
         error: (error: any) => {
           console.error('Error al obtener comunidad activa:', error);

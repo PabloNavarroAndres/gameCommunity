@@ -286,6 +286,13 @@ app-root {
     margin-top: 35px;
 }
 
+.mat-mdc-tab-labels {
+    --mdc-tab-indicator-active-indicator-color: #9900d0 !important;
+    --mat-tab-header-active-label-text-color: #ff4beb !important;
+    --mat-tab-header-active-focus-indicator-color: #9900d0 !important;
+    --mat-tab-header-active-focus-label-text-color: #ff4beb !important;
+}
+
 
 /* Media Query */
 @media (max-width: 1200px) {
