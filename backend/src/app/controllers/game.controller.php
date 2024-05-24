@@ -14,10 +14,10 @@ switch ($action) {
         try {
 
             // Datos obtenidos del metodo
-            $post = $postRepository->obtenerVideojuegos();
+            $community = $postRepository->obtenerVideojuegos();
 
             // Devolverlo en Json
-            JsonView::render($post);
+            JsonView::render($community);
 
         } catch (Exception $e) {
             echo json_encode(['error' => $e->getMessage()]);
@@ -26,17 +26,17 @@ switch ($action) {
 
     case 'obtenerVideojuegosUsuario':
         try {
-            $post = $_GET['email'];
+            $community = $_GET['email'];
 
-            if(!isset($post)) {
+            if(!isset($community)) {
                 throw new Exception('Falta el email del usuario');
             }
 
             // Datos obtenidos del metodo
-            $post = $postRepository->obtenerVideojuegosUsuario($post);
+            $community = $postRepository->obtenerVideojuegosUsuario($community);
 
             // Devolverlo en Json
-            JsonView::render($post);
+            JsonView::render($community);
 
         } catch (Exception $e) {
             echo json_encode(['error' => $e->getMessage()]);

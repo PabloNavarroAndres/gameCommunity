@@ -23,7 +23,7 @@
 
 <div class="input-container">
     <input type="text" id="message-input" maxlength="200" placeholder="Escribe tu mensaje..." [(ngModel)]="mensaje" />
-    @if (esMiembro) {
+    @if (esMiembro || usuarioIniciado.isAdmin) {
         <button id="send-button" (click)="enviarMsj()">Enviar</button>
     } @else {
         <button id="send-disabled" disabled>Enviar</button>

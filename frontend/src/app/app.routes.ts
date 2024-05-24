@@ -18,6 +18,7 @@ export const routes: Routes = [
     { path: 'perfil/:user_email', component: PerfilComponent},
     { path: 'comunidades/global', component: ComunidadGlobalComponent},
     { path: 'comunidades/crear', component: ComunidadCrearComponent},
+    { path: 'comunidades/editar/:comunidadId', component: ComunidadCrearComponent},
     { path: 'comunidades/personalizadas', component: ComunidadPersonalizadaComponent },
     { path: 'comunidades/personalizada/:comunidadId', component: ComunidadPersonalizadaComponent },
     { path: 'comunidades/personalizada/:comunidadId/foro', component: ForoMensajesComponent },

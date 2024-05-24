@@ -51,7 +51,8 @@
             } @else if (!esMiembro) {
                 <button class="boton-general" (click)="unirseComunidad()">Unirse</button>
             }
-            @if (usuarioCreador) {
+            @if (usuarioCreador || usuarioIniciado.isAdmin) {
+                <button class="boton-general boton-volver" [routerLink]="['/comunidades/editar', comunidadActiva?.community_id]" >Editar</button>
                 <button class="boton-general boton-eliminar" (click)="eliminarComunidad()" >Eliminar</button>
             }
         </div>

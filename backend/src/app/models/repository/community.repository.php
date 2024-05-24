@@ -45,6 +45,42 @@ class CommunityRepository {
         }
     }
 
+    public function obtenerComunidad($community_id) {
+        try {
+
+            // Consulta para obtener todas las comunidades
+            $sql = $this->bd->prepare(
+                "SELECT * FROM Communities WHERE community_id = ?"
+            );
+
+            $sql->execute([$community_id]);
+
+            $communityData = $sql->fetch(PDO::FETCH_ASSOC);
+            
+            if ($communityData) {
+
+                $community = new Community(
+                    $communityData['community_id'],
+                    $communityData['title'],
+                    $communityData['description'],
+                    $communityData['image'],
+                    $communityData['creator_email']
+                );
+
+                return $community;
+
+            } else {
+                // Si no se encuentra ningún usuario, lanzar una excepción
+                throw new Exception("No se encontró ningún usuario con el correo electrónico proporcionado.");
+            }
+
+        } catch (PDOException $e) {
+            // Manejar la excepción
+            $errorMessage = "Error al obtener comunidades: " . $e->getMessage();
+            echo json_encode(array("error" => $errorMessage));
+        }
+    }
+
     public function agregarComunidad($data) {
 
         // Insertar datos en la base de datos
@@ -108,6 +144,25 @@ class CommunityRepository {
             throw new Exception("Problema al eliminar la comunidad: " . $e->getMessage());
         }
         
+    }
+
+    public function actualizarComunidad($data) {
+
+        // Insertar datos en la base de datos
+        $title = $data['title'];
+        $description = $data['description'];
+        $image = $data['image'];
+        $community_id = $data['community_id'];
+
+        $queryCommunity = $this->bd->prepare(
+            "UPDATE Communities 
+            SET title = ?, description = ?, image = ? 
+            WHERE community_id = ?"
+        );
+
+        // Ejecutar consulta
+        $queryCommunity->execute([$title, $description, $image, $community_id]);
+
     }
 
 }

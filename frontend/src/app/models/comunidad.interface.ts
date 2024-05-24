@@ -3,5 +3,5 @@ export interface Comunidad {
     title:   string;
     description:  string;
     image: string
-    creator_email: string
+    creator_email?: string
 }

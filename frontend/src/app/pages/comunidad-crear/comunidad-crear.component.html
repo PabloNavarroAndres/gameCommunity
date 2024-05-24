@@ -1,81 +1,162 @@
-<h2 class="titulo-ruta">CREAR COMUNIDAD</h2>
+@if (!modoEditar) {
 
-<button class="boton-general btn-volver" (click)="goBack()">↽ Volver</button>
-
-<section [@fadeInOut] class="form-general">
-    <h2 class="titulo-mediano">Formulario comunidad</h2>
-    <hr>
-    <form [formGroup]="formularioComunidad" (ngSubmit)="enviar($event)">
-
-        <!-- Nombre -->
-        <div class="mb-3">
-            <label for="nombre" class="form-label titulo-label">Nombre</label>
-            <input type="text" class="form-control" id="nombre" formControlName="nombre" maxlength="20">
-
-            <div class="msj-validadores" *ngIf="hasErrors('nombre', 'minlength')">
-                El nombre debe ser de mínimo 3 caracteres.
+    <h2 class="titulo-ruta">CREAR COMUNIDAD</h2>
+    
+    <button class="boton-general btn-volver" (click)="goBack()">↽ Volver</button>
+    
+    <section [@fadeInOut] class="form-general">
+        <h2 class="titulo-mediano">Formulario comunidad</h2>
+        <hr>
+        <form [formGroup]="formularioComunidad" (ngSubmit)="enviar($event)">
+    
+            <!-- Nombre -->
+            <div class="mb-3">
+                <label for="nombre" class="form-label titulo-label">Nombre</label>
+                <input type="text" class="form-control" id="nombre" formControlName="nombre" maxlength="20">
+    
+                <div class="msj-validadores" *ngIf="hasErrors('nombre', 'minlength')">
+                    El nombre debe ser de mínimo 3 caracteres.
+                </div>
             </div>
-        </div>
-
-        <!-- Descripcion -->
-        <div class="mb-3">
-            <label for="descripcion" class="form-label titulo-label">Descripción</label>
-            <textarea class="form-control" id="descripcion" formControlName="descripcion" rows="4" maxlength="250"></textarea>
-        </div>
-        
-        <!-- Imagen -->
-        <label for="descripcion" class="form-label titulo-label">Foto</label>
-        
-        <div id="carouselExampleFade" class="carousel slide carousel-fade">
-
-            <div class="carousel-indicators">
-
-              @for (img of imagenes; track $index) {
-
-                <button type="button" (click)="cambiarIndice($index)" data-bs-target="#carouselExampleFade" 
-                  [attr.data-bs-slide-to]="$index" [ngClass]="{'active': i === $index}" 
-                  aria-label="Slide">
-                </button>
-              }
-
+    
+            <!-- Descripcion -->
+            <div class="mb-3">
+                <label for="descripcion" class="form-label titulo-label">Descripción</label>
+                <textarea class="form-control" id="descripcion" formControlName="descripcion" rows="4" maxlength="250"></textarea>
             </div>
             
-            <div class="carousel-inner">
-
-              @for (img of imagenes; track $index) {
-
-                <div [ngClass]="{'active': i === $index}" class="carousel-item">
-                    <img [src]="img" class="d-block w-100" alt="foto de perfil">
+            <!-- Imagen -->
+            <label for="descripcion" class="form-label titulo-label">Foto</label>
+            
+            <div id="carouselExampleFade" class="carousel slide carousel-fade">
+    
+                <div class="carousel-indicators">
+    
+                  @for (img of imagenes; track $index) {
+    
+                    <button type="button" (click)="cambiarIndice($index)" data-bs-target="#carouselExampleFade" 
+                      [attr.data-bs-slide-to]="$index" [ngClass]="{'active': i === $index}" 
+                      aria-label="Slide">
+                    </button>
+                  }
+    
                 </div>
-              }
-
+                
+                <div class="carousel-inner">
+    
+                  @for (img of imagenes; track $index) {
+    
+                    <div [ngClass]="{'active': i === $index}" class="carousel-item">
+                        <img [src]="img" class="d-block w-100" alt="foto de perfil">
+                    </div>
+                  }
+    
+                </div>
+            
+                <!-- Boton anterior imagen -->   
+                <button class="carousel-control-prev" type="button" data-bs-target="#carouselExampleFade" data-bs-slide="prev" (click)="anteriorImg()">
+                    <span class="carousel-control-prev-icon" aria-hidden="true" ></span>
+                    <span class="visually-hidden">Anterior</span>
+                </button>
+            
+                <!-- Boton siguiente imagen -->
+                <button class="carousel-control-next" type="button" data-bs-target="#carouselExampleFade" data-bs-slide="next" (click)="siguienteImg()">
+                    <span class="carousel-control-next-icon" aria-hidden="true" ></span>
+                    <span class="visually-hidden">Siguiente</span>
+                </button>
             </div>
-        
-            <!-- Boton anterior imagen -->   
-            <button class="carousel-control-prev" type="button" data-bs-target="#carouselExampleFade" data-bs-slide="prev" (click)="anteriorImg()">
-                <span class="carousel-control-prev-icon" aria-hidden="true" ></span>
-                <span class="visually-hidden">Anterior</span>
-            </button>
-        
-            <!-- Boton siguiente imagen -->
-            <button class="carousel-control-next" type="button" data-bs-target="#carouselExampleFade" data-bs-slide="next" (click)="siguienteImg()">
-                <span class="carousel-control-next-icon" aria-hidden="true" ></span>
-                <span class="visually-hidden">Siguiente</span>
-            </button>
-        </div>
+    
+            <!-- Mensaje de error (nombre de comunidad existente en la BD) -->
+            <div class="msj-error" *ngIf="msjTituloExiste()">
+                Ya existe una comunidad con ese nombre
+            </div>
+    
+            <!-- Mensaje de éxito -->
+            <div class="msj-exito" *ngIf="msjComunidadCreada()">
+                ¡Comunidad creada con éxito!
+            </div>
+    
+            <!-- Crear Comunidad -->
+            <button type="submit" class="boton-general">Crear</button>
+        </form>
+    </section>
 
-        <!-- Mensaje de error (nombre de comunidad existente en la BD) -->
-        <div class="msj-error" *ngIf="msjTituloExiste()">
-            Ya existe una comunidad con ese nombre
-        </div>
+} @else {
 
-        <!-- Mensaje de éxito -->
-        <div class="msj-exito" *ngIf="msjComunidadCreada()">
-            ¡Comunidad creada con éxito!
-        </div>
-
-        <!-- Crear Comunidad -->
-        <button type="submit" class="boton-general">Crear</button>
-    </form>
-</section>
+    <h2 class="titulo-ruta">EDITAR COMUNIDAD</h2>
+    
+    <button class="boton-general btn-volver" (click)="goBack()">↽ Volver</button>
+    
+    <section [@fadeInOut] class="form-general">
+        <h2 class="titulo-mediano">Formulario comunidad</h2>
+        <hr>
+        <form [formGroup]="formularioComunidad" (ngSubmit)="actualizar()">
+    
+            <!-- Nombre -->
+            <div class="mb-3">
+                <label for="nombre" class="form-label titulo-label">Nombre</label>
+                <input type="text" class="form-control" id="nombre" formControlName="nombre" maxlength="20">
+    
+                <div class="msj-validadores" *ngIf="hasErrors('nombre', 'minlength')">
+                    El nombre debe ser de mínimo 3 caracteres.
+                </div>
+            </div>
+    
+            <!-- Descripcion -->
+            <div class="mb-3">
+                <label for="descripcion" class="form-label titulo-label">Descripción</label>
+                <textarea class="form-control" id="descripcion" formControlName="descripcion" rows="4" maxlength="250"></textarea>
+            </div>
+            
+            <!-- Imagen -->
+            <label for="descripcion" class="form-label titulo-label">Foto</label>
+            
+            <div id="carouselExampleFade" class="carousel slide carousel-fade">
+    
+                <div class="carousel-indicators">
+    
+                  @for (img of imagenes; track $index) {
+    
+                    <button type="button" (click)="cambiarIndice($index)" data-bs-target="#carouselExampleFade" 
+                      [attr.data-bs-slide-to]="$index" [ngClass]="{'active': i === $index}" 
+                      aria-label="Slide">
+                    </button>
+                  }
+    
+                </div>
+                
+                <div class="carousel-inner">
+    
+                  @for (img of imagenes; track $index) {
+    
+                    <div [ngClass]="{'active': i === $index}" class="carousel-item">
+                        <img [src]="img" class="d-block w-100" alt="foto de perfil">
+                    </div>
+                  }
+    
+                </div>
+            
+                <!-- Boton anterior imagen -->   
+                <button class="carousel-control-prev" type="button" data-bs-target="#carouselExampleFade" data-bs-slide="prev" (click)="anteriorImg()">
+                    <span class="carousel-control-prev-icon" aria-hidden="true" ></span>
+                    <span class="visually-hidden">Anterior</span>
+                </button>
+            
+                <!-- Boton siguiente imagen -->
+                <button class="carousel-control-next" type="button" data-bs-target="#carouselExampleFade" data-bs-slide="next" (click)="siguienteImg()">
+                    <span class="carousel-control-next-icon" aria-hidden="true" ></span>
+                    <span class="visually-hidden">Siguiente</span>
+                </button>
+            </div>
+    
+            <!-- Mensaje de éxito -->
+            <div class="msj-exito" *ngIf="msjComunidadActualizada()">
+                ¡Comunidad actualizada con éxito!
+            </div>
+    
+            <!-- Crear Comunidad -->
+            <button type="submit" class="boton-general">Actualizar</button>
+        </form>
+    </section>
+}
 

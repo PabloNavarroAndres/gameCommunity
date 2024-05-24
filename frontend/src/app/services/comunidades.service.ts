@@ -18,6 +18,11 @@ export class ComunidadesService {
     return this._http.get<Comunidad[]>(`${this.url}?controller=comunidades&action=obtenerComunidades`);
   }
 
+  // Obtener comunidad por id
+  obtenerComunidad(community_id: number): Observable<Comunidad> {
+    return this._http.get<Comunidad>(`${this.url}?controller=comunidades&action=obtenerComunidad&community_id=${community_id}`);
+  }
+
   // Insertar comunidad
   agregarComunidad(comunidad: Comunidad): Observable<Comunidad> {
     return this._http.post<Comunidad>(`${this.url}?controller=comunidades&action=agregarComunidad`, comunidad);

@@ -27,15 +27,15 @@ switch ($action) {
         try {
 
             // Email obtenido
-            $post = $_GET['email'];
+            $community = $_GET['email'];
 
             // Verificar si se proporcionaron todos los campos necesarios
-            if (!isset($post)) {
+            if (!isset($community)) {
                 throw new Exception('Falta el email de usuario');
             }
             
             // Datos obtenidos del metodo
-            $user = $postRepository->obtenerUsuarioEmail($post);
+            $user = $postRepository->obtenerUsuarioEmail($community);
 
             // Devolverlo en Json
             JsonView::render($user);

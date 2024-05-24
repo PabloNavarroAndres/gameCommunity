@@ -14,10 +14,32 @@ switch ($action) {
         try {
 
             // Datos obtenidos del metodo
-            $post = $postRepository->obtenerComunidades();
+            $community = $postRepository->obtenerComunidades();
 
             // Devolverlo en Json
-            JsonView::render($post);
+            JsonView::render($community);
+
+        } catch (Exception $e) {
+            echo json_encode(['error' => $e->getMessage()]);
+        }
+        break;
+
+    case 'obtenerComunidad':
+        try {
+
+            // Obtener los datos del comunidad del cuerpo de la solicitud (POST)
+            $community_id = $_GET['community_id'];
+
+            // Verificar si se proporcionaron todos los campos necesarios
+            if ( !isset($community_id)) {
+                throw new Exception('Falta el id de comunidad');
+            }
+
+            // Datos obtenidos del metodo
+            $community = $postRepository->obtenerComunidad($community_id);
+
+            // Devolverlo en Json
+            JsonView::render($community);
 
         } catch (Exception $e) {
             echo json_encode(['error' => $e->getMessage()]);
@@ -69,6 +91,30 @@ switch ($action) {
         } catch (Exception $e) {
             // Manejar la excepción
             echo json_encode(array('Error al insertar comunidad' => $e->getMessage()));
+        }
+        break;
+
+    case 'actualizarComunidad':
+        try {
+
+            // Obtener los datos del comunidad del cuerpo de la solicitud (POST)
+            $data = json_decode(file_get_contents('php://input'), true);
+
+            // Verificar si se proporcionaron todos los campos necesarios
+            if ( !isset($data['title']) || !isset($data['description']) ||
+                !isset($data['image']) || !isset($data['community_id'])) {
+                throw new Exception('Faltan campos obligatorios de comunidad');
+            }
+            
+            // Funcion de eliminar
+            $postRepository->actualizarComunidad($data);
+
+            // Devolverlo en Json
+            JsonView::actualizadoMsj();
+
+        } catch (Exception $e) {
+            // Manejar la excepción
+            echo json_encode(array('Error al actualizar comunidad' => $e->getMessage()));
         }
         break;
     

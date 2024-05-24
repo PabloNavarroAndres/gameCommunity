@@ -1,5 +1,5 @@
 import { Component, inject } from '@angular/core';
-import { RouterLink } from '@angular/router';
+import { ActivatedRoute, RouterLink } from '@angular/router';
 import { ComunidadesService } from '../../services/comunidades.service';
 import { FormGroup, FormBuilder, Validators, AbstractControl, ValidationErrors, ReactiveFormsModule, FormsModule } from '@angular/forms';
 import { User } from '../../models/user.interface';
@@ -22,14 +22,17 @@ export class ComunidadCrearComponent {
   // Servicio de comunidades
   private _comunidadService = inject(ComunidadesService);
 
-  // Servicio de usuarios de comunidad
-  private _usuariosComunidadService = inject(UsuariosComunidadService);
-
   // Servicio de usuarios
   private _usuarioService = inject(UsuarioService);
 
   // Servicio de navegacion
   private _navegacionService = inject(NavegacionService);
+
+  // Servicio ruta parametros
+  private route = inject(ActivatedRoute);
+
+  // Activar modo edicion de comunidad
+  modoEditar: boolean = false;
 
   // Usuario iniciado
   usuarioIniciado!: User;
@@ -43,8 +46,14 @@ export class ComunidadCrearComponent {
   // Mostrar mensaje de comunidad creada
   comunidadCreada: boolean = false;
 
+  // Mostrar mensaje de comunidad creada
+  comunidadActualizada: boolean = false;
+
   // Array comunidades
   comunidades: Comunidad[] = [];
+
+  // Comunidad activa
+  comunidadActiva?: Comunidad;
 
   // Imagenes de la carpeta
   imagenes = [
@@ -76,22 +85,60 @@ export class ComunidadCrearComponent {
   }
 
   ngOnInit(): void {
-    // Usuario iniciado
-    this.usuarioIniciado = this._usuarioService.obtenerUsuarioIniciado() as User;
 
-    // Obtener las comunidades de la BD
-    this._comunidadService.obtenerComunidades()
-    .subscribe({
-      next: (comunidades: Comunidad[]) => {
-        this.comunidades = comunidades;
-        console.log('Comunidad cargada desde la BD:');
-        console.log(this.comunidades)
-      },
-      error: (error: any) => {
-        console.error('Error al obtener comunidades:', error);
+
+    // Comprobamos si se han pasado parametros, de ver comunidad personalizada
+    this.route.params.subscribe(params => {
+
+      // Parametro de id de comunidad activa
+      const idComunidad: number = +params['comunidadId'];
+
+      // Si hay parametros de id de comunidad
+      // significa que estamos en modo editar comunidad activa
+      if (idComunidad) {
+
+        // Activamos la vista de modo editar
+        this.modoEditar = true;
+
+        // Obtener comunidad activa de la BD
+        this._comunidadService.obtenerComunidad(idComunidad)
+        .subscribe({
+          next: (comunidad: Comunidad) => {
+
+            // Establecemos la comunidad activa obtenida
+            this.comunidadActiva = comunidad;
+
+            console.log('comunidad activa:');
+            console.log(this.comunidadActiva);
+          },
+          error: (error: any) => {
+            console.error('Error al obtener comunidad activa:', error);
+          }
+        });
+
+      } else {
+
+        this.modoEditar = false;
+
+        // Usuario iniciado
+        this.usuarioIniciado = this._usuarioService.obtenerUsuarioIniciado() as User;
+
+        // Obtener las comunidades de la BD
+        this._comunidadService.obtenerComunidades()
+          .subscribe({
+            next: (comunidades: Comunidad[]) => {
+              this.comunidades = comunidades;
+              console.log('Comunidad cargada desde la BD:');
+              console.log(this.comunidades)
+            },
+            error: (error: any) => {
+              console.error('Error al obtener comunidades:', error);
+            }
+          });
       }
+
     });
-  
+
   }
 
   // Comprobar si el usuario existe en la BD
@@ -102,6 +149,11 @@ export class ComunidadCrearComponent {
   // Activar mensaje de comunidad creada
   msjComunidadCreada() {
     return this.comunidadCreada;
+  }
+
+  // Activar mensaje de comunidad actualizada
+  msjComunidadActualizada() {
+    return this.comunidadActualizada;
   }
 
   // Envio del formulario
@@ -142,33 +194,70 @@ export class ComunidadCrearComponent {
           this.comunidadExiste = false;
         }, 5000);
 
-      // La comunidad no existe en la bd
+        // La comunidad no existe en la bd
       } else {
         console.log('agregar comunidad nueva');
-        
+
         // Añadir comunidad a la bd
         this._comunidadService.agregarComunidad(nuevaComunidad)
-        .subscribe({
-          next: (response: any) => {
-            console.log('Comunidad agregada correctamente:', response);
+          .subscribe({
+            next: (response: any) => {
+              console.log('Comunidad agregada correctamente:', response);
 
-            this.comunidadCreada = true;
+              this.comunidadCreada = true;
 
-            // Desactivar el mensaje de éxito después de 5 segundos
-            setTimeout(() => {
-              this.comunidadCreada = false;
-            }, 5000);
+              // Desactivar el mensaje de éxito después de 5 segundos
+              setTimeout(() => {
+                this.comunidadCreada = false;
+              }, 5000);
 
-            // Vaciar campos del formulario
-            this.formularioComunidad.reset();
+              // Vaciar campos del formulario
+              this.formularioComunidad.reset();
 
-          },
-          error: (error: any) => {
-            console.error('Error al agregar comunidad:', error);
-          }
-        });
+            },
+            error: (error: any) => {
+              console.error('Error al agregar comunidad:', error);
+            }
+          });
 
       }
+
+    } else {
+      console.error('Formulario inválido. Por favor, completa los campos correctamente');
+    }
+  }
+
+  // Envio del formulario de actualizar
+  actualizar() {
+
+    // Si no hay errores de validacion se procede a enviar
+    if (this.formularioComunidad.valid) {
+
+      // Obtener los datos del formulario
+      const formData = this.formularioComunidad.value;
+
+      /* if (formData.nombre == '')
+      const nuevoNombre = 
+ */
+      // El usuario con los datos del formulario
+      const nuevaComunidad: Comunidad = {
+        community_id: this.comunidadActiva?.community_id,
+        title: formData.nombre,
+        description: formData.descripcion,
+        image: this.imagenes[this.i],
+      };
+
+      this._comunidadService.actualizarComunidad(nuevaComunidad)
+      .subscribe({
+        next: (response: any) => {
+
+          console.log('comunidad agregada:');
+          console.log(response);
+        },
+        error: (error: any) => {
+          console.error('Error al obtener comunidad activa:', error);
+        }
+      });
 
     } else {
       console.error('Formulario inválido. Por favor, completa los campos correctamente');
