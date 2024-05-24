@@ -1,4 +1,4 @@
-import { Component, inject } from '@angular/core';
+import { AfterViewChecked, Component, ElementRef, ViewChild, inject } from '@angular/core';
 import { NavegacionService } from '../../services/navegacion.service';
 import { Post } from '../../models/post.interface';
 import { PostsService } from '../../services/posts.service';
@@ -18,6 +18,9 @@ import { UsuarioComunidad } from '../../models/usuarioComunidad.interface';
   styleUrl: './foro-mensajes.component.css'
 })
 export class ForoMensajesComponent {
+
+  // Obtener la referencia del contenedor de mensajes
+  @ViewChild('messageContainer') private messageContainer!: ElementRef;
 
   // Servicio de navegacion
   private _navegacionService = inject(NavegacionService);
@@ -97,6 +100,10 @@ export class ForoMensajesComponent {
     });
   }
 
+  /* ngAfterViewChecked() {
+    this.scrollToBottom();
+  } */
+
   // Enviar mensaje al foro
   enviarMsj() {
 
@@ -116,12 +123,26 @@ export class ForoMensajesComponent {
         // Añadimos al array de posts el post creado
         this.posts.push(post);
         this.mensaje = '';
+
+        setTimeout(() => {
+          // Scroll hasta el último mensaje
+          this.scrollToBottom();
+        }, 0);
       },
       error: (error: any) => {
         console.error('Error al crear post:', error);
       }
-  });
+    });
 
+  }
+
+  // Bajar hasta el ultimo post
+  private scrollToBottom(): void {
+    try {
+      this.messageContainer.nativeElement.scrollTop = this.messageContainer.nativeElement.scrollHeight;
+    } catch(err) {
+      console.error('Error al desplazar el scroll:', err);
+    }
   }
 
   // Volver hacia atras

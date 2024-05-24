@@ -1,7 +1,7 @@
 <h2 class="titulo-ruta">FORO DE MENSAJES</h2>
 <button class="boton-general btn-volver" (click)="goBack()">↽ Volver</button>
 
-<div class="message-container">
+<div class="message-container" #messageContainer>
 
     @for (post of posts; track $index) {
         <div class="message">

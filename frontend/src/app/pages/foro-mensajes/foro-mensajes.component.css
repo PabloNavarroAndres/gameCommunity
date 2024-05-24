@@ -3,7 +3,7 @@
     width: 80%;
     margin: 0 auto;
     background: linear-gradient(to bottom, #e0b3ff, #800080);
-    overflow-y: scroll;
+    overflow-y: auto;
     border-radius: 10px;
     box-shadow: 0 0 70px rgba(0, 0, 0, 0.1);
     padding: 50px;
