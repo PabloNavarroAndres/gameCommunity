@@ -82,21 +82,27 @@ class CommunityRepository {
             // Eliminar las filas dependientes en Users_in_communities
             $sqlDeleteUserCommunities = $this->bd->prepare(
                 "DELETE FROM Users_in_communities 
-                WHERE community_id = ?");
+                WHERE community_id = ?"
+            );
 
             $sqlDeleteUserCommunities->execute([$community_id]);
         
+            // Eliminar los posts del foro de la comunidad
+            $sqlDeletePostsCommunity = $this->bd->prepare(
+                "DELETE FROM Posts WHERE community_id = ?"
+            );
+
+            $sqlDeletePostsCommunity->execute([$community_id]);
+
             // Eliminar la comunidad en Communities
             $sqlDeleteCommunity = $this->bd->prepare("DELETE FROM Communities WHERE community_id = ?");
             $sqlDeleteCommunity->execute([$community_id]);
         
             // Confirmar la transacción
             $this->bd->commit();
-            /* echo "Comunidad y usuarios eliminados correctamente"; */
         
         } catch (PDOException $e) {
 
-            /* echo "Error al eliminar la comunidad: " . $e->getMessage(); */
             // Revertir la transacción en caso de error
             $this->bd->rollBack();
             throw new Exception("Problema al eliminar la comunidad: " . $e->getMessage());
