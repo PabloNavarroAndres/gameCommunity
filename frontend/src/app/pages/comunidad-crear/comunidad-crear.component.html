@@ -88,7 +88,7 @@
     <button class="boton-general btn-volver" (click)="goBack()">↽ Volver</button>
     
     <section [@fadeInOut] class="form-general">
-        <h2 class="titulo-mediano">Formulario comunidad</h2>
+        <h2 class="titulo-mediano"> {{ comunidadActiva?.title }} </h2>
         <hr>
         <form [formGroup]="formularioComunidad" (ngSubmit)="actualizar()">
     

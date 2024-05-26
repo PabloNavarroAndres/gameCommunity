@@ -20,6 +20,31 @@
     padding: 10px;
 }
 
+.btn-admin {
+    background-color: #2d8e00;
+}
+
+.btn-admin:hover {
+    background-color: #1e6000;
+}
+
+.btn-noAdmin {
+    background-color: #900;
+}
+
+.btn-noAdmin:hover {
+    background-color: #6a0000;
+}
+
+.editar-btn {
+    background: #c701ff;
+}
+
+.editar-btn:hover {
+    background: #640080;
+}
+
+
 /* Ficha para comunidad */
 .comunidad {
     height: 450px;
@@ -31,7 +56,7 @@
 }
 
 .comunidad hr {
-    margin: 0 !important;
+    margin: 0;
 }
 
 .comunidad span {

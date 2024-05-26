@@ -28,15 +28,14 @@
                             <!-- Acciones -->
                             <div class="ficha-btns">
                                 @if (usuarioIniciado.email === 'admin@gmail.com' && !usuario.isAdmin) {
-                                    <button (click)="hacerAdministrador(usuario.email, $index)">Hacer Administrador</button>
+                                    <button class="btn-admin" (click)="hacerAdministrador(usuario.email, $index)">Hacer Administrador</button>
                                 } @else if (usuarioIniciado.email === 'admin@gmail.com' && usuario.isAdmin) {
-                                    <button (click)="quitarAdministrador(usuario.email, $index)">Quitar Administrador</button>
+                                    <button class="btn-noAdmin" (click)="quitarAdministrador(usuario.email, $index)">Quitar Administrador</button>
                                 }
                                 <button (click)="navegarAlPerfil(usuario.email)">Editar perfil</button>
                             </div>
                         </div>
                     }
-            
                 }
             </div>
 
@@ -45,7 +44,37 @@
 
     <mat-tab label="COMUNIDADES">
         <ng-template matTabContent>
-            aa
+            
+            <div class="contenedor-fichas">
+                @for (comunidad of comunidades; track $index) {
+            
+                    <div class="ficha comunidad">
+                        <img [src]="comunidad.image" alt="Juego de la biblioteca">
+                        <h2>{{ comunidad.title }}</h2>
+                        <hr>
+
+                        <!-- Botón de eliminar -->
+                        <button class="eliminarBtn" (click)="eliminarComunidad(comunidad.community_id, $index)">X</button>
+
+        
+                        <span>{{ comunidad.description | truncate:85 }}</span>
+            
+                        <!-- Acciones -->
+                        <div class="ficha-btns">
+
+                            <button class="editar-btn" [routerLink]="['/comunidades/editar', comunidad.community_id]">
+                                Editar
+                            </button>
+                            <button [routerLink]="['/comunidades/personalizada/', comunidad.community_id]">
+                                Ver Comunidad
+                            </button>
+
+                        </div>
+
+                    </div>
+                }
+            </div>
+
         </ng-template>
     </mat-tab>
 
