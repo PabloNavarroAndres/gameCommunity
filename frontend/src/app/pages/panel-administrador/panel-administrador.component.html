@@ -1,12 +1,44 @@
 <mat-tab-group>
     <mat-tab label="USUARIOS">
         <ng-template matTabContent>
-            aa
+            
+            <div class="contenedor-fichas">
+                @for (usuario of usuarios; track $index) {
+            
+                    <!-- Comprobar que no sea el usuario iniciado, para no mostrarlo -->
+                    @if (usuario.email !== usuarioIniciado.email) {
+
+                        <div class="ficha">
+                            <img [src]="usuario.profile_picture" alt="Juego de la biblioteca">
+                            <h2>{{ usuario.username }}</h2>
+                            @if (usuario.isAdmin) {
+                                <span> Administrador </span>
+                            } @else {
+                                <span> Usuario </span>
+                            }
+                            <hr>
+                            <span class="email"> {{ usuario.email }} </span>
+                 
+                            <!-- Acciones -->
+                            <div class="ficha-btns">
+                                @if (usuarioIniciado.email === 'admin@gmail.com' && !usuario.isAdmin) {
+                                    <button>Hacer Administrador</button>
+                                }
+                                <button (click)="navegarAlPerfil(usuario.email)">Editar perfil</button>
+                            </div>
+                        </div>
+                    }
+            
+                }
+            </div>
+
         </ng-template>
     </mat-tab>
+
     <mat-tab label="COMUNIDADES">
         <ng-template matTabContent>
             aa
         </ng-template>
     </mat-tab>
+
 </mat-tab-group>

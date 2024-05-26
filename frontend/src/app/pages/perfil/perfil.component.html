@@ -30,12 +30,14 @@
           </tr>
 
           <!-- Boton editar -->
-          @if (modoEditar) {
+          @if (modoEditar || modoEditarAdmin) {
             <button type="button" class="btn btn-modal" 
               data-bs-toggle="modal" data-bs-target="#EditarPerfilModal" 
-              data-bs-whatever="usuario.username">
+              data-bs-whatever="usuario.username"
+              #openModalButton>
               Editar
             </button>
+
           }
         </table>
       </div>

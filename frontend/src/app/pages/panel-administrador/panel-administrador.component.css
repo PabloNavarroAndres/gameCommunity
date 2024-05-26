@@ -1,2 +1,49 @@
+/* Ficha para usuario */
+.ficha img {
+    object-fit: scale-down;
+}
 
+.ficha h2 {
+    padding: 0;
+}
 
+.ficha-btns {
+    display: flex;
+    width: 100% !important;
+}
+
+.ficha hr {
+    margin: 0;
+}
+
+.email {
+    padding: 10px;
+}
+
+/* Ficha para comunidad */
+.comunidad {
+    height: 450px;
+}
+
+.comunidad img {
+    padding: 0;
+
+}
+
+.comunidad hr {
+    margin: 0 !important;
+}
+
+.comunidad span {
+    word-wrap: anywhere;
+    padding: 10px;
+}
+
+.comunidad img {
+    object-fit: cover;
+}
+
+.comunidad h2 {
+    word-wrap: anywhere;
+    padding: 0;
+}

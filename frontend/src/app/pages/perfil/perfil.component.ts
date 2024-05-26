@@ -1,4 +1,4 @@
-import { Component, inject } from '@angular/core';
+import { Component, ElementRef, ViewChild, inject } from '@angular/core';
 import { UsuarioService } from '../../services/usuarios.service';
 import { User } from '../../models/user.interface';
 import { MatCardModule } from '@angular/material/card';
@@ -17,6 +17,9 @@ import { NavegacionService } from '../../services/navegacion.service';
 })
 export class PerfilComponent {
 
+  // Referencia al boton de editar
+  @ViewChild('openModalButton') openModalButton!: ElementRef;
+
   // Servicio de usuarios
   private _usuarioService = inject(UsuarioService);
 
@@ -28,6 +31,12 @@ export class PerfilComponent {
 
   // Desactivar modo edicion si se ha entrado por parametro de email
   modoEditar: boolean = true;
+
+  // Comprobar si se está editando por un admin
+  modoEditarAdmin: boolean = false;
+
+  // Usuario iniciado
+  usuarioIniciado: User = this._usuarioService.obtenerUsuarioIniciado() as User;
 
   // Imagenes de la carpeta
   imagenes = [
@@ -53,6 +62,8 @@ export class PerfilComponent {
 
   userEmail: string = '';
 
+  private shouldOpenModal = false;
+
   private route = inject(ActivatedRoute);
 
   // Al iniciarse buscamos la imagen del usuario
@@ -66,6 +77,7 @@ export class PerfilComponent {
 
       // Si el email existe es que estamos visitando un perfil de otro usuario
       if (userEmail) {
+        
         // Desactivamos el boton de editar
         this.modoEditar = false;
 
@@ -78,6 +90,13 @@ export class PerfilComponent {
     
             // Actualizar usuario
             this.usuario = user;
+
+            // Revisamos si hay parametro de editar por un administrador
+            this.checkQueryParams();
+
+            // Pasamos el índice de la imagen del usuario al del array de imagenes
+            this.i = this.imagenes.findIndex(imagen => this.usuario.profile_picture === imagen);
+
           },
           error: (error: any) => {
             console.error('Error al obtener el perfil del usuario:', error);
@@ -92,11 +111,48 @@ export class PerfilComponent {
 
         // Si no hay parámetro de email, obtener el usuario con la sesión iniciada
         this.usuario = this._usuarioService.obtenerUsuarioIniciado() as User;
+
+        // Pasamos el índice de la imagen del usuario al del array de imagenes
+        this.i = this.imagenes.findIndex(imagen => this.usuario.profile_picture === imagen);
       }
-      // Pasamos el índice de la imagen del usuario al del array de imagenes
-      this.i = this.imagenes.findIndex(imagen => this.usuario.profile_picture === imagen);
     });
     
+  }
+
+  // Inicialización del ViewChild en ngAfterViewInit,
+  // para que esté disponible a llamar a openModal
+  ngAfterViewInit(): void {
+    if (this.shouldOpenModal && this.openModalButton) {
+      this.openModal();
+    }
+  }
+
+  // Comprobar parametro de editar (por un admin)
+  private checkQueryParams(): void {
+
+    this.route.queryParams.subscribe(params => {
+
+      if (params['editar'] === 'true') {
+
+        this.modoEditarAdmin = true;
+
+        // Comprobar condicion para abrir modal
+        this.shouldOpenModal = true;
+
+        // Llamar a abrir el modal
+        if (this.openModalButton) {
+          this.openModal();
+        }
+      }
+
+    });
+  }
+
+  // Abrir el modal de editar perfil
+  openModal(): void {
+    if (this.openModalButton) {
+      this.openModalButton.nativeElement.click();
+    }
   }
 
   // Calcular la posicion anterior de la imagen del carrusel en el array
@@ -141,6 +197,12 @@ export class PerfilComponent {
 
         // Actualizar usuario iniciado
         this.usuario = usuarioActualizado;
+
+        if(!this.modoEditarAdmin) {
+          // Actualizar usuario iniciado
+          this._usuarioService.agregarUsuarioIniciado(usuarioActualizado);
+        }
+
       },
       error: (error: any) => {
         console.error('Error al obtener usuarios:', error);

@@ -45,13 +45,7 @@ export class UsuarioService {
 
   // Actualizar usuario
   actualizarUsuario(usuario: User): Observable<User> {
-    return this._http.put<User>(`${this.url}?controller=usuarios&action=actualizarUsuario`, usuario)
-    .pipe(
-      tap(() => {
-        // Actualizar usuario iniciado en localStorage
-        localStorage.setItem('usuarioIniciado', JSON.stringify(usuario));
-      })
-    );
+    return this._http.put<User>(`${this.url}?controller=usuarios&action=actualizarUsuario`, usuario);
   }
 
   // Sumar 1+ al contador de juegos deseados

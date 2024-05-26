@@ -22,7 +22,7 @@ export class ComunidadPersonalizadaComponent {
   verComunidad: boolean = false;
   formularioComunidad: boolean = false;
 
-  // Servicio de comunidades
+  // Servicio de usuarios
   private _usuarioService= inject(UsuarioService);
 
   // Servicio de comunidades

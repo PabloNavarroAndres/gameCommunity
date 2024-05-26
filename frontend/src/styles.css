@@ -287,10 +287,13 @@ app-root {
 }
 
 .mat-mdc-tab-labels {
-    --mdc-tab-indicator-active-indicator-color: #9900d0 !important;
-    --mat-tab-header-active-label-text-color: #ff4beb !important;
-    --mat-tab-header-active-focus-indicator-color: #9900d0 !important;
-    --mat-tab-header-active-focus-label-text-color: #ff4beb !important;
+    --mdc-tab-indicator-active-indicator-color: #9900d0;
+    --mat-tab-header-active-label-text-color: #ff4beb;
+    --mat-tab-header-active-focus-indicator-color: #9900d0;
+    --mat-tab-header-active-focus-label-text-color: #ff4beb;
+    --mat-tab-header-active-hover-label-text-color: #ff4beb;
+    --mat-tab-header-inactive-label-text-color: rgba(255, 122, 235, 0.92);
+    --mat-tab-header-inactive-hover-label-text-color: rgba(255, 101, 245, 0.88);
 }
 
 
