@@ -38,8 +38,7 @@ export class PanelAdministradorComponent {
   usuariosComunidad: UsuarioComunidad[] = [];
 
   ngOnInit(): void {
-    //Called after the constructor, initializing input properties, and the first call to ngOnChanges.
-    //Add 'implements OnInit' to the class.
+
     // Obtenemos usuarios al iniciar componente
     this._usuarioService.obtenerUsuarios()
     .subscribe((data: User[]) => {
@@ -51,6 +50,66 @@ export class PanelAdministradorComponent {
   // Ir a editar el perfil de usuario
   navegarAlPerfil(email: string): void {
     this.router.navigate(['/perfil', email], { queryParams: { editar: 'true' } });
+  }
+
+  // Eliminar usuario de la web
+  eliminarUsuario(email: string, indiceArray: number) {
+
+    this._usuarioService.eliminarUsuario(email)
+    .subscribe({
+
+      next: (response: any) => {
+
+        console.log('Eliminando usuario del servidor:', response);
+
+        // Eliminar el usuario del array
+        this.usuarios.splice(indiceArray, 1);
+      },
+
+      error: (error: any) => {
+        console.error('Error intentando eliminar el usuario:', error);
+      }
+    });
+  }
+
+  // Hacer usuario administrador de la web
+  hacerAdministrador(email: string, indiceArray: number) {
+
+    this._usuarioService.hacerAdministrador(email)
+    .subscribe({
+
+      next: (response: any) => {
+
+        console.log('Haciendo admin al usuario en el servidor:', response);
+
+        // Hacer admin al usuario del array
+        this.usuarios[indiceArray].isAdmin = 1;
+      },
+
+      error: (error: any) => {
+        console.error('Error intentando hacer admin al usuario:', error);
+      }
+    });
+  }
+
+  // Hacer usuario administrador de la web
+  quitarAdministrador(email: string, indiceArray: number) {
+
+    this._usuarioService.quitarAdministrador(email)
+    .subscribe({
+
+      next: (response: any) => {
+
+        console.log('Quitando admin al usuario en el servidor:', response);
+
+        // Quitar admin al usuario del array
+        this.usuarios[indiceArray].isAdmin = 0;
+      },
+
+      error: (error: any) => {
+        console.error('Error intentando quitar admin al usuario:', error);
+      }
+    });
   }
 
 

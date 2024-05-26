@@ -105,6 +105,41 @@ class UserRepository {
         $query->execute([$email, $username, $password, $profile_picture, $total_games, $isAdmin]);
     }
 
+    public function eliminarUsuario($email) {
+
+        $query = $this->bd->prepare(
+            "DELETE FROM Users 
+            WHERE email = ?"
+        );
+
+        // Ejecutar consulta
+        $query->execute([$email]);
+    }
+    
+    public function hacerAdministrador($email) {
+
+        $query = $this->bd->prepare(
+            "UPDATE Users 
+            SET isAdmin = 1
+            WHERE email = ?"
+        );
+
+        // Ejecutar consulta
+        $query->execute([$email]);
+    }
+
+    public function quitarAdministrador($email) {
+
+        $query = $this->bd->prepare(
+            "UPDATE Users 
+            SET isAdmin = 0
+            WHERE email = ?"
+        );
+
+        // Ejecutar consulta
+        $query->execute([$email]);
+    }
+
     public function actualizarUsuario($data) {
 
         // Insertar datos en la base de datos

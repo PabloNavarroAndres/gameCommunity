@@ -5,24 +5,32 @@
             <div class="contenedor-fichas">
                 @for (usuario of usuarios; track $index) {
             
-                    <!-- Comprobar que no sea el usuario iniciado, para no mostrarlo -->
-                    @if (usuario.email !== usuarioIniciado.email) {
+                    <!-- Comprobar que no sea el usuario iniciado ni el administrador, para no mostrarlo -->
+                    @if (usuario.email !== usuarioIniciado.email && usuario.email !== 'admin@gmail.com') {
 
                         <div class="ficha">
                             <img [src]="usuario.profile_picture" alt="Juego de la biblioteca">
                             <h2>{{ usuario.username }}</h2>
+
                             @if (usuario.isAdmin) {
                                 <span> Administrador </span>
                             } @else {
                                 <span> Usuario </span>
                             }
+
                             <hr>
                             <span class="email"> {{ usuario.email }} </span>
+
+                            <!-- Botón de eliminar -->
+                            <button class="eliminarBtn" (click)="eliminarUsuario(usuario.email, $index)">X</button>
+
                  
                             <!-- Acciones -->
                             <div class="ficha-btns">
                                 @if (usuarioIniciado.email === 'admin@gmail.com' && !usuario.isAdmin) {
-                                    <button>Hacer Administrador</button>
+                                    <button (click)="hacerAdministrador(usuario.email, $index)">Hacer Administrador</button>
+                                } @else if (usuarioIniciado.email === 'admin@gmail.com' && usuario.isAdmin) {
+                                    <button (click)="quitarAdministrador(usuario.email, $index)">Quitar Administrador</button>
                                 }
                                 <button (click)="navegarAlPerfil(usuario.email)">Editar perfil</button>
                             </div>

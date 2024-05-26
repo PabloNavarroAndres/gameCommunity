@@ -23,6 +23,9 @@ export class RegistroComponent {
   // Mostrar mensaje de usuario existente
   usuarioExiste: boolean = false;
 
+  // Mostrar mensaje de usuario registrado
+  usuarioRegistrado: boolean = false;
+
   // Comprobacion del patron correcto de email
   emailInvalido: boolean = false;
 
@@ -38,6 +41,10 @@ export class RegistroComponent {
   // Comprobar si el usuario existe en la BD
   msjUsuarioExiste() {
     return this.usuarioExiste;
+  }
+
+  msjUsuarioRegistrado() {
+    return this.usuarioRegistrado;
   }
 
   // Envio del formulario
@@ -89,6 +96,15 @@ export class RegistroComponent {
             .subscribe({
               next: (response: any) => {
                 console.log('Usuario agregado correctamente:', response);
+
+                // Activar la condicion de usuario registrado
+                // (esto activará el mensaje que lo indica)
+                this.usuarioRegistrado = true;
+
+                // Desactivar el mensaje después de 5 segundos
+                setTimeout(() => {
+                  this.usuarioRegistrado = false;
+                }, 4000);
 
                 // Vaciar campos del formulario
                 this.formularioRegistro.reset();

@@ -57,6 +57,11 @@
             El usuario ya existe
         </div>
 
+        <!-- Mensaje de exito (usuario existente en la BD) -->
+        <div class="msj-exito" *ngIf="msjUsuarioRegistrado()">
+            ¡Usuario registrado con éxito!
+        </div>
+
         <!-- Registrarse -->
         <button type="submit" class="boton-general">Registrarse</button>
     </form>

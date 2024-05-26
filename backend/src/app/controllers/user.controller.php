@@ -4,7 +4,7 @@ require_once 'app/models/repository/user.repository.php';
 require_once 'app/views/json.view.php';
 
 // Crear instancia de UserRepository con la conexión a la base de datos
-$postRepository = new UserRepository;
+$userRepository = new UserRepository;
 
 $action = $_GET['action'];
 
@@ -13,7 +13,7 @@ switch ($action) {
     case 'obtenerUsuarios':
         try {
             // Datos obtenidos del metodo
-            $users = $postRepository->obtenerUsuarios();
+            $users = $userRepository->obtenerUsuarios();
 
             // Devolverlo en Json
             JsonView::render($users);
@@ -27,15 +27,15 @@ switch ($action) {
         try {
 
             // Email obtenido
-            $community = $_GET['email'];
+            $email = $_GET['email'];
 
             // Verificar si se proporcionaron todos los campos necesarios
-            if (!isset($community)) {
+            if (!isset($email)) {
                 throw new Exception('Falta el email de usuario');
             }
             
             // Datos obtenidos del metodo
-            $user = $postRepository->obtenerUsuarioEmail($community);
+            $user = $userRepository->obtenerUsuarioEmail($email);
 
             // Devolverlo en Json
             JsonView::render($user);
@@ -59,7 +59,7 @@ switch ($action) {
             }
             
             // Datos obtenidos del metodo
-            $postRepository->agregarUsuario($data);
+            $userRepository->agregarUsuario($data);
 
             // Devolverlo en Json
             JsonView::agregadoMsj();
@@ -67,6 +67,75 @@ switch ($action) {
         } catch (Exception $e) {
             // Manejar la excepción
             echo json_encode(array('Error al insertar usuario' => $e->getMessage()));
+        }
+        break;
+
+    case 'eliminarUsuario':
+        try {
+
+            // Obtener los datos del email
+            $email = $_GET['email'];
+
+            // Verificar si se proporcionaron todos los campos necesarios
+            if (!isset($email)) {
+                throw new Exception('Falta el email de usuario');
+            }
+            
+            // Datos obtenidos del metodo
+            $userRepository->eliminarUsuario($email);
+
+            // Devolverlo en Json
+            JsonView::eliminadoMsj();
+
+        } catch (Exception $e) {
+            // Manejar la excepción
+            echo json_encode(array('Error al eliminar usuario' => $e->getMessage()));
+        }
+        break;
+
+    case 'hacerAdministrador':
+        try {
+
+            // Obtener los datos del email
+            $email = $_GET['email'];
+
+            // Verificar si se proporcionaron todos los campos necesarios
+            if (!isset($email)) {
+                throw new Exception('Falta el email de usuario');
+            }
+            
+            // Datos obtenidos del metodo
+            $userRepository->hacerAdministrador($email);
+
+            // Devolverlo en Json
+            JsonView::actualizadoMsj();
+
+        } catch (Exception $e) {
+            // Manejar la excepción
+            echo json_encode(array('Error al hacer admin al usuario' => $e->getMessage()));
+        }
+        break;
+
+    case 'quitarAdministrador':
+        try {
+
+            // Obtener los datos del email
+            $email = $_GET['email'];
+
+            // Verificar si se proporcionaron todos los campos necesarios
+            if (!isset($email)) {
+                throw new Exception('Falta el email de usuario');
+            }
+            
+            // Datos obtenidos del metodo
+            $userRepository->quitarAdministrador($email);
+
+            // Devolverlo en Json
+            JsonView::actualizadoMsj();
+
+        } catch (Exception $e) {
+            // Manejar la excepción
+            echo json_encode(array('Error al quitar admin al usuario' => $e->getMessage()));
         }
         break;
 
@@ -83,7 +152,7 @@ switch ($action) {
             }
             
             // Datos obtenidos del metodo
-            $postRepository->actualizarUsuario($data);
+            $userRepository->actualizarUsuario($data);
 
             // Devolverlo en Json
             JsonView::actualizadoMsj();
@@ -106,7 +175,7 @@ switch ($action) {
             }
             
             // Datos obtenidos del metodo
-            $postRepository->sumarDeseado($data);
+            $userRepository->sumarDeseado($data);
 
             // Respuesta Json
             JsonView::actualizadoMsj();
@@ -129,7 +198,7 @@ switch ($action) {
             }
             
             // Datos obtenidos del metodo
-            $postRepository->restarDeseado($data);
+            $userRepository->restarDeseado($data);
 
             // Respuesta Json
             JsonView::actualizadoMsj();
@@ -152,7 +221,7 @@ switch ($action) {
             }
             
             // Datos obtenidos del metodo
-            $postRepository->sumarTerminado($data);
+            $userRepository->sumarTerminado($data);
 
             // Respuesta Json
             JsonView::actualizadoMsj();
@@ -175,7 +244,7 @@ switch ($action) {
             }
             
             // Datos obtenidos del metodo
-            $postRepository->restarTerminado($data);
+            $userRepository->restarTerminado($data);
 
             // Respuesta Json
             JsonView::actualizadoMsj();

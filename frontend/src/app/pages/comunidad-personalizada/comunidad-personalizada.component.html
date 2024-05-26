@@ -64,6 +64,13 @@
             <div class="ficha usuario">
                 <img [src]="usuario.profile_picture" alt="Juego de la biblioteca">
                 <h2>{{ usuario.username }}</h2>
+
+                @if (usuario.isAdmin) {
+                    <span> Administrador </span>
+                } @else {
+                    <span> Usuario </span>
+                }
+
                 <hr>
                 <span>Juegos totales: {{ usuario.total_games }}</span>
     

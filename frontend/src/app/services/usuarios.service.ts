@@ -39,8 +39,18 @@ export class UsuarioService {
   }
 
   // Eliminar usuario
-  eliminarUsuario(): Observable<User> {
-    return this._http.get<User>(`${this.url}?controller=usuarios&action=eliminarUsuario`);
+  eliminarUsuario(userEmail: string): Observable<User> {
+    return this._http.delete<User>(`${this.url}?controller=usuarios&action=eliminarUsuario&email=${userEmail}`);
+  }
+
+  // Poner rol administrador al usuario
+  hacerAdministrador(userEmail: string): Observable<User> {
+    return this._http.get<User>(`${this.url}?controller=usuarios&action=hacerAdministrador&email=${userEmail}`);
+  }
+
+  // Quitar rol administrador al usuario
+  quitarAdministrador(userEmail: string): Observable<User> {
+    return this._http.get<User>(`${this.url}?controller=usuarios&action=quitarAdministrador&email=${userEmail}`);
   }
 
   // Actualizar usuario
