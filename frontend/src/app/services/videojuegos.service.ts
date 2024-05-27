@@ -24,4 +24,8 @@ export class VideojuegosService {
     return this._http.post<any>(`${this.url}?controller=videojuegos&action=crearVideojuego`, formData);
   }
 
+  eliminarVideojuego(game_id: number): Observable<any> {
+    return this._http.delete<any>(`${this.url}?controller=videojuegos&action=eliminarVideojuego&game_id=${game_id}`);
+  }
+
 }

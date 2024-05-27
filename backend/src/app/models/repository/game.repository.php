@@ -124,4 +124,61 @@ class GameRepository {
         }
     }
 
+    public function eliminarVideojuego($game_id) {
+        try {
+            // Iniciar la transacción
+            $this->bd->beginTransaction();
+    
+            // Actualizar el total de juegos para cada usuario
+            $updateTotalGamesQuery = (
+                "UPDATE Users u
+                JOIN User_games ug ON u.email = ug.user_email
+                SET u.total_games = u.total_games - 1
+                WHERE ug.game_id = ?"
+            );
+            $stmt = $this->bd->prepare($updateTotalGamesQuery);
+            $stmt->execute([$game_id]);
+    
+            // Actualizar el contador de juegos deseados
+            $updateDesiredGamesQuery = (
+                "UPDATE Users u
+                JOIN User_games ug ON u.email = ug.user_email
+                SET u.desired_games = u.desired_games - 1
+                WHERE ug.game_id = ? AND ug.status = 'Lista de deseos'"
+            );
+            $stmt = $this->bd->prepare($updateDesiredGamesQuery);
+            $stmt->execute([$game_id]);
+    
+            // Actualizar el contador de juegos terminados
+            $updateFinishedGamesQuery = (
+                "UPDATE Users u
+                JOIN User_games ug ON u.email = ug.user_email
+                SET u.finished_games = u.finished_games - 1
+                WHERE ug.game_id = ? AND ug.status = 'Terminado'"
+            );
+            $stmt = $this->bd->prepare($updateFinishedGamesQuery);
+            $stmt->execute([$game_id]);
+    
+            // Eliminar las referencias en User_games
+            $deleteUserGamesQuery = "DELETE FROM User_games WHERE game_id = ?";
+            $stmt = $this->bd->prepare($deleteUserGamesQuery);
+            $stmt->execute([$game_id]);
+    
+            // Eliminar el juego en Games
+            $deleteGameQuery = "DELETE FROM Games WHERE game_id = ?";
+            $stmt = $this->bd->prepare($deleteGameQuery);
+            $stmt->execute([$game_id]);
+    
+            // Confirmar la transacción
+            $this->bd->commit();
+        
+        } catch (PDOException $e) {
+            // Revertir la transacción en caso de error
+            $this->bd->rollBack();
+            throw new Exception("Error al eliminar videojuego: " . $e->getMessage(), 0, $e);
+        }
+    }
+    
+    
+
 }

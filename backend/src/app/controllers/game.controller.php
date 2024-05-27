@@ -65,6 +65,27 @@ switch ($action) {
         }
         break;
 
+    case 'eliminarVideojuego':
+        try {
+            $game_id = $_GET['game_id'];
+    
+            // Comprobar campos obligatorios
+            if (!isset($game_id)) {
+                throw new Exception('Falta el id de videojuego');
+            }
+    
+            // Metodo eliminar videojuego
+            $gameRepository->eliminarVideojuego($game_id);
+    
+            // Devolverlo en Json
+            JsonView::eliminadoMsj();
+    
+        } catch (Exception $e) {
+            echo json_encode(['error' => $e->getMessage()]);
+        }
+        break;
+        
+
     default:
         echo json_encode(['error' => 'Acción no válida']);
         break;

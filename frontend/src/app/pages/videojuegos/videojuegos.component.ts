@@ -16,17 +16,17 @@ import { VideojuegoUsuario } from '../../models/videojuegoUsuario.interface';
 })
 export class VideojuegosComponent {
   // Servicio de videojuegos
-  private videojuegoService = inject(VideojuegosService);
+  private _videojuegoService = inject(VideojuegosService);
   // Servicio de videojuegos usuario
-  private videojuegoUsuarioService = inject(VideojuegosUsuarioService);
+  private _videojuegoUsuarioService = inject(VideojuegosUsuarioService);
   // Servicio de Usuarios
-  private usuarioService = inject(UsuarioService);
+  private _usuarioService = inject(UsuarioService);
 
   // Ruta base de las imagenes de videojuego
   rutaBaseImg = '../../../assets/juegos/';
 
   // usuario que ha iniciado la sesión
-  usuarioIniciado = this.usuarioService.obtenerUsuarioIniciado() as User;
+  usuarioIniciado = this._usuarioService.obtenerUsuarioIniciado() as User;
 
   // Snackbar para indicar el juego agregado
   private _snackBar = inject(MatSnackBar)
@@ -37,7 +37,7 @@ export class VideojuegosComponent {
   ngOnInit(): void {
     if (this.usuarioIniciado) {
       // Obtener los videojuegos de la BD, del usuario iniciado
-      this.videojuegoService.obtenerVideojuegosUsuario(this.usuarioIniciado.email).subscribe((data: Videojuego[]) => {
+      this._videojuegoService.obtenerVideojuegosUsuario(this.usuarioIniciado.email).subscribe((data: Videojuego[]) => {
         console.log(data);
         this.videojuegos = data;
       })
@@ -45,7 +45,7 @@ export class VideojuegosComponent {
     } else {
 
       // Obtener todos los videojuegos de la BD
-      this.videojuegoService.obtenerVideojuegos().subscribe((data: Videojuego[]) => {
+      this._videojuegoService.obtenerVideojuegos().subscribe((data: Videojuego[]) => {
         console.log(data);
         this.videojuegos = data;
       })
@@ -80,7 +80,7 @@ export class VideojuegosComponent {
     };
 
     // Agregarlo desde el servicio de usuarios
-    this.videojuegoUsuarioService.agregarVideojuegoUsuario(videojuegoUsuario)
+    this._videojuegoUsuarioService.agregarVideojuegoUsuario(videojuegoUsuario)
     .subscribe({
 
       next: (response: any) => {
@@ -98,6 +98,42 @@ export class VideojuegosComponent {
         console.error('Error intentando agregar el videojuego:', error);
         // Mensaje snack bar
         this.notificacionError(videojuego.title, 'Cerrar', 3500);
+      }
+    });
+
+  }
+
+  // Eliminar juego del catálogo de videojuegos
+  eliminarVideojuego(game_id: number, indiceArray: number) {
+
+    this._videojuegoService.eliminarVideojuego(game_id)
+    .subscribe({
+
+      next: (response: any) => {
+
+        console.log('Eliminando videojuego del servidor:', response);
+
+        // Eliminar el videojuego del array
+        this.videojuegos.splice(indiceArray, 1);
+
+        // Obtener el usuario iniciado con los nuevos datos actualizados
+        this._usuarioService.obtenerUsuarioPorEmail(this.usuarioIniciado.email)
+        .subscribe({
+          next: (user: User) => {
+
+            // Actualizar en el local storage con los nuevos datos
+            this._usuarioService.agregarUsuarioIniciado(user);
+          },
+    
+          error: (error: any) => {
+            console.error('Error intentando actualizar usuario iniciado:', error);
+          }
+        })
+
+      },
+
+      error: (error: any) => {
+        console.error('Error intentando eliminar el videojuego:', error);
       }
     });
 
