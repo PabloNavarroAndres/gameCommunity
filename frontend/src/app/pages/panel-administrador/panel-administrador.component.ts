@@ -71,21 +71,31 @@ export class PanelAdministradorComponent {
   // Eliminar usuario de la web
   eliminarUsuario(email: string, indiceArray: number) {
 
-    this._usuarioService.eliminarUsuario(email)
-    .subscribe({
+    // Si el usuario a eliminar es administrador también y no somos
+    // el superadministrador de la web no podremos eliminarlo
+    if ((this.usuarios[indiceArray].isAdmin && this.usuarioIniciado.email === 'admin@gmail.com') || 
+      !this.usuarios[indiceArray].isAdmin ) {
 
-      next: (response: any) => {
+      this._usuarioService.eliminarUsuario(email)
+      .subscribe({
 
-        console.log('Eliminando usuario del servidor:', response);
+        next: (response: any) => {
 
-        // Eliminar el usuario del array
-        this.usuarios.splice(indiceArray, 1);
-      },
+          console.log('Eliminando usuario del servidor:', response);
 
-      error: (error: any) => {
-        console.error('Error intentando eliminar el usuario:', error);
-      }
-    });
+          // Eliminar el usuario del array
+          this.usuarios.splice(indiceArray, 1);
+        },
+
+        error: (error: any) => {
+          console.error('Error intentando eliminar el usuario:', error);
+        }
+      });
+
+    } else {
+      console.error('No puedes eliminar a un usuario administrador sin ser un superadmin');
+    }
+
   }
 
   // Eliminar comunidad de la web

@@ -107,13 +107,26 @@ class UserRepository {
 
     public function eliminarUsuario($email) {
 
-        $query = $this->bd->prepare(
-            "DELETE FROM Users 
-            WHERE email = ?"
-        );
+        try {
+            // Iniciar una transacción
+            $this->bd->beginTransaction();
 
-        // Ejecutar consulta
-        $query->execute([$email]);
+            $query = $this->bd->prepare(
+                "DELETE FROM Users WHERE email = ?"
+            );
+
+            // Ejecutar consulta
+            $query->execute([$email]);
+
+            // Confirmar la transacción
+            $this->bd->commit();
+
+        } catch (Exception $e) {
+            // Revertir la transacción en caso de error
+            $this->bd->rollBack();
+
+            throw new Exception("Error al obtener usuarios sql: " . $e->getMessage());
+        }
     }
     
     public function hacerAdministrador($email) {

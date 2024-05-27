@@ -235,7 +235,7 @@ export class BibliotecaComponent {
 
           // Si estaba en lista de terminados se resta del contador
           // de juegos terminados
-          if (videojuego.status === 'Terminados') {
+          if (videojuego.status === 'Terminado') {
             // Funcion restar terminados -1
             this.usuarioService.restarJuegoTerminado(this.usuarioIniciado)
             .subscribe({
@@ -285,7 +285,7 @@ export class BibliotecaComponent {
 
           // Si estaba en lista de terminados se resta del contador
           // de juegos terminados
-          if (videojuego.status === 'Terminados') {
+          if (videojuego.status === 'Terminado') {
             // Funcion restar terminados -1
             this.usuarioService.restarJuegoTerminado(this.usuarioIniciado)
             .subscribe({
@@ -339,7 +339,7 @@ export class BibliotecaComponent {
 
           // Si estaba en lista de terminados se resta del contador
           // de juegos terminados
-          if (videojuego.status === 'Terminados') {
+          if (videojuego.status === 'Terminado') {
             // Funcion restar terminados -1
             this.usuarioService.restarJuegoTerminado(this.usuarioIniciado)
             .subscribe({

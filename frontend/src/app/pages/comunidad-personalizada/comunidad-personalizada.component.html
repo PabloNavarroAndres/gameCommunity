@@ -65,7 +65,7 @@
                 <img [src]="usuario.profile_picture" alt="Juego de la biblioteca">
                 <h2>{{ usuario.username }}</h2>
 
-                @if (usuario.isAdmin) {
+                @if (usuario.isAdmin || usuario.isCreator) {
                     <span> Administrador </span>
                 } @else {
                     <span> Usuario </span>

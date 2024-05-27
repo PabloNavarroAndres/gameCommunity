@@ -216,7 +216,7 @@ export class ComunidadCrearComponent {
             error: (error: any) => {
               console.error('Error al agregar comunidad:', error);
             }
-          });
+        });
 
       }
 
@@ -242,24 +242,47 @@ export class ComunidadCrearComponent {
         image: this.imagenes[this.i],
       };
 
-      this._comunidadService.actualizarComunidad(comunidadActualizada)
-      .subscribe({
-        next: (response: any) => {
+      // Se comprueba si se ha encontrado una comunidad con el mismo nombre
+      const comunidadEncontrada = this.comunidades?.find(
+        comunidad => comunidad.title === comunidadActualizada.title
+      );
 
-          console.log('comunidad agregada:');
-          console.log(response);
+      // El nombre de la comunidad ya existe en la bd
+      if (comunidadEncontrada) {
+        console.log('la comunidad ya existe');
 
-          this.comunidadActualizada = true;
+        // Activar la condicion de comunidad ya existe
+        // (esto activará el mensaje que lo indica)
+        this.comunidadExiste = true;
 
-          // Desactivar el mensaje de éxito después de 5 segundos
-          setTimeout(() => {
-            this.comunidadActualizada = false;
-          }, 4000);
-        },
-        error: (error: any) => {
-          console.error('Error al obtener comunidad activa:', error);
-        }
-      });
+        // Desactivar el mensaje de error después de 5 segundos
+        setTimeout(() => {
+          this.comunidadExiste = false;
+        }, 4000);
+
+        // La comunidad no existe en la bd
+      } else {
+        console.log('agregar comunidad nueva');
+
+        this._comunidadService.actualizarComunidad(comunidadActualizada)
+        .subscribe({
+          next: (response: any) => {
+
+            console.log('comunidad agregada:');
+            console.log(response);
+
+            this.comunidadActualizada = true;
+
+            // Desactivar el mensaje de éxito después de 5 segundos
+            setTimeout(() => {
+              this.comunidadActualizada = false;
+            }, 4000);
+          },
+          error: (error: any) => {
+            console.error('Error al obtener comunidad activa:', error);
+          }
+        });
+      }
 
     } else {
       console.error('Formulario inválido. Por favor, completa los campos correctamente');
