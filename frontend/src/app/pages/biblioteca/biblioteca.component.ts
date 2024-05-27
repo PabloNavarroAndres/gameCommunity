@@ -36,6 +36,9 @@ export class BibliotecaComponent {
   // Activar o desactivar los detalles del videojuego
   detallesVideojuego: boolean = false;
 
+  // Ruta base de las imagenes de videojuego
+  rutaBaseImg = '../../../assets/juegos/';
+
   // Valores para editar detalles de videojuego
   estado?: string;
   comentario?: string;
@@ -131,36 +134,6 @@ export class BibliotecaComponent {
       }
     });
   }
-
-  
-  // Agregar videojuego al usuario
-  /* agregarVideojuego(videojuego: Videojuego) {
-
-    // Crear un objeto que cumpla con la interfaz VideojuegoUsuario
-    const videojuegoUsuario: VideojuegoUsuario = {
-      game_id: videojuego.game_id,
-      user_email: this.usuarioIniciado.email
-    };
-
-    // Agregarlo desde el servicio de usuarios
-    this.videojuegoUsuarioService.agregarVideojuegoUsuario(videojuegoUsuario)
-    .subscribe({
-
-      next: (response: any) => {
-        console.log('Insertando videojuego al servidor:', response);
-        this.usuarioIniciado.total_games!++;
-        localStorage.setItem('usuarioIniciado', JSON.stringify(this.usuarioIniciado));
-      },
-
-      error: (error: any) => {
-        console.error('Error intentando agregar el videojuego:', error);
-      }
-    });
-
-    // Mensaje snack bar
-    this.openSnackBar(videojuego.title, 'Cerrar', 3500);
-  } */
-
 
 
   // Editar los detalles del videojuego

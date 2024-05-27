@@ -20,4 +20,8 @@ export class VideojuegosService {
     return this._http.get<Videojuego[]>(`${this.url}?controller=videojuegos&action=obtenerVideojuegosUsuario&email=${email}`);
   }
 
+  crearVideojuego(formData: FormData): Observable<any> {
+    return this._http.post<any>(`${this.url}?controller=videojuegos&action=crearVideojuego`, formData);
+  }
+
 }

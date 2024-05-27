@@ -198,24 +198,24 @@ export class ComunidadCrearComponent {
 
         // Añadir comunidad a la bd
         this._comunidadService.agregarComunidad(nuevaComunidad)
-          .subscribe({
-            next: (response: any) => {
-              console.log('Comunidad agregada correctamente:', response);
+        .subscribe({
+          next: (response: any) => {
+            console.log('Comunidad agregada correctamente:', response);
 
-              this.comunidadCreada = true;
+            this.comunidadCreada = true;
 
-              // Desactivar el mensaje de éxito después de 5 segundos
-              setTimeout(() => {
-                this.comunidadCreada = false;
-              }, 4000);
+            // Desactivar el mensaje de éxito después de 5 segundos
+            setTimeout(() => {
+              this.comunidadCreada = false;
+            }, 4000);
 
-              // Vaciar campos del formulario
-              this.formularioComunidad.reset();
+            // Vaciar campos del formulario
+            this.formularioComunidad.reset();
 
-            },
-            error: (error: any) => {
-              console.error('Error al agregar comunidad:', error);
-            }
+          },
+          error: (error: any) => {
+            console.error('Error al agregar comunidad:', error);
+          }
         });
 
       }
@@ -291,7 +291,7 @@ export class ComunidadCrearComponent {
 
   // Comprobar error del campo de nombre
   hasErrors(controlName: string, errorType: string) {
-    // Obtenmos el tipo de campo que queremos controlar
+    // Obtenemos el tipo de campo que queremos controlar
     const control = this.formularioComunidad.get(controlName);
     // Comprobamos si nos devuelve el error pasado como parametro,
     // los validadores del formulario devuelven true si el error indicado

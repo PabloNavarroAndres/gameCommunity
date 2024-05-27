@@ -14,10 +14,10 @@ switch ($action) {
         try {
 
             // Datos obtenidos del metodo
-            $community = $communityRepository->obtenerComunidades();
+            $game = $communityRepository->obtenerComunidades();
 
             // Devolverlo en Json
-            JsonView::render($community);
+            JsonView::render($game);
 
         } catch (Exception $e) {
             echo json_encode(['error' => $e->getMessage()]);
@@ -36,10 +36,10 @@ switch ($action) {
             }
 
             // Datos obtenidos del metodo
-            $community = $communityRepository->obtenerComunidad($community_id);
+            $game = $communityRepository->obtenerComunidad($community_id);
 
             // Devolverlo en Json
-            JsonView::render($community);
+            JsonView::render($game);
 
         } catch (Exception $e) {
             echo json_encode(['error' => $e->getMessage()]);

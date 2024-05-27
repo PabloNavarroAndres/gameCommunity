@@ -22,6 +22,9 @@ export class VideojuegosComponent {
   // Servicio de Usuarios
   private usuarioService = inject(UsuarioService);
 
+  // Ruta base de las imagenes de videojuego
+  rutaBaseImg = '../../../assets/juegos/';
+
   // usuario que ha iniciado la sesión
   usuarioIniciado = this.usuarioService.obtenerUsuarioIniciado() as User;
 

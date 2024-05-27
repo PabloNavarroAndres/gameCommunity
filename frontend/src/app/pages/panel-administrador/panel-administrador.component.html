@@ -27,11 +27,18 @@
                  
                             <!-- Acciones -->
                             <div class="ficha-btns">
+
                                 @if (usuarioIniciado.email === 'admin@gmail.com' && !usuario.isAdmin) {
-                                    <button class="btn-admin" (click)="hacerAdministrador(usuario.email, $index)">Hacer Administrador</button>
+                                    <button class="btn-admin" (click)="hacerAdministrador(usuario.email, $index)">
+                                        Hacer Administrador
+                                    </button>
+
                                 } @else if (usuarioIniciado.email === 'admin@gmail.com' && usuario.isAdmin) {
-                                    <button class="btn-noAdmin" (click)="quitarAdministrador(usuario.email, $index)">Quitar Administrador</button>
+                                    <button class="btn-noAdmin" (click)="quitarAdministrador(usuario.email, $index)">
+                                        Quitar Administrador
+                                    </button>
                                 }
+
                                 <button (click)="navegarAlPerfil(usuario.email)">Editar perfil</button>
                             </div>
                         </div>
@@ -74,6 +81,48 @@
                     </div>
                 }
             </div>
+
+        </ng-template>
+    </mat-tab>
+
+    <mat-tab label="CREAR VIDEOJUEGO">
+        <ng-template matTabContent>
+            
+            <section class="form-general">
+                <h2 class="titulo-mediano"> VIDEOJUEGO </h2>
+                <hr>
+                <form [formGroup]="formularioVideojuego" (ngSubmit)="crearVideojuego()">
+            
+                    <!-- Titulo -->
+                    <div class="mb-3">
+                        <label for="titulo" class="form-label titulo-label">Nombre</label>
+                        <input type="text" class="form-control" id="titulo" formControlName="titulo" maxlength="20">
+            
+                        <div class="msj-validadores" *ngIf="hasErrors('titulo', 'minlength')">
+                            El titulo debe ser de mínimo 2 caracteres.
+                        </div>
+                    </div>
+                    
+                    <!-- Imagen -->
+                    <div class="mb-3">
+                        <label for="foto-juego" class="form-label titulo-label">Foto</label>
+                        <input class="form-control" type="file" id="foto-juego" (change)="onFileChange($event)">
+                    </div>
+                    
+                    <!-- Mensaje de éxito -->
+                    <div class="msj-exito" *ngIf="videojuegoCreado">
+                        ¡Videojuego creado con éxito!
+                    </div>
+
+                    <!-- Mensaje de éxito -->
+                    <div class="msj-error" *ngIf="videojuegoExiste">
+                        ¡El videojuego ya existe!
+                    </div>
+            
+                    <!-- Crear Videojuego -->
+                    <button type="submit" class="boton-general">Crear</button>
+                </form>
+            </section>
 
         </ng-template>
     </mat-tab>

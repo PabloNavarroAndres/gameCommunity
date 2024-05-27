@@ -35,6 +35,7 @@ h3 {
 .logo-img {
     width: 80%;
     margin: 0 auto;
+    padding-top: 20px;
     display: flex;
     flex-direction: column;
     animation: aumentarReducir 4s infinite ease-in-out;
@@ -106,7 +107,7 @@ h3 {
     }
 
     .home-info img {
-        height: 1100px;
+        height: 1250px;
     }
     
     .info-content {

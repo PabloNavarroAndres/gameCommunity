@@ -4,7 +4,7 @@
   @for (videojuego of videojuegos; track $index) {
 
     <div class="ficha">
-      <img [src]="videojuego.image" alt="Juego de la biblioteca">
+      <img [src]="rutaBaseImg + videojuego.image" alt="Juego de la biblioteca">
       <h2>{{ videojuego.title }}</h2>
 
       <!-- Botón de eliminar -->

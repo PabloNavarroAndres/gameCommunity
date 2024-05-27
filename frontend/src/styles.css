@@ -114,6 +114,7 @@ app-root {
 
 .titulo-mediano {
     font-weight: bolder;
+    word-break: break-word;
     font-size: var(--titulo-mediano) !important;
     color: var(--letra-color-btn);
     padding-bottom: 20px;
@@ -145,7 +146,7 @@ app-root {
     flex-wrap: wrap;
     justify-content: center;
     margin: 0;
-    gap: 20px;
+    gap: 45px;
     padding-top: 50px;
     padding-bottom: 50px;
 }
@@ -156,7 +157,6 @@ app-root {
     flex-direction: column;
     justify-content: center;
     align-items: center;
-    overflow: hidden;
     background-color: #1b2838;
     width: calc(25% - 40px);
     max-width: 400px;
@@ -300,13 +300,13 @@ app-root {
 /* Media Query */
 @media (max-width: 1200px) {
     .ficha {
-        width: calc(33.33% - 40px);
+        width: calc(50% - 40px);
     }
 }
 
 @media (max-width: 768px) {
     .ficha {
-        width: calc(50% - 40px);
+        width: calc(100% - 40px);
     }
 
     .form-general {
@@ -316,19 +316,23 @@ app-root {
     }
 
     .titulo-mediano {
-        font-size: 2rem !important;
+        font-size: 2.4rem !important;
+        word-break: break-word;
     }
-
     
 }
 
 @media (max-width: 480px) {
-    .ficha {
-        width: calc(100% - 40px);
-    }
-
     .form-registro {
         width: 80%;
         padding: 20px;
+    }
+
+    .msj-error {
+        width: 85%;
+    }
+    
+    .msj-exito {
+        width: 85%;
     }
 }
