@@ -148,6 +148,11 @@
                     <span class="visually-hidden">Siguiente</span>
                 </button>
             </div>
+
+            <!-- Mensaje de error (nombre de comunidad existente en la BD) -->
+            <div class="msj-error" *ngIf="msjTituloExiste()">
+                Ya existe una comunidad con ese nombre
+            </div>
     
             <!-- Mensaje de éxito -->
             <div class="msj-exito" *ngIf="msjComunidadActualizada()">

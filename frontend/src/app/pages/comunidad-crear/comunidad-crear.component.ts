@@ -84,6 +84,18 @@ export class ComunidadCrearComponent {
 
   ngOnInit(): void {
 
+    // Obtener las comunidades de la BD
+    this._comunidadService.obtenerComunidades()
+    .subscribe({
+      next: (comunidades: Comunidad[]) => {
+        this.comunidades = comunidades;
+        console.log('Comunidad cargada desde la BD:');
+        console.log(this.comunidades)
+      },
+      error: (error: any) => {
+        console.error('Error al obtener comunidades:', error);
+      }
+    });
 
     // Comprobamos si se han pasado parametros, de ver comunidad personalizada
     this.route.params.subscribe(params => {
@@ -120,19 +132,6 @@ export class ComunidadCrearComponent {
 
         // Usuario iniciado
         this.usuarioIniciado = this._usuarioService.obtenerUsuarioIniciado() as User;
-
-        // Obtener las comunidades de la BD
-        this._comunidadService.obtenerComunidades()
-          .subscribe({
-            next: (comunidades: Comunidad[]) => {
-              this.comunidades = comunidades;
-              console.log('Comunidad cargada desde la BD:');
-              console.log(this.comunidades)
-            },
-            error: (error: any) => {
-              console.error('Error al obtener comunidades:', error);
-            }
-          });
       }
 
     });
@@ -249,13 +248,12 @@ export class ComunidadCrearComponent {
 
       // El nombre de la comunidad ya existe en la bd
       if (comunidadEncontrada) {
-        console.log('la comunidad ya existe');
+        
+        console.log('comunidad existe:');
 
-        // Activar la condicion de comunidad ya existe
-        // (esto activará el mensaje que lo indica)
         this.comunidadExiste = true;
 
-        // Desactivar el mensaje de error después de 5 segundos
+        // Desactivar el mensaje de éxito después de 5 segundos
         setTimeout(() => {
           this.comunidadExiste = false;
         }, 4000);

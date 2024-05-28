@@ -87,7 +87,7 @@ export class VideojuegosComponent {
         console.log('Insertando videojuego al servidor:', response);
         
         this.usuarioIniciado.total_games!++;
-        localStorage.setItem('usuarioIniciado', JSON.stringify(this.usuarioIniciado));
+        this._usuarioService.agregarUsuarioIniciado(this.usuarioIniciado);
         
         // Mensaje snack bar
         this.notificacionAgregado(videojuego.title, 'Cerrar', 3500);

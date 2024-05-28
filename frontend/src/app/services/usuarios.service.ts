@@ -2,6 +2,7 @@ import { Injectable, inject } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { BehaviorSubject, Observable, tap } from 'rxjs';
 import { User } from '../models/user.interface';
+import { SecureLocalStorage } from '../pages/secure-local-storage/secure-local-storage.component';
 
 @Injectable({
   providedIn: 'root'
@@ -12,15 +13,17 @@ export class UsuarioService {
   private _http = inject(HttpClient);
 
   // Usuario que ha iniciado sesión
-  private usuarioIniciadoSubject: BehaviorSubject<User | null>;
-  public usuarioIniciado: Observable<User | null>;
+  /* private usuarioIniciadoSubject: BehaviorSubject<User | null>; */
+  public usuarioIniciado?: User;
+
+  private secureLocalStorage = new SecureLocalStorage();
 
   constructor() {
     // Obtener el usuario iniciado como objeto del local storage
-    this.usuarioIniciadoSubject = new BehaviorSubject<User | null>
-      (JSON.parse(localStorage.getItem('usuarioIniciado') || '{}'));
+    /* this.usuarioIniciadoSubject = new BehaviorSubject<User | null>
+      (JSON.parse(localStorage.getItem('usuarioIniciado') || '{}')); */
     // Dejar como Observable el usuario del local storage
-    this.usuarioIniciado = this.usuarioIniciadoSubject.asObservable();
+    /* this.usuarioIniciado = this.usuarioIniciadoSubject.asObservable(); */
   }
 
   // Obtener usuarios
@@ -81,20 +84,17 @@ export class UsuarioService {
 
   // Obtener del local storage al usuario que ha iniciado sesión
   public obtenerUsuarioIniciado(): User | null {
-    const usuarioIniciado = localStorage.getItem('usuarioIniciado');
-    return usuarioIniciado ? JSON.parse(usuarioIniciado) : null;
+    return this.secureLocalStorage.getItem('usuarioIniciado');
   }
 
   // Agregar al local storage el usuario que ha iniciado sesión
   public agregarUsuarioIniciado(user: User): void {
-    localStorage.setItem('usuarioIniciado', JSON.stringify(user));
-    this.usuarioIniciadoSubject.next(user);
+    this.secureLocalStorage.setItem('usuarioIniciado', user);
   }
 
   // Borrar al usuario del local storage
   public borrarUsuarioIniciado(): void {
-    localStorage.removeItem('usuarioIniciado');
-    this.usuarioIniciadoSubject.next(null);
+    this.secureLocalStorage.removeItem('usuarioIniciado');
   }
 
 }
