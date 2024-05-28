@@ -208,17 +208,6 @@ export class PanelAdministradorComponent {
     }
   }
 
-  actualizarListaVideojuegos() {
-    this._videojuegoService.obtenerVideojuegos().subscribe({
-        next: (videojuegos: any) => {
-            this.videojuegos = videojuegos;
-        },
-        error: (error: any) => {
-            console.error('Error al actualizar lista de videojuegos:', error);
-        }
-    });
-}
-
   crearVideojuego() {
     if (this.formularioVideojuego.valid && this.archivoSeleccionado) {
       const formData = new FormData();
@@ -249,9 +238,6 @@ export class PanelAdministradorComponent {
           next: (response: any) => {
             this.formularioVideojuego.reset();
             this.archivoSeleccionado = null;
-
-            // Actualizar la lista de videojuegos
-            this.actualizarListaVideojuegos();
 
             // Activar la condicion de videojuego creado
             // (esto activará el mensaje que lo indica)

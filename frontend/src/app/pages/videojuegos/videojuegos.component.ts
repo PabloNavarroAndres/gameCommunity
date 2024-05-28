@@ -23,7 +23,7 @@ export class VideojuegosComponent {
   private _usuarioService = inject(UsuarioService);
 
   // Ruta base de las imagenes de videojuego
-  rutaBaseImg = '../../../assets/juegos/';
+  rutaBaseImg = 'http://localhost/gameCommunity/backend/imgs/games/';
 
   // usuario que ha iniciado la sesión
   usuarioIniciado = this._usuarioService.obtenerUsuarioIniciado() as User;

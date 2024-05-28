@@ -88,8 +88,14 @@ class GameRepository {
     public function crearVideojuego($title, $image) {
         try {
             
-            $uploadDir = __DIR__ . '/../../../../../frontend/src/assets/juegos/';
+            $uploadDir = __DIR__ . '/../../../../imgs/games/';
             $uploadFile = $uploadDir . basename($image['name']);
+
+            // Asegúrate de que la carpeta de destino existe
+            if (!is_dir($uploadDir)) {
+                mkdir($uploadDir, 0755, true);
+            }
+
 
             // Mover el archivo subido a la carpeta de destino
             if (move_uploaded_file($image['tmp_name'], $uploadFile)) {

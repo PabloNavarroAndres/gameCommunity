@@ -37,7 +37,7 @@ export class BibliotecaComponent {
   detallesVideojuego: boolean = false;
 
   // Ruta base de las imagenes de videojuego
-  rutaBaseImg = '../../../assets/juegos/';
+  rutaBaseImg = 'http://localhost/gameCommunity/backend/imgs/games/';
 
   // Valores para editar detalles de videojuego
   estado?: string;

@@ -44,6 +44,12 @@ switch ($action) {
         break;
 
     case 'crearVideojuego':
+
+        // Establecer encabezados para evitar la caché
+        header('Cache-Control: no-cache, no-store, must-revalidate');
+        header('Pragma: no-cache');
+        header('Expires: 0');
+
         try {
 
             $title = $_POST['titulo'];
