@@ -177,9 +177,9 @@ app-root {
 .ficha img {
     width: 100%;
     height: 73%;
+    max-height: 205px;
     object-fit: cover;
     border-radius: 10px 10px 0 0;
-    padding-bottom: 15px !important;
 }
 
 .ficha h2 {
@@ -217,13 +217,42 @@ app-root {
     color: white;
 }
 
+/* Fichas de comunidad */
+.comunidad {
+    height: 450px !important;
+}
+
+.comunidad img {
+    padding: 0;
+
+}
+
+.comunidad hr {
+    margin: 0;
+}
+
+.comunidad span {
+    word-wrap: anywhere;
+    padding: 10px;
+}
+
+.comunidad img {
+    object-fit: cover;
+    max-height: none;
+}
+
+.comunidad h2 {
+    word-wrap: anywhere;
+    padding: 0;
+}
+
 /* Boton eliminar juego de Biblioteca */
 .eliminarBtn {
     position: absolute;
     top: 0;
     right: 0;
     width: 30px !important;
-    border-bottom-right-radius: 0 !important;
+    border-radius: 0 10px 0px 10px !important;
     font-weight: bold;
     font-size: 20px;
     opacity: 0;

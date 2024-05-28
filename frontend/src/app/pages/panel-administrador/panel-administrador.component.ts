@@ -91,7 +91,15 @@ export class PanelAdministradorComponent {
     });
 
     // Obtener videojuegos de la BD
-    this.obtenerVideojuegos();
+    this._videojuegoService.obtenerVideojuegos()
+    .subscribe({
+      next: (videojuegos: Videojuego[]) => {
+        this.videojuegos = videojuegos;
+      },
+      error: (error: any) => {
+        console.log('error obteniendo los videojuegos ', error);
+      }
+    });
   }
 
   // Ir a editar el perfil de usuario
@@ -200,7 +208,7 @@ export class PanelAdministradorComponent {
     }
   }
 
-  obtenerVideojuegos() {
+  actualizarListaVideojuegos() {
     this._videojuegoService.obtenerVideojuegos().subscribe({
         next: (videojuegos: any) => {
             this.videojuegos = videojuegos;
@@ -243,7 +251,7 @@ export class PanelAdministradorComponent {
             this.archivoSeleccionado = null;
 
             // Actualizar la lista de videojuegos
-            this.obtenerVideojuegos();
+            this.actualizarListaVideojuegos();
 
             // Activar la condicion de videojuego creado
             // (esto activará el mensaje que lo indica)
