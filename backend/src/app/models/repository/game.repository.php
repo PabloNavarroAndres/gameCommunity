@@ -134,6 +134,20 @@ class GameRepository {
         try {
             // Iniciar la transacción
             $this->bd->beginTransaction();
+
+            // Obtener el nombre de la imagen del videojuego
+            $getImageQuery = "SELECT image FROM Games WHERE game_id = ?";
+            $stmt = $this->bd->prepare($getImageQuery);
+            $stmt->execute([$game_id]);
+            $game = $stmt->fetch(PDO::FETCH_ASSOC);
+
+            if (!$game) {
+                throw new Exception("Videojuego no encontrado");
+            }
+
+            $imageName = $game['image'];
+            $uploadDir = __DIR__ . '/../../../../imgs/games/';
+            $imagePath = $uploadDir . $imageName;
     
             // Actualizar el total de juegos para cada usuario
             $updateTotalGamesQuery = (
@@ -177,6 +191,11 @@ class GameRepository {
     
             // Confirmar la transacción
             $this->bd->commit();
+
+            // Eliminar la imagen del sistema de archivos
+            if (file_exists($imagePath)) {
+                unlink($imagePath);
+            }
         
         } catch (PDOException $e) {
             // Revertir la transacción en caso de error
