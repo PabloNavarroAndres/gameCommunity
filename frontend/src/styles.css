@@ -176,10 +176,10 @@ app-root {
 
 .ficha img {
     width: 100%;
-    height: 70%;
+    height: 73%;
     object-fit: cover;
     border-radius: 10px 10px 0 0;
-    padding: 10px;
+    padding-bottom: 15px !important;
 }
 
 .ficha h2 {

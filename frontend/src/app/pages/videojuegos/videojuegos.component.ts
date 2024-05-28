@@ -115,21 +115,6 @@ export class VideojuegosComponent {
 
         // Eliminar el videojuego del array
         this.videojuegos.splice(indiceArray, 1);
-
-        // Obtener el usuario iniciado con los nuevos datos actualizados
-        this._usuarioService.obtenerUsuarioPorEmail(this.usuarioIniciado.email)
-        .subscribe({
-          next: (user: User) => {
-
-            // Actualizar en el local storage con los nuevos datos
-            this._usuarioService.agregarUsuarioIniciado(user);
-          },
-    
-          error: (error: any) => {
-            console.error('Error intentando actualizar usuario iniciado:', error);
-          }
-        })
-
       },
 
       error: (error: any) => {

@@ -91,15 +91,7 @@ export class PanelAdministradorComponent {
     });
 
     // Obtener videojuegos de la BD
-    this._videojuegoService.obtenerVideojuegos()
-    .subscribe({
-      next: (videojuegos: Videojuego[]) => {
-        this.videojuegos = videojuegos;
-      },
-      error: (error: any) => {
-        console.log('error obteniendo los videojuegos ', error);
-      }
-    });
+    this.obtenerVideojuegos();
   }
 
   // Ir a editar el perfil de usuario
@@ -208,6 +200,17 @@ export class PanelAdministradorComponent {
     }
   }
 
+  obtenerVideojuegos() {
+    this._videojuegoService.obtenerVideojuegos().subscribe({
+        next: (videojuegos: any) => {
+            this.videojuegos = videojuegos;
+        },
+        error: (error: any) => {
+            console.error('Error al actualizar lista de videojuegos:', error);
+        }
+    });
+}
+
   crearVideojuego() {
     if (this.formularioVideojuego.valid && this.archivoSeleccionado) {
       const formData = new FormData();
@@ -238,6 +241,9 @@ export class PanelAdministradorComponent {
           next: (response: any) => {
             this.formularioVideojuego.reset();
             this.archivoSeleccionado = null;
+
+            // Actualizar la lista de videojuegos
+            this.obtenerVideojuegos();
 
             // Activar la condicion de videojuego creado
             // (esto activará el mensaje que lo indica)
