@@ -47,8 +47,7 @@ class GameRepository {
     public function obtenerVideojuegosUsuario($email) {
         try {
 
-            // Consulta para obtener todos los videojuegos que no tenga
-            // ya agregados el usuario iniciado
+            // Consulta para obtener todos los videojuegos del usuario
             $sql = $this->bd->prepare(
                 "SELECT *
                 FROM Games

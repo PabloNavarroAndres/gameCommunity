@@ -3,19 +3,16 @@
 require_once "bd.php";
 require_once 'app/models/model/userGame.model.php';
 
-class UserGameRepository
-{
+class UserGameRepository {
 
     private $bd;
 
-    public function __construct()
-    {
+    public function __construct() {
         $this->bd = BD::getBD();
     }
 
 
-    public function obtenerVideojuegosUsuario()
-    {
+    public function obtenerVideojuegosUsuario() {
         try {
 
             // Obtenemos el email que se ha pasado como parametro
@@ -56,8 +53,7 @@ class UserGameRepository
         }
     }
 
-    public function agregarVideojuegoUsuario($data)
-    {
+    public function agregarVideojuegoUsuario($data) {
         try {
 
             // Comenzar la transacción
@@ -97,8 +93,7 @@ class UserGameRepository
         }
     }
 
-    public function eliminarVideojuegoUsuario($data)
-    {
+    public function eliminarVideojuegoUsuario($data) {
         try {
             // Comenzar la transacción
             $this->bd->beginTransaction();
@@ -135,8 +130,7 @@ class UserGameRepository
         
     }
 
-    public function actualizarVideojuegoUsuario($data)
-    {
+    public function actualizarVideojuegoUsuario($data) {
 
         try {
 

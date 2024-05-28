@@ -40,14 +40,6 @@ export class LoginComponent {
     });
   }
 
-  /* ngOnInit(): void {
-    // El usuario iniciado del servicio se obtendra 
-    // del usuario iniciado que guardemos en login
-    this.usuarioService.usuarioIniciado.subscribe(user => {
-      this.usuarioIniciado = user;
-    });
-  } */
-
   // Comprobar si el usuario existe en la BD
   msjUsuarioInvalido() {
     return this.usuarioInvalido;
