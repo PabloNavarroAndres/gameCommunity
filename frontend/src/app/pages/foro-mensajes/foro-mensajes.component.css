@@ -95,6 +95,7 @@
     box-shadow: 0 0 5px rgba(0, 0, 0, 0.1);
 }
 
+/* Botón enviar mensaje  */
 #send-button {
     width: 20%;
     padding: 10px;
@@ -117,18 +118,6 @@
 #send-button:active {
     background-color: #3a005e;
 }
-
-#send-disabled {
-    width: 20%;
-    padding: 10px;
-    background-color: gray;
-    color: white;
-    border: none;
-    border-radius: 0 10px 10px 0;
-    cursor: pointer;
-    font-size: 16px;
-}
-
 
 
 /* Media Query */

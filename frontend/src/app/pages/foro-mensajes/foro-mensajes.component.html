@@ -26,6 +26,6 @@
     @if (esMiembro || usuarioIniciado.isAdmin) {
         <button id="send-button" (click)="enviarMsj()">Enviar</button>
     } @else {
-        <button id="send-disabled" disabled>Enviar</button>
+        <button id="send-button" class="btn-disabled" disabled>Enviar</button>
     }
 </div>

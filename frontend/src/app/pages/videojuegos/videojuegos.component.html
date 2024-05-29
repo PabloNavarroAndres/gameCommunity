@@ -7,13 +7,15 @@
             <img [src]="rutaBaseImg + videojuego.image" alt="Juego de la biblioteca">
             <h2>{{ videojuego.title }}</h2>
 
-            <!-- Botón de eliminar -->
-            <button class="eliminarBtn" (click)="eliminarVideojuego(videojuego.game_id, $index)">X</button>
-
-            
             @if (usuarioIniciado) {
+                
+                <!-- Botón de eliminar -->
+                <button class="eliminarBtn" (click)="eliminarVideojuego(videojuego.game_id, $index)">X</button>
+    
+                <!-- Botón de agregar -->
                 <button (click)="agregarVideojuego(videojuego)">Agregar</button>
             }
+            
         </div>
     }
 </div>

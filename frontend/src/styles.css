@@ -325,6 +325,12 @@ app-root {
     padding-bottom: 30px !important;
 }
 
+/* Botón deshabilitado */
+.btn-disabled {
+    background-color: gray !important;
+    color: white !important;
+}
+
 
 /* Media Query */
 @media (max-width: 1200px) {

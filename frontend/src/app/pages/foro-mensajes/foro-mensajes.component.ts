@@ -105,32 +105,36 @@ export class ForoMensajesComponent {
   // Enviar mensaje al foro
   enviarMsj() {
 
-    // Post a insertar en BD
-    const post: Post = {
-      content: this.mensaje,
-      user_email: this.usuarioIniciado.email, 
-      community_id: this.idComunidad as number,
-      profile_picture: this.usuarioIniciado.profile_picture,
-      username: this.usuarioIniciado.username
-    };
+    if (this.mensaje.trim() !== '') {
 
-    this._postService.crearPost(post)
-    .subscribe({
-      next: () => {
+      // Post a insertar en BD
+      const post: Post = {
+        content: this.mensaje,
+        user_email: this.usuarioIniciado.email, 
+        community_id: this.idComunidad as number,
+        profile_picture: this.usuarioIniciado.profile_picture,
+        username: this.usuarioIniciado.username
+      };
+  
+      this._postService.crearPost(post)
+      .subscribe({
+        next: () => {
+  
+          // Añadimos al array de posts el post creado
+          this.posts.push(post);
+          this.mensaje = '';
+  
+          setTimeout(() => {
+            // Scroll hasta el último mensaje
+            this.scrollToBottom();
+          }, 0);
+        },
+        error: (error: any) => {
+          console.error('Error al crear post:', error);
+        }
+      });
+    }
 
-        // Añadimos al array de posts el post creado
-        this.posts.push(post);
-        this.mensaje = '';
-
-        setTimeout(() => {
-          // Scroll hasta el último mensaje
-          this.scrollToBottom();
-        }, 0);
-      },
-      error: (error: any) => {
-        console.error('Error al crear post:', error);
-      }
-    });
   }
 
   // Bajar hasta el ultimo post

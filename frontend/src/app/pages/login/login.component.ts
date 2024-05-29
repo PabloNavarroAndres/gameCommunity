@@ -28,9 +28,6 @@ export class LoginComponent {
   // Comprobacion del patron correcto de email
   emailInvalido: boolean = false;
 
-  // Usuario que ha iniciado sesion
-  // usuarioIniciado!: User | null;
-
   constructor(private form: FormBuilder, private router: Router) {
 
     // Añadir validadores a los campos de formulario

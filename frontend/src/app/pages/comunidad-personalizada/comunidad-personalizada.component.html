@@ -3,7 +3,10 @@
     <div>
         <h2 class="titulo-ruta">COMUNIDADES PERSONALIZADAS</h2>
         <button class="boton-general btn-volver" (click)="goBack()">↽ Volver</button>
-        <button style="margin: 0 auto;" class="boton-general btn-volver" routerLink="/comunidades/crear">+ Crear</button>
+
+        @if (usuarioIniciado) {
+            <button style="margin: 0 auto;" class="boton-general btn-volver" routerLink="/comunidades/crear">+ Crear</button>
+        }
     </div>
 
     <div class="contenedor-fichas">
@@ -22,9 +25,17 @@
                     <span>{{ comunidad.description | truncate:85 }}</span>
                 }
     
-                <button [routerLink]="['/comunidades/personalizada/', comunidad.community_id]">
-                    Ver Comunidad
-                </button>
+                @if (usuarioIniciado) {
+
+                    <button [routerLink]="['/comunidades/personalizada/', comunidad.community_id]">
+                        Ver Comunidad
+                    </button>
+
+                } @else {
+                    <button class="btn-disabled" disabled>
+                        Ver Comunidad
+                    </button>
+                }
                 
             </div>
         }

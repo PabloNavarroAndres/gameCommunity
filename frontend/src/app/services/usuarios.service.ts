@@ -1,6 +1,6 @@
 import { Injectable, inject } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
-import { BehaviorSubject, Observable, tap } from 'rxjs';
+import { Observable } from 'rxjs';
 import { User } from '../models/user.interface';
 import { SecureLocalStorage } from '../pages/secure-local-storage/secure-local-storage.component';
 
@@ -13,18 +13,10 @@ export class UsuarioService {
   private _http = inject(HttpClient);
 
   // Usuario que ha iniciado sesión
-  /* private usuarioIniciadoSubject: BehaviorSubject<User | null>; */
   public usuarioIniciado?: User;
 
+  // Clase del Storage seguro, con cifrado de datos del usuario
   private secureLocalStorage = new SecureLocalStorage();
-
-  constructor() {
-    // Obtener el usuario iniciado como objeto del local storage
-    /* this.usuarioIniciadoSubject = new BehaviorSubject<User | null>
-      (JSON.parse(localStorage.getItem('usuarioIniciado') || '{}')); */
-    // Dejar como Observable el usuario del local storage
-    /* this.usuarioIniciado = this.usuarioIniciadoSubject.asObservable(); */
-  }
 
   // Obtener usuarios
   obtenerUsuarios(): Observable<User[]> {
@@ -46,6 +38,11 @@ export class UsuarioService {
     return this._http.delete<User>(`${this.url}?controller=usuarios&action=eliminarUsuario&email=${userEmail}`);
   }
 
+  // Actualizar usuario
+  actualizarUsuario(usuario: User): Observable<User> {
+    return this._http.put<User>(`${this.url}?controller=usuarios&action=actualizarUsuario`, usuario);
+  }
+
   // Poner rol administrador al usuario
   hacerAdministrador(userEmail: string): Observable<User> {
     return this._http.get<User>(`${this.url}?controller=usuarios&action=hacerAdministrador&email=${userEmail}`);
@@ -54,11 +51,6 @@ export class UsuarioService {
   // Quitar rol administrador al usuario
   quitarAdministrador(userEmail: string): Observable<User> {
     return this._http.get<User>(`${this.url}?controller=usuarios&action=quitarAdministrador&email=${userEmail}`);
-  }
-
-  // Actualizar usuario
-  actualizarUsuario(usuario: User): Observable<User> {
-    return this._http.put<User>(`${this.url}?controller=usuarios&action=actualizarUsuario`, usuario);
   }
 
   // Sumar 1+ al contador de juegos deseados
