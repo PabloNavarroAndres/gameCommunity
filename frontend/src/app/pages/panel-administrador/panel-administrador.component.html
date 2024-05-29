@@ -64,7 +64,13 @@
                         <button class="eliminarBtn" (click)="eliminarComunidad(comunidad.community_id, $index)">X</button>
 
         
-                        <span>{{ comunidad.description | truncate:85 }}</span>
+                        <!-- Descripcion -->
+                        @if (comunidad.description === '') {
+                            <!-- Hueco en blanco -->
+                            <span> &nbsp; </span>
+                        } @else {
+                            <span>{{ comunidad.description | truncate:85 }}</span>
+                        }
             
                         <!-- Acciones -->
                         <div class="ficha-btns">
@@ -114,9 +120,14 @@
                         ¡Videojuego creado con éxito!
                     </div>
 
-                    <!-- Mensaje de éxito -->
+                    <!-- Mensaje de error -->
                     <div class="msj-error" *ngIf="videojuegoExiste">
                         ¡El videojuego ya existe!
+                    </div>
+
+                    <!-- Mensaje de error -->
+                    <div class="msj-error" *ngIf="imgInvalida">
+                        ¡El formato de imagen es inválido!
                     </div>
             
                     <!-- Crear Videojuego -->

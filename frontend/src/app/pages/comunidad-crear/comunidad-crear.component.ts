@@ -246,8 +246,8 @@ export class ComunidadCrearComponent {
         comunidad => comunidad.title === comunidadActualizada.title
       );
 
-      // El nombre de la comunidad ya existe en la bd
-      if (comunidadEncontrada) {
+      // El nombre de la comunidad ya existe en la bd (mientras no sea la misma)
+      if (comunidadEncontrada && this.comunidadActiva?.title !== this.comunidadActiva?.title) {
         
         console.log('comunidad existe:');
 
@@ -266,10 +266,16 @@ export class ComunidadCrearComponent {
         .subscribe({
           next: (response: any) => {
 
-            console.log('comunidad agregada:');
+            console.log('comunidad actualizada:');
             console.log(response);
 
             this.comunidadActualizada = true;
+
+            // Actualizar campos actualizados de la comunidad activa
+            this.comunidadActiva!.title = comunidadActualizada.title;
+            this.comunidadActiva!.description = comunidadActualizada.description;
+
+            this.formularioComunidad.reset();
 
             // Desactivar el mensaje de éxito después de 5 segundos
             setTimeout(() => {

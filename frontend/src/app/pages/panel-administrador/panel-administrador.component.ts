@@ -51,9 +51,10 @@ export class PanelAdministradorComponent {
   // Formulario Registro
   formularioVideojuego: FormGroup;
 
-  // Condiciones para mostrar mensajes de videojuego
+  // Condiciones para mostrar mensajes al crear videojuego
   videojuegoExiste: boolean = false;
   videojuegoCreado: boolean = false;
+  imgInvalida: boolean = false;
 
   // Archivo de imagen seleccionado
   archivoSeleccionado: File | null = null;
@@ -210,6 +211,8 @@ export class PanelAdministradorComponent {
 
   crearVideojuego() {
     if (this.formularioVideojuego.valid && this.archivoSeleccionado) {
+
+      // Formulario con los datos del titulo y la imagen
       const formData = new FormData();
       formData.append('titulo', this.formularioVideojuego.get('titulo')?.value);
       formData.append('imagen', this.archivoSeleccionado);
@@ -231,11 +234,12 @@ export class PanelAdministradorComponent {
         setTimeout(() => {
           this.videojuegoExiste = false;
         }, 4000);
+
       } else {
         // Crear el videojuego en la BD
         this._videojuegoService.crearVideojuego(formData)
         .subscribe({
-          next: (response: any) => {
+          next: () => {
             this.formularioVideojuego.reset();
             this.archivoSeleccionado = null;
 
@@ -251,7 +255,8 @@ export class PanelAdministradorComponent {
           error: (error: any) => {
             console.error('Error al crear videojuego:', error);
 
-            if (error.status === 409) { // Asumiendo que el error 409 significa que el videojuego ya existe
+             // Asumiendo que el error 409 significa que el videojuego ya existe
+            if (error.status === 409) {
               this.videojuegoExiste = true;
             }
           }

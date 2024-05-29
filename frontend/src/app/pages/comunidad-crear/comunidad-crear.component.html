@@ -95,7 +95,8 @@
             <!-- Nombre -->
             <div class="mb-3">
                 <label for="nombre" class="form-label titulo-label">Nombre</label>
-                <input type="text" class="form-control" id="nombre" formControlName="nombre" maxlength="20">
+                <input type="text" class="form-control" id="nombre" [placeholder]="comunidadActiva?.title"
+                formControlName="nombre" maxlength="20">
     
                 <div class="msj-validadores" *ngIf="hasErrors('nombre', 'minlength')">
                     El nombre debe ser de mínimo 3 caracteres.
@@ -105,7 +106,8 @@
             <!-- Descripcion -->
             <div class="mb-3">
                 <label for="descripcion" class="form-label titulo-label">Descripción</label>
-                <textarea class="form-control" id="descripcion" formControlName="descripcion" rows="4" maxlength="250"></textarea>
+                <textarea class="form-control" id="descripcion" [placeholder]="comunidadActiva?.description" 
+                formControlName="descripcion" rows="4" maxlength="250"></textarea>
             </div>
             
             <!-- Imagen -->

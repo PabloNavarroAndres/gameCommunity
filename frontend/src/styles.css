@@ -196,9 +196,8 @@ app-root {
 }
 
 .ficha hr {
-    height: 2px;
-    background-color: white;
     width: 100%;
+    border: 1px solid #ff2aff;
 }
 
 .ficha button {
@@ -323,6 +322,7 @@ app-root {
     --mat-tab-header-active-hover-label-text-color: #ff4beb;
     --mat-tab-header-inactive-label-text-color: rgba(255, 122, 235, 0.92);
     --mat-tab-header-inactive-hover-label-text-color: rgba(255, 101, 245, 0.88);
+    padding-bottom: 30px !important;
 }
 
 

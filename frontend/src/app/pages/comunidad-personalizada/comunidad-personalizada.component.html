@@ -14,7 +14,13 @@
                 <h2>{{ comunidad.title }}</h2>
                 <hr>
 
-                <span>{{ comunidad.description | truncate:85 }}</span>
+                <!-- Descripcion -->
+                @if (comunidad.description === '') {
+                    <!-- Hueco en blanco -->
+                    <span> &nbsp; </span>
+                } @else {
+                    <span>{{ comunidad.description | truncate:85 }}</span>
+                }
     
                 <button [routerLink]="['/comunidades/personalizada/', comunidad.community_id]">
                     Ver Comunidad
