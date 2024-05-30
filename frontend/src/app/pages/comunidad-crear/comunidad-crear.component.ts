@@ -247,7 +247,7 @@ export class ComunidadCrearComponent {
       );
 
       // El nombre de la comunidad ya existe en la bd (mientras no sea la misma)
-      if (comunidadEncontrada && this.comunidadActiva?.title !== this.comunidadActiva?.title) {
+      if (comunidadEncontrada && this.comunidadActiva?.title !== comunidadEncontrada.title) {
         
         console.log('comunidad existe:');
 

@@ -28,7 +28,7 @@ export class BibliotecaComponent {
   usuarioIniciado = this._usuarioService.obtenerUsuarioIniciado() as User;
 
   // Array de Videojuegos
-  videojuegos: VideojuegoUsuario[] = [];
+  videojuegos?: VideojuegoUsuario[];
 
   // Indice de videojuego a mostrar en detalles
   indiceVideojuego = 0;
@@ -72,9 +72,12 @@ export class BibliotecaComponent {
 
         console.log('Eliminando videojuego del servidor:', response);
 
+        /* Estado del juego a comprobar */
+        const status = this.videojuegos ? this.videojuegos[indiceArray]?.status : null;
+
         // Comprobamos en que estado estaba el juego para restarlo
         // de su contador correspondiente
-        switch (this.videojuegos[indiceArray].status) {
+        switch (status) {
           case 'Terminado':
             
             // Funcion restar terminados -1
@@ -122,7 +125,7 @@ export class BibliotecaComponent {
         }
 
         // Eliminar el videojuego del array
-        this.videojuegos.splice(indiceArray, 1);
+        this.videojuegos?.splice(indiceArray, 1);
 
         // Restar uno a juegos totales del usuario
         this.usuarioIniciado.total_games!--;
@@ -140,7 +143,7 @@ export class BibliotecaComponent {
   editarDetalles() {
 
     // Videojuego seleccionado
-    const videojuego = this.videojuegos[this.indiceVideojuego];
+    const videojuego = this.videojuegos ? this.videojuegos[this.indiceVideojuego] : null;
 
     // Videojuego del usuario con los datos actualizados
     // (mientras los campos no sean indefinidos)
@@ -152,13 +155,13 @@ export class BibliotecaComponent {
         case 'Terminado':
 
           // Si ya estaba terminado se queda igual
-          if (this.estado === videojuego.status) {
+          if (this.estado === videojuego!.status) {
             break;
           }
 
           // Si estaba en lista de deseados se resta del contador
           // de juegos deseados
-          if (videojuego.status === 'Lista de deseos') {
+          if (videojuego!.status === 'Lista de deseos') {
             // Funcion restar deseados -1
             this._usuarioService.restarJuegoDeseado(this.usuarioIniciado)
             .subscribe({
@@ -195,20 +198,20 @@ export class BibliotecaComponent {
           });
 
           // Actualizamos estado del videojuego
-          videojuego.status = this.estado;
+          videojuego!.status = this.estado;
 
           break;
 
         case 'Lista de deseos':
 
           // Si ya estaba en deseados se queda igual
-          if (this.estado === videojuego.status) {
+          if (this.estado === videojuego!.status) {
             break;
           }
 
           // Si estaba en lista de terminados se resta del contador
           // de juegos terminados
-          if (videojuego.status === 'Terminado') {
+          if (videojuego!.status === 'Terminado') {
             // Funcion restar terminados -1
             this._usuarioService.restarJuegoTerminado(this.usuarioIniciado)
             .subscribe({
@@ -245,20 +248,20 @@ export class BibliotecaComponent {
           });
 
           // Actualizamos estado del videojuego
-          videojuego.status = this.estado;
+          videojuego!.status = this.estado;
 
           break;
 
         case 'Por empezar':
 
           // Si ya estaba en deseados se queda igual
-          if (this.estado === videojuego.status) {
+          if (this.estado === videojuego!.status) {
             break;
           }
 
           // Si estaba en lista de terminados se resta del contador
           // de juegos terminados
-          if (videojuego.status === 'Terminado') {
+          if (videojuego!.status === 'Terminado') {
             // Funcion restar terminados -1
             this._usuarioService.restarJuegoTerminado(this.usuarioIniciado)
             .subscribe({
@@ -279,7 +282,7 @@ export class BibliotecaComponent {
 
           // Si estaba en lista de deseados se resta del contador
           // de juegos deseados
-          if (videojuego.status === 'Lista de deseos') {
+          if (videojuego!.status === 'Lista de deseos') {
             // Funcion restar deseados -1
             this._usuarioService.restarJuegoDeseado(this.usuarioIniciado)
             .subscribe({
@@ -299,20 +302,20 @@ export class BibliotecaComponent {
           }
 
           // Actualizamos estado del videojuego
-          videojuego.status = this.estado;
+          videojuego!.status = this.estado;
           
           break;
         
         case 'En progreso':
 
           // Si ya estaba en deseados se queda igual
-          if (this.estado === videojuego.status) {
+          if (this.estado === videojuego!.status) {
             break;
           }
 
           // Si estaba en lista de terminados se resta del contador
           // de juegos terminados
-          if (videojuego.status === 'Terminado') {
+          if (videojuego!.status === 'Terminado') {
             // Funcion restar terminados -1
             this._usuarioService.restarJuegoTerminado(this.usuarioIniciado)
             .subscribe({
@@ -333,7 +336,7 @@ export class BibliotecaComponent {
 
           // Si estaba en lista de deseados se resta del contador
           // de juegos deseados
-          if (videojuego.status === 'Lista de deseos') {
+          if (videojuego!.status === 'Lista de deseos') {
             // Funcion restar deseados -1
             this._usuarioService.restarJuegoDeseado(this.usuarioIniciado)
             .subscribe({
@@ -353,7 +356,7 @@ export class BibliotecaComponent {
           }
 
           // Actualizamos estado del videojuego
-          videojuego.status = this.estado;
+          videojuego!.status = this.estado;
 
           break;
 
@@ -361,21 +364,21 @@ export class BibliotecaComponent {
           break;
       }
 
-      videojuego.status = this.estado;
+      videojuego!.status = this.estado;
     }
 
     // Si el campo no está vacío se actualiza
     if (this.comentario !== undefined) {
-      videojuego.personal_comment = this.comentario;
+      videojuego!.personal_comment = this.comentario;
     }
 
     // Si el campo no está vacío se actualiza
     if (this.calificacion !== undefined) {
-      videojuego.rating = this.calificacion;
+      videojuego!.rating = this.calificacion;
     }
 
     // Actualizar en la BD
-    this._videojuegoService.actualizarVideojuegoUsuario(videojuego)
+    this._videojuegoService.actualizarVideojuegoUsuario(videojuego as VideojuegoUsuario)
     .subscribe({
 
       // Videojuego de usuario obtenido

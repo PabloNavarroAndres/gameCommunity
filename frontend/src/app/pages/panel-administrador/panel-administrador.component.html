@@ -112,7 +112,8 @@
                     <!-- Imagen -->
                     <div class="mb-3">
                         <label for="foto-juego" class="form-label titulo-label">Foto</label>
-                        <input class="form-control" type="file" id="foto-juego" (change)="onFileChange($event)">
+                        <input class="form-control" type="file" accept="image/jpeg, image/png, image/jpg, image/webp"
+                        id="foto-juego" (change)="onFileChange($event)">
                     </div>
                     
                     <!-- Mensaje de éxito -->

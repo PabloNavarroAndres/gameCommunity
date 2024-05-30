@@ -200,13 +200,30 @@ export class PanelAdministradorComponent {
   // Detectar cuando seleccionas la imagen del videojuego
   onFileChange(event: any): void {
     const file = event.target.files[0];
-    if (file) {
+
+    if (file && this.isValidImage(file)) {
+
       this.archivoSeleccionado = file;
       this.formularioVideojuego.patchValue({
         imagen: file
       });
+
       this.formularioVideojuego.get('imagen')?.updateValueAndValidity();
+
+    } else {
+
+      alert('Por favor, selecciona una imagen válida (jpg, jpeg, png).');
+
+      // Resetear el input file
+      event.target.value = ''; 
     }
+
+  }
+
+  // Comprobar si es un archivo de imagen válido
+  isValidImage(file: File): boolean {
+    const allowedExtensions = /(\.jpg|\.jpeg|\.png)$/i;
+    return allowedExtensions.test(file.name);
   }
 
   crearVideojuego() {

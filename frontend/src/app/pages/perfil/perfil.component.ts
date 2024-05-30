@@ -27,7 +27,7 @@ export class PerfilComponent {
   private _navegacionService = inject(NavegacionService);
 
   // Obtener el usuario con la sesión iniciada
-  usuario!: User;
+  usuario: User | undefined;
 
   // Desactivar modo edicion si se ha entrado por parametro de email
   modoEditar: boolean = true;
@@ -95,7 +95,7 @@ export class PerfilComponent {
             this.checkQueryParams();
 
             // Pasamos el índice de la imagen del usuario al del array de imagenes
-            this.i = this.imagenes.findIndex(imagen => this.usuario.profile_picture === imagen);
+            this.i = this.imagenes.findIndex(imagen => this.usuario?.profile_picture === imagen);
 
           },
           error: (error: any) => {
@@ -113,7 +113,7 @@ export class PerfilComponent {
         this.usuario = this._usuarioService.obtenerUsuarioIniciado() as User;
 
         // Pasamos el índice de la imagen del usuario al del array de imagenes
-        this.i = this.imagenes.findIndex(imagen => this.usuario.profile_picture === imagen);
+        this.i = this.imagenes.findIndex(imagen => this.usuario?.profile_picture === imagen);
       }
     });
     
@@ -189,20 +189,19 @@ export class PerfilComponent {
     usuarioActualizado.profile_picture = this.selectedImage;
 
     // Mandamos el usuario actualizado al servicio
-    this._usuarioService.actualizarUsuario(usuarioActualizado)
+    this._usuarioService.actualizarUsuario(usuarioActualizado as User)
     .subscribe({
       // Array de usuarios obtenido
       next: (response: User) => {
         console.log('Usuario actualizado correctamente', response);
 
         // Actualizar usuario iniciado
-        this.usuario = usuarioActualizado;
+        this.usuario = usuarioActualizado as User;
 
         if(!this.modoEditarAdmin) {
           // Actualizar usuario iniciado
-          this._usuarioService.agregarUsuarioIniciado(usuarioActualizado);
+          this._usuarioService.agregarUsuarioIniciado(usuarioActualizado as User);
         }
-
       },
       error: (error: any) => {
         console.error('Error al obtener usuarios:', error);
@@ -221,4 +220,3 @@ export class PerfilComponent {
   }
 
 }
-
