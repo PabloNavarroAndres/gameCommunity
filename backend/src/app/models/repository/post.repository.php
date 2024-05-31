@@ -20,11 +20,9 @@ class PostRepository {
             $sql = $this->bd->prepare(
                 "SELECT 
                     p.post_id, 
-                    p.content, 
-                    p.votes, 
+                    p.content,  
                     p.user_email, 
-                    p.community_id, 
-                    p.liked_by, 
+                    p.community_id,  
                     u.username, 
                     u.profile_picture
                 FROM Posts p
@@ -44,10 +42,8 @@ class PostRepository {
                 $post = new Post(
                     $postData['post_id'],
                     $postData['content'],
-                    $postData['votes'],
                     $postData['user_email'],
                     $postData['community_id'],
-                    $postData['liked_by'],
                     $postData['profile_picture'],
                     $postData['username'],
                 );

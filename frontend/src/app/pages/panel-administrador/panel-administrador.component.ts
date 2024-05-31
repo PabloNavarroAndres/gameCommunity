@@ -212,7 +212,7 @@ export class PanelAdministradorComponent {
 
     } else {
 
-      alert('Por favor, selecciona una imagen válida (jpg, jpeg, png).');
+      alert('Por favor, selecciona una imagen válida (jpg, jpeg, png, webp)');
 
       // Resetear el input file
       event.target.value = ''; 
