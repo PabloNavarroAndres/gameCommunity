@@ -29,7 +29,7 @@
           </tr>
 
           <!-- Boton editar -->
-          @if (usuarioIniciado.isAdmin || modoEditar) {
+          @if (modoEditarAdmin || modoEditar) {
 
             <button type="button" class="btn btn-modal" 
               data-bs-toggle="modal" data-bs-target="#EditarPerfilModal" 
