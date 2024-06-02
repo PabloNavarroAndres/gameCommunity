@@ -9,8 +9,11 @@
 
             @if (usuarioIniciado) {
                 
-                <!-- Botón de eliminar -->
-                <button class="eliminarBtn" (click)="eliminarVideojuego(videojuego.game_id, $index)">X</button>
+                @if (usuarioIniciado.isAdmin) {
+
+                    <!-- Botón de eliminar -->
+                    <button class="eliminarBtn" (click)="eliminarVideojuego(videojuego.game_id, $index)">X</button>
+                }
     
                 <!-- Botón de agregar -->
                 <button (click)="agregarVideojuego(videojuego)">Agregar</button>
