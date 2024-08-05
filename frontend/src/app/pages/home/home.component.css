@@ -23,6 +23,11 @@ h3 {
     }
 }
 
+@keyframes btn-rgb {
+    0% {background-position: 0}
+    100% {background-position: 200%}
+}
+
 .logo {
     width: 50px;
     margin-right: 10px;
@@ -48,6 +53,10 @@ h3 {
 }
 
 .home-info {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
     position: relative;
     width: 90%;
     color: black;
@@ -68,6 +77,43 @@ h3 {
     color: black;
     font-size: var(--parrafo);
     line-height: 25px;
+}
+
+#join-btn {
+    border: calc(0.08 * 4rem) solid transparent;
+    position: relative;
+    color: #F3F3F3;
+    font-family: 'Space Grotesk';
+    font-size: 4rem;
+    border-radius: calc(0.7 * 4rem);
+    padding: calc(0.5 * 4rem) calc(1 * 4rem);
+    display: flex;
+    justify-content: center;
+    cursor: pointer;
+    width: fit-content;
+    
+    background:linear-gradient(#f700ff, #600063), linear-gradient(#f700ff 50%, rgba(18, 18, 19, 0.6) 80%, rgba(18, 18, 19, 0)),  linear-gradient(90deg, #FF6D1B, #FFEE55, #5BFF89, #4D8AFF, #6B5FFF, #FF64F9, #FF6565);
+    background-origin: border-box;
+    background-clip: padding-box, border-box, border-box;
+    background-size: 200%;
+    animation: btn-rgb 2s infinite linear;
+}
+
+#join-btn::before {
+    content: '';
+    background: linear-gradient(90deg, #FF6D1B, #FFEE55, #5BFF89, #4D8AFF, #6B5FFF, #FF64F9, #FF6565);
+    height: 30%;
+    width: 60%;
+    position: absolute;
+    bottom: -20%;
+    z-index: -5;
+    background-size: 200%;
+    animation: btn-rgb 2s infinite linear;
+    filter: blur(calc(0.8 * 4rem));
+}
+
+#join-btn:hover, #join-btn:hover::before {
+    animation: btn-rgb 0.5s infinite linear;
 }
 
 
@@ -127,4 +173,3 @@ h3 {
         width: 80%;
     }
 }
-

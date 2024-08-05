@@ -6,6 +6,7 @@ import { User } from '../../models/user.interface';
 import { UsuarioService } from '../../services/usuarios.service';
 import { Router } from '@angular/router';
 import { LoginService } from '../../services/login.service';
+import { RegistroService } from '../../services/registro.service';
 
 @Component({
   selector: 'app-login',
@@ -20,6 +21,7 @@ export class LoginComponent {
   // Servicio de usuarios
   private usuarioService = inject(UsuarioService);
   private loginService = inject(LoginService);
+  private registerService = inject(RegistroService);
 
   // Formulario de login
   formularioLogin: FormGroup;

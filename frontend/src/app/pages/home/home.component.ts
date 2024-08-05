@@ -40,4 +40,9 @@ export class HomeComponent {
     shouldShowRegistro(): boolean {
         return this.registroService.shouldShowRegistro();
     }
+
+    // Abrir el registro
+    toggleRegistro(): void {
+        this.registroService.toggleRegistro();
+    }
 }
