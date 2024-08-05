@@ -33,10 +33,10 @@ h3 {
 }
 
 .logo-img {
-    width: 80%;
+    width: 50%;
     margin: 0 auto;
-    padding-top: 20px;
     display: flex;
+    padding-top: 20px;
     flex-direction: column;
     animation: aumentarReducir 4s infinite ease-in-out;
 }
@@ -44,7 +44,7 @@ h3 {
 .logo-img > img {
     width: 100%;
     height: 100%;
-    object-fit: scale-down;
+    object-fit: fill;
 }
 
 .home-info {
@@ -78,13 +78,17 @@ h3 {
     
     .info-content {
         font-size: 1.4rem;
-        width: 70%;
+        width: 60%;
     }
 }
 
 @media (max-width: 875px) {
     h3 {
         font-size: 1.5rem;
+    }
+
+    .logo-img {
+        width: 70%;
     }
 
     .home-info img {
@@ -102,6 +106,7 @@ h3 {
 }
 
 @media (max-width: 730px) {
+    
     h3 {
         font-size: 1.4rem;
     }
@@ -114,6 +119,12 @@ h3 {
         width: 70%;
         font-size: 1.3rem;
         text-align: center;
+    }
+}
+
+@media (max-width: 480px) {
+    .logo-img {
+        width: 80%;
     }
 }
 
