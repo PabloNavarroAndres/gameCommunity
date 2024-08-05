@@ -1,0 +1,23 @@
+.form-general {
+    position: relative;
+}
+
+.form-general > button {
+    background-color: #ff36e8;
+    color: #fff;
+    border: none;
+    padding: 10px 20px;
+    border-radius: 0 0 10px 10px;
+    cursor: pointer;
+    width: 100%;
+    transition: background-color 0.3s ease;
+    opacity: 1;
+    padding: 20px !important;
+    padding-right: 35px !important;
+    font-size: 32px;
+}
+
+.form-general > button:hover {
+    background-color: #af0e9d;
+    color: white;
+}

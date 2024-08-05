@@ -1,43 +1,47 @@
 <section [@fadeInOut] class="form-general">
-    <h2 class="titulo-mediano">Login</h2>
-    <hr>
-    <form [formGroup]="formularioLogin" (ngSubmit)="enviar()">
-        <!-- Email -->
-        <div class="mb-3">
-          <label for="email" class="form-label titulo-label">Email</label>
-          <input [ngClass]="{'is-invalid': hasErrors('email', 'required') || hasErrors('email', 'email') }" type="email"
-            class="form-control" id="email" formControlName="email">
-      
-          <div class="msj-validadores" *ngIf="hasErrors('email', 'email') || hasErrors('email', 'emailInvalido')  && !hasErrors('email', 'required')">
-            Email inválido.
-          </div>
-      
-          <div class="msj-validadores" *ngIf="hasErrors('email', 'required')">
-            Email obligatorio.
-          </div>
-        </div>
-      
-        <!-- Contraseña -->
-        <div class="mb-3">
-            <label for="password" class="form-label titulo-label">Contraseña</label>
-            <input [ngClass]="{'is-invalid': hasErrors('password', 'required') || hasErrors('password', 'minlength') }"
-                type="password" class="form-control" id="password" formControlName="password">
+  <h2 class="titulo-mediano">Login</h2>
+  <hr>
+  <form [formGroup]="formularioLogin" (ngSubmit)="enviar()">
+    <!-- Email -->
+    <div class="mb-3">
+      <label for="email" class="form-label titulo-label">Email</label>
+      <input [ngClass]="{'is-invalid': hasErrors('email', 'required') || hasErrors('email', 'email') }" type="email"
+        class="form-control" id="email" formControlName="email">
 
-            <div class="msj-validadores" *ngIf="hasErrors('password', 'required')">
-                Contraseña obligatoria.
-            </div>
+      <div class="msj-validadores"
+        *ngIf="hasErrors('email', 'email') || hasErrors('email', 'emailInvalido')  && !hasErrors('email', 'required')">
+        Email inválido.
+      </div>
 
-            <div class="msj-validadores" *ngIf="hasErrors('password', 'minlength')">
-                La contraseña debe ser de mínimo 8 caracteres.
-            </div>
-        </div>
-        
-        <!-- Mensaje de error (usuario existente en la BD) -->
-        <div class="msj-error" *ngIf="msjUsuarioInvalido()">
-          Email o contraseña incorrecto/a
-        </div>
+      <div class="msj-validadores" *ngIf="hasErrors('email', 'required')">
+        Email obligatorio.
+      </div>
+    </div>
 
-        <!-- Iniciar sesión -->
-        <button type="submit" class="boton-general">Iniciar sesión</button>
-      </form>
+    <!-- Contraseña -->
+    <div class="mb-3">
+      <label for="password" class="form-label titulo-label">Contraseña</label>
+      <input [ngClass]="{'is-invalid': hasErrors('password', 'required') || hasErrors('password', 'minlength') }"
+        type="password" class="form-control" id="password" formControlName="password">
+
+      <div class="msj-validadores" *ngIf="hasErrors('password', 'required')">
+        Contraseña obligatoria.
+      </div>
+
+      <div class="msj-validadores" *ngIf="hasErrors('password', 'minlength')">
+        La contraseña debe ser de mínimo 8 caracteres.
+      </div>
+    </div>
+
+    <!-- Mensaje de error (usuario existente en la BD) -->
+    <div class="msj-error" *ngIf="msjUsuarioInvalido()">
+      Email o contraseña incorrecto/a
+    </div>
+
+    <!-- Iniciar sesión -->
+    <button type="submit" class="boton-general">Iniciar sesión</button>
+  </form>
+
+  <!-- Volver al inicio -->
+  <button (click)="toggleLogin()" class="eliminarBtn">X</button>
 </section>

@@ -4,6 +4,7 @@ import { FormGroup, FormBuilder, Validators, FormsModule, ReactiveFormsModule, A
 import { registroAnimation } from './registro.animation';
 import { UsuarioService } from '../../services/usuarios.service';
 import { User } from '../../models/user.interface';
+import { RegistroService } from '../../services/registro.service';
 
 @Component({
   selector: 'app-registro',
@@ -16,6 +17,7 @@ import { User } from '../../models/user.interface';
 export class RegistroComponent {
   // Servicio de usuarios
   private usuarioService = inject(UsuarioService);
+  private registroService = inject(RegistroService);
 
   // Formulario Registro
   formularioRegistro: FormGroup;
@@ -155,6 +157,11 @@ export class RegistroComponent {
     // los validadores del formulario devuelven true si el error indicado
     // está presente
     return control?.hasError(errorType) || (controlName === 'email' && this.emailInvalido) && control?.touched;
+  }
+
+  // Cerrar el login y volver al inicio
+  toggleRegistro() {
+    this.registroService.toggleRegistro();
   }
 }
 

@@ -5,6 +5,7 @@ import { FormGroup, FormBuilder, Validators, FormsModule, ReactiveFormsModule, A
 import { User } from '../../models/user.interface';
 import { UsuarioService } from '../../services/usuarios.service';
 import { Router } from '@angular/router';
+import { LoginService } from '../../services/login.service';
 
 @Component({
   selector: 'app-login',
@@ -18,6 +19,7 @@ export class LoginComponent {
 
   // Servicio de usuarios
   private usuarioService = inject(UsuarioService);
+  private loginService = inject(LoginService);
 
   // Formulario de login
   formularioLogin: FormGroup;
@@ -134,5 +136,10 @@ export class LoginComponent {
     // los validadores del formulario devuelven true si el error indicado
     // está presente
     return control?.hasError(errorType) || (controlName === 'email' && this.usuarioInvalido) && control?.touched;
+  }
+
+  // Cerrar el login y volver al inicio
+  toggleLogin() {
+    this.loginService.toggleLogin();
   }
 }
