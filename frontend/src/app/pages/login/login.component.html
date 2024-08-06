@@ -42,8 +42,10 @@
     <button type="submit" class="boton-general">Iniciar sesión</button>
   </form>
 
-  <!-- Botón al registro -->
-  <span class="form-redirection">¿No tienes una cuenta? Regístrate</span>
+  <!-- Botón ir al registro -->
+  <span class="form-redirection">¿No tienes una cuenta? 
+    <span style="text-decoration: underline; font-weight: bolder; cursor: pointer;" (click)="toggleRegistro()">Regístrate</span>
+  </span>
 
   <!-- Volver al inicio -->
   <button (click)="toggleLogin()" class="eliminarBtn">X</button>

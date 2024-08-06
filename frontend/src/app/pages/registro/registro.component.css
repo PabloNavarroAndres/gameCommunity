@@ -1,5 +1,9 @@
 .form-general {
     position: relative;
+    display: flex;
+    flex-direction: column;
+    box-shadow: 0px 0px 25px;
+    margin-top: 75px;
 }
 
 .form-general > button {
@@ -20,4 +24,11 @@
 .form-general > button:hover {
     background-color: #af0e9d;
     color: white;
+}
+
+.form-redirection {
+    font-size: var(--letra-boton);
+    align-self: center;
+    padding-top: 20px;
+    padding-bottom: 10px;
 }

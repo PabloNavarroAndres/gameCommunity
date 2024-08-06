@@ -5,6 +5,7 @@ import { registroAnimation } from './registro.animation';
 import { UsuarioService } from '../../services/usuarios.service';
 import { User } from '../../models/user.interface';
 import { RegistroService } from '../../services/registro.service';
+import { LoginService } from '../../services/login.service';
 
 @Component({
   selector: 'app-registro',
@@ -18,6 +19,7 @@ export class RegistroComponent {
   // Servicio de usuarios
   private usuarioService = inject(UsuarioService);
   private registroService = inject(RegistroService);
+  private loginService = inject(LoginService);
 
   // Formulario Registro
   formularioRegistro: FormGroup;
@@ -162,6 +164,12 @@ export class RegistroComponent {
   // Cerrar el login y volver al inicio
   toggleRegistro() {
     this.registroService.toggleRegistro();
+  }
+
+  // Cerrar el registro y abrir el login
+  toggleLogin() {
+    this.toggleRegistro();
+    this.loginService.toggleLogin();
   }
 }
 

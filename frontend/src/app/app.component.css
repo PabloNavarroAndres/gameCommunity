@@ -53,7 +53,6 @@ footer {
     color: white;
     text-align: center;
     padding: 20px 0;
-    margin-top: 50px;
 }
 
 .footer-container {
@@ -61,8 +60,8 @@ footer {
     justify-content: center;
     align-items: flex-start;
     flex-wrap: wrap;
-    max-width: 1200px;
     margin: 0 auto;
+    max-width: 1200px;
     padding: 0 20px;
 }
 

@@ -4,11 +4,12 @@
     --titulo-peque: 1.5rem;
     --titulo-mediano: 2.5rem;
     --titulo-grande: 3rem;
+    --titulo-seccion: 4rem;
     --fondo-tema: #d004d0;
     --hover-tema: #5d015d;
     --fondo-nav: #8f008f;
     --fondo-footer: #8306B1;
-    --letra-color-btn: #ff8cff;
+    --letra-color-btn: #ffb3ff;
 }
 
 html, body {
@@ -313,6 +314,17 @@ app-root {
 
 .form-floating {
     width: 100%;
+}
+
+.form-redirection {
+    font-size: var(--letra-boton);
+    color: var(--letra-color-btn);
+    align-self: center;
+}
+
+.navbar-nav {
+    gap: 25px;
+    padding-left: 35px !important;
 }
 
 .mat-mdc-tab-labels {

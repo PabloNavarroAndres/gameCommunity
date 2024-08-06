@@ -144,4 +144,10 @@ export class LoginComponent {
   toggleLogin() {
     this.loginService.toggleLogin();
   }
+
+  // Cerrar el login y abrir registro
+  toggleRegistro() {
+    this.toggleLogin();
+    this.registerService.toggleRegistro();
+  }
 }
