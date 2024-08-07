@@ -350,6 +350,10 @@ app-root {
     .ficha {
         width: calc(50% - 40px);
     }
+
+    .carousel-item img {
+        height: 300px !important;
+    }
 }
 
 @media (max-width: 768px) {
@@ -374,6 +378,10 @@ app-root {
     .form-registro {
         width: 80%;
         padding: 20px;
+    }
+
+    .titulo-ruta {
+        font-size: 2.2rem !important;
     }
 
     .msj-error {

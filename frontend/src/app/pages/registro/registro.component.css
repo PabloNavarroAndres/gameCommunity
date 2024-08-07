@@ -32,3 +32,11 @@
     padding-top: 20px;
     padding-bottom: 10px;
 }
+
+@media (max-width: 545px) {
+    
+    .form-redirection {
+        font-size: 1.05rem;
+    }
+
+}
