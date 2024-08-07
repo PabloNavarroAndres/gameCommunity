@@ -19,6 +19,7 @@ export class PerfilComponent {
 
   // Referencia al boton de editar
   @ViewChild('openModalButton') openModalButton!: ElementRef;
+  @ViewChild('EditarPerfilModal') EditarPerfilModal!: ElementRef;
 
   // Servicio de usuarios
   private _usuarioService = inject(UsuarioService);
@@ -28,6 +29,12 @@ export class PerfilComponent {
 
   // Obtener el usuario con la sesión iniciada
   usuario: User | undefined;
+
+  // Usuarios de la web
+  usuarios: User[] = [];
+
+  // Condicion para mostrar mensaje de nombre de usuario existente
+  nombreExistente: boolean = false;
 
   // Desactivar modo edicion si se ha entrado por parametro de email
   modoEditar: boolean = true;
@@ -68,83 +75,74 @@ export class PerfilComponent {
 
   // Al iniciarse buscamos la imagen del usuario
   ngOnInit(): void {
-
-    // Buscamos datos de los parametros
     this.route.params.subscribe(params => {
 
-      // Parametro de email usuario
       const userEmail = params['user_email'];
 
-      // Si el email existe es que estamos visitando un perfil de otro usuario
+      // Si existe el parametro del email de usuario..
       if (userEmail) {
-        
-        // Desactivamos el boton de editar
+
+        // Desactivar modo editar (se está visitando un perfil)
         this.modoEditar = false;
 
-        // Si hay un parámetro de email en la URL, obtener el perfil del usuario correspondiente
+        // Obtener objeto de usuario
         this._usuarioService.obtenerUsuarioPorEmail(userEmail)
-        .subscribe({
-          // Array de usuarios obtenido
-          next: (user: User) => {
-            console.log('Usuario obtenido por email: ', user);
-    
-            // Actualizar usuario
-            this.usuario = user;
+          .subscribe({
+            next: (user: User) => {
 
-            // Revisamos si hay parametro de editar por un administrador
-            this.checkQueryParams();
+              // Actualizar perfil al usuario obtenido
+              this.usuario = user;
 
-            // Pasamos el índice de la imagen del usuario al del array de imagenes
-            this.i = this.imagenes.findIndex(imagen => this.usuario?.profile_picture === imagen);
+              // Comprobar parametro de editar por administrador
+              this.checkQueryParams();
 
-          },
-          error: (error: any) => {
-            console.error('Error al obtener el perfil del usuario:', error);
-          }
-        });
+              // Actualizar la posicion de la imagen de usuario
+              this.i = this.imagenes.findIndex(imagen => this.usuario?.profile_picture === imagen);
+            },
+            error: (error: any) => {
+              console.error('Error al obtener el perfil del usuario:', error);
+            }
+          });
 
-      // Si no existe simplemente es que estamos visitando nuestro perfil,
-      // como usuario iniciado
       } else {
-        // Activar boton de editar
+        // Si no hay parámetros es que es nuestro perfil, se activa el modo editar
         this.modoEditar = true;
 
-        // Si no hay parámetro de email, obtener el usuario con la sesión iniciada
+        // El perfil muestra al usuario iniciado
         this.usuario = this._usuarioService.obtenerUsuarioIniciado() as User;
 
-        // Pasamos el índice de la imagen del usuario al del array de imagenes
+        // Actualizamos la posicion de la imagen de usuario en el array de imagenes
         this.i = this.imagenes.findIndex(imagen => this.usuario?.profile_picture === imagen);
       }
     });
-    
+
+    // Obtenemos los usuarios
+    this._usuarioService.obtenerUsuarios()
+      .subscribe((usuarios: User[]) => {
+        this.usuarios = usuarios;
+      });
   }
 
   // Inicialización del ViewChild en ngAfterViewInit,
-  // para que esté disponible a llamar a openModal
+  // para que esté disponible al llamar a openModal
   ngAfterViewInit(): void {
-    if (this.shouldOpenModal && this.openModalButton) {
-      this.openModal();
-    }
+
+    setTimeout(() => {
+      if (this.shouldOpenModal && this.openModalButton) {
+        this.openModal();
+      }
+    }, 100);
   }
 
   // Comprobar parametro de editar (por un admin)
   private checkQueryParams(): void {
-
     this.route.queryParams.subscribe(params => {
-
       if (params['editar'] === 'true') {
-
+        // Si esta el modo editar activamos el modo editar por administrador,
+        // además de la condicion de abrir modal
         this.modoEditarAdmin = true;
-
-        // Comprobar condicion para abrir modal
         this.shouldOpenModal = true;
-
-        // Llamar a abrir el modal
-        if (this.openModalButton) {
-          this.openModal();
-        }
       }
-
     });
   }
 
@@ -181,10 +179,36 @@ export class PerfilComponent {
     // Usuario con los nuevos datos
     const usuarioActualizado = { ...this.usuario };
 
-    // Nombre
+    // Quitamos los espacios del nuevo nombre
+    this.nombre = this.nombre.trim();
+
+    // Si el nombre está vacio se deja como estaba antes
     if (this.nombre !== '') {
       usuarioActualizado.username = this.nombre;
     }
+
+    // Se comprueba si el nombre nuevo coincide con uno existente
+    for (const usuario of this.usuarios) {
+      if (this.nombre === usuario.username) {
+        
+        console.log('Usuario ya existe');
+
+        // Activar la condicion de que el nombre existe
+        // (esto activará el mensaje que lo indica)
+        this.nombreExistente = true;
+
+        // Desactivar el mensaje después de 5 segundos
+        setTimeout(() => {
+          this.nombreExistente = false;
+        }, 5000);
+
+        // Vaciar campo de nombre
+        this.nombre = '';
+
+        return;
+      }
+    }
+
     // Foto de perfil
     usuarioActualizado.profile_picture = this.selectedImage;
 
@@ -198,16 +222,45 @@ export class PerfilComponent {
         // Actualizar usuario iniciado
         this.usuario = usuarioActualizado as User;
 
+        // Cambiar el nombre del array de usuarios
+        for (const usuario of this.usuarios) {
+          if (usuarioActualizado.email === usuario.email) {
+            usuario.username = this.nombre;
+          }
+        }
+
+        // Si no es un administrador el perfil iniciado se actualiza con
+        // los nuevos datos
         if(!this.modoEditarAdmin) {
           // Actualizar usuario iniciado
           this._usuarioService.agregarUsuarioIniciado(usuarioActualizado as User);
         }
+
+        // Cerramos el modal de editar
+        this.closeModal();
+
+        // Vaciamos el campo del nombre de usuario
+        this.nombre = '';
       },
       error: (error: any) => {
         console.error('Error al obtener usuarios:', error);
       }
     });
 
+  }
+
+   // Cerrar el modal de editar
+  closeModal() {
+    // Obtener el elemento del DOM
+    const modalElement = document.getElementById('EditarPerfilModal');
+    if (modalElement) {
+      // Obtener la referencia modal del elemento
+      const modal = (window as any).bootstrap.Modal.getInstance(modalElement);
+      if (modal) {
+        // Cerrarlo manualmente
+        modal.hide();
+      }
+    }
   }
 
   cambiarIndice(indice: number) {

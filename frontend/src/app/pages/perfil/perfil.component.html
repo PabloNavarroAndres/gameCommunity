@@ -85,6 +85,13 @@
               <input type="text" class="form-control" id="recipient-name" [(ngModel)]="nombre" [ngModelOptions]="{standalone: true}" placeholder="{{usuario?.username}}">
             </div>
 
+            <!-- Mensaje de error (nombre existente) -->
+            @if (nombreExistente) {
+              <div class="msj-error">
+                Nombre ya existente
+              </div>
+            }
+
             <!-- Imagen Perfil -->
             <div class="mb-3">
               <label for="message-text" class="col-form-label">Foto:</label>
@@ -139,7 +146,7 @@
           <!-- Cancelar -->
           <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancelar</button>
           <!-- Guardar -->
-          <button type="button" class="btn btn-modal" data-bs-toggle="modal" data-bs-target="#EditarPerfilModal" (click)="actualizarPerfil()">Guardar</button>
+          <button type="button" class="btn btn-modal" data-bs-target="#EditarPerfilModal" (click)="actualizarPerfil()">Guardar</button>
 
         </div>
 
