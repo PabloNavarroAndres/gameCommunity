@@ -23,7 +23,7 @@ h3 {
     }
 }
 
-@keyframes btn-rgb {
+@keyframes rgb {
     0% {background-position: 0}
     100% {background-position: 200%}
 }
@@ -140,7 +140,7 @@ h3 {
     background-origin: border-box;
     background-clip: padding-box, border-box, border-box;
     background-size: 200%;
-    animation: btn-rgb 2s infinite linear;
+    animation: rgb 2s infinite linear;
 }
 
 #join-btn::before {
@@ -152,12 +152,12 @@ h3 {
     bottom: -20%;
     z-index: -5;
     background-size: 200%;
-    animation: btn-rgb 2s infinite linear;
+    animation: rgb 2s infinite linear;
     filter: blur(calc(0.8 * 4rem));
 }
 
 #join-btn:hover, #join-btn:hover::before {
-    animation: btn-rgb 0.5s infinite linear;
+    animation: rgb 0.5s infinite linear;
 }
 
 .info-web {
@@ -170,6 +170,24 @@ h3 {
     padding-bottom: 150px;
     background: linear-gradient(180deg, #260036, var(--fondo-nav));
     box-shadow: 0 -7px 40px 5px;
+}
+
+.info-web > h3 {
+    position: relative;
+    margin-bottom: 35px;
+}
+
+.info-web > h3::before {
+    content: '';
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    width: 100%;
+    height: 10px;
+    border-radius: 30px;
+    background: linear-gradient(90deg, #FF6D1B, #FFEE55, #5BFF89, #4D8AFF, #6B5FFF, #FF64F9, #FF6565);
+    background-size: 200%;
+    animation: rgb 2s infinite linear;
 }
 
 .features-group {

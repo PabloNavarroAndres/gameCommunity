@@ -34,6 +34,12 @@ export class VideojuegosComponent {
   // Array de videojuegos
   videojuegos: Videojuego[] = [];
 
+  // Indice del videojuego seleccionado 
+  idVideojuego = -1;
+
+  // Posicion videojuego seleccionado en array
+  posicionArrVideojuego = -1;
+
   ngOnInit(): void {
     if (this.usuarioIniciado) {
       // Obtener los videojuegos de la BD, del usuario iniciado
@@ -101,6 +107,14 @@ export class VideojuegosComponent {
       }
     });
 
+  }
+
+  // Informacion del videojuego seleccionado
+  infoVideojuegoSeleccionado(posicionArrVideojuego: number, indice: number) {
+    console.log('posicion array: ' + posicionArrVideojuego);
+    console.log('id juego: ' + indice);
+    this.posicionArrVideojuego = posicionArrVideojuego;
+    this.idVideojuego = indice;
   }
 
   // Eliminar juego del catálogo de videojuegos
