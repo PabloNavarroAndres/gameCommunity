@@ -63,17 +63,6 @@ h3 {
     color: var(--letra-color-btn);
 }
 
-/* .info-content {
-    position: absolute;
-    top: 50%;
-    left: 50%;
-    transform: translate(-50%, -50%);
-    text-align: left;
-    color: black;
-    font-size: var(--parrafo);
-    line-height: 25px;
-} */
-
 .info-join {
     display: flex;
     flex-wrap: wrap;

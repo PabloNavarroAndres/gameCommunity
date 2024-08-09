@@ -51,12 +51,10 @@ export class HomeComponent {
 
     // Comprobar si el usuario está iniciado
     usuarioIniciado() {
-    // Comprobamos si existe el usuario en el local storage
-    const sesionIniciada = this.usuarioService.obtenerUsuarioIniciado();
-    // Tiene que devolver falso para que no se muestre,
-    // en caso de que no tenga nada el local storage
-    return sesionIniciada !== null;
-
-    
+        // Comprobamos si existe el usuario en el local storage
+        const sesionIniciada = this.usuarioService.obtenerUsuarioIniciado();
+        // Tiene que devolver falso para que no se muestre,
+        // en caso de que no tenga nada el local storage
+        return sesionIniciada !== null;
     }
 }
