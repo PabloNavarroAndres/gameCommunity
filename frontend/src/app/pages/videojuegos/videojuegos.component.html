@@ -17,7 +17,7 @@
         }
 
         <!-- Botón de agregar -->
-        <button (click)="agregarVideojuego(videojuego)">Agregar</button>
+        <button (click)="agregarVideojuego(videojuego, $index)">Agregar</button>
 
       } @else {
         <!-- Botón de agregar (desactivado para invitados) -->
@@ -37,7 +37,7 @@
 
         <!-- Titular -->
         <div class="modal-header">
-          <h2 class="modal-title fs-5" id="exampleModalLabel">¿Eliminar "{{videojuegos[posicionArrVideojuego].title}}"?
+          <h2 class="modal-title fs-5" id="exampleModalLabel">¿Eliminar "{{videojuegos[posicionArrVideojuego]?.title}}"?
           </h2>
           <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
         </div>

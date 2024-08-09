@@ -77,7 +77,7 @@ export class VideojuegosComponent {
   }
 
   // Agregar videojuego al usuario
-  agregarVideojuego(videojuego: Videojuego) {
+  agregarVideojuego(videojuego: Videojuego, posicionArr: number) {
 
     // Crear un objeto que cumpla con la interfaz VideojuegoUsuario
     const videojuegoUsuario: VideojuegoUsuario = {
@@ -96,7 +96,10 @@ export class VideojuegosComponent {
         this._usuarioService.agregarUsuarioIniciado(this.usuarioIniciado);
         
         // Mensaje snack bar
-        this.notificacionAgregado(videojuego.title, 'Cerrar', 3500);
+        this.notificacionAgregado(videojuego?.title, 'Cerrar', 3500);
+
+        // Se elimina del array de videojuegos
+        this.videojuegos.splice(posicionArr, 1);
 
       },
 
