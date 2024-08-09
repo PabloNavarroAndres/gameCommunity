@@ -52,15 +52,26 @@
             </div>
         </div>
 
-        <!-- Mensaje de error (usuario existente en la BD) -->
-        <div class="msj-error" *ngIf="msjUsuarioExiste()">
-            El usuario ya existe
-        </div>
+        @if (msjUsuarioExiste()) {
+            <!-- Mensaje de error (usuario existente en la BD) -->
+            <div class="msj-error">
+                El usuario ya existe
+            </div>
+        }
 
-        <!-- Mensaje de exito (usuario existente en la BD) -->
-        <div class="msj-exito" *ngIf="msjUsuarioRegistrado()">
-            ¡Usuario registrado con éxito!
-        </div>
+        @if (msjNombreExiste()) {
+            <!-- Mensaje de error (nombre existente en la BD) -->
+            <div class="msj-error">
+                El nombre ya existe
+            </div>
+        }
+
+        @if (msjUsuarioRegistrado()) {
+            <!-- Mensaje de exito -->
+            <div class="msj-exito">
+                ¡Usuario registrado con éxito!
+            </div>
+        }
 
         <!-- Registrarse -->
         <button type="submit" class="boton-general">Registrarse</button>

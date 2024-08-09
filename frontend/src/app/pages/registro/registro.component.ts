@@ -27,6 +27,9 @@ export class RegistroComponent {
   // Mostrar mensaje de usuario existente
   usuarioExiste: boolean = false;
 
+  // Mostrar mensaje de usuario existente
+  nombreExiste: boolean = false;
+
   // Mostrar mensaje de usuario registrado
   usuarioRegistrado: boolean = false;
 
@@ -42,9 +45,14 @@ export class RegistroComponent {
     });
   }
 
-  // Comprobar si el usuario existe en la BD
+  // Comprobar si el usuario existe en la BD (con el email)
   msjUsuarioExiste() {
     return this.usuarioExiste;
+  }
+
+  // Comprobar si el nombre de usuario ya existe en la BD
+  msjNombreExiste() {
+    return this.nombreExiste;
   }
 
   msjUsuarioRegistrado() {
@@ -78,6 +86,9 @@ export class RegistroComponent {
           // Se comprueba si se ha encontrado el usuario del formulario
           const usuarioEncontrado = usuarios.find(usuario => usuario.email === nuevoUsuario.email);
 
+          // Se comprueba si ya existe el nombre de usuario
+          const nombreEncontrado = usuarios.find(usuario => usuario.username === nuevoUsuario.username);
+
           // El usuario ya existe en la bd
           if (usuarioEncontrado) {
             console.log('el usuario ya existe');
@@ -91,7 +102,20 @@ export class RegistroComponent {
               this.usuarioExiste = false;
             }, 5000);
 
-          // El usuario no existe en la bd
+          } else if (nombreEncontrado) {
+
+            console.log('el nombre de usuario ya existe');
+
+            // Activar la condicion de usuario existe
+            // (esto activará el mensaje que lo indica)
+            this.nombreExiste = true;
+
+            // Desactivar el mensaje después de 5 segundos
+            setTimeout(() => {
+              this.nombreExiste = false;
+            }, 5000);
+
+            // El usuario no existe en la bd y el nombre está disponible
           } else {
             console.log('agregar usuario nuevo');
             
