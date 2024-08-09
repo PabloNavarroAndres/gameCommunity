@@ -85,7 +85,8 @@ h3 {
 
 .join-title > span {
     font-size: var(--titulo-seccion);
-    font-family: fantasy;
+    font-weight: bolder;
+    font-family: sans-serif;
 }
 
 .join-title > p {
@@ -267,7 +268,7 @@ h3 {
     }
 
     .join-title > span {
-        font-size: 2.3rem;
+        font-size: 2.1rem;
     }
 
     .join-title > p {
