@@ -207,6 +207,9 @@ export class ComunidadCrearComponent {
 
             this.comunidadCreada = true;
 
+            // Agregar comunidad al array
+            this.comunidades.push(nuevaComunidad);
+
             // Desactivar el mensaje de éxito después de 5 segundos
             setTimeout(() => {
               this.comunidadCreada = false;
