@@ -1,92 +1,73 @@
 <h2 class="titulo-ruta">VIDEOJUEGOS</h2>
 
 <div class="contenedor-fichas">
-    @for (videojuego of videojuegos; track $index) {
+  @for (videojuego of videojuegos; track $index) {
 
-        <div class="ficha">
-            <img [src]="rutaBaseImg + videojuego.image" alt="Juego de la biblioteca">
-            <h2>{{ videojuego.title }}</h2>
+    <div class="ficha">
+      <img [src]="rutaBaseImg + videojuego.image" alt="Juego de la biblioteca">
+      <h2>{{ videojuego.title }}</h2>
 
-            @if (usuarioIniciado) {
-                
-                @if (usuarioIniciado.isAdmin) {
+      @if (usuarioIniciado) {
 
-                    <!-- Botón de eliminar -->
-                    <!-- <button class="eliminarBtn" (click)="eliminarVideojuego(videojuego.game_id, $index)">X</button> -->
+        @if (usuarioIniciado.isAdmin) {
 
-                   <!-- Activar los detalles del juego -->
-                    <button class="eliminarBtn" data-bs-toggle="modal" data-bs-target="#borrarModal" (click)="infoVideojuegoSeleccionado($index, videojuego.game_id)">X</button>
-                }
-    
-                <!-- Botón de agregar -->
-                <button (click)="agregarVideojuego(videojuego)">Agregar</button>
-            } @else {
-                <!-- Botón de agregar (desactivado) -->
-                <button class="btn-disabled">Agregar</button>
-            }
-            
-        </div>
-    }
+          <!-- Eliminar videojuego (solo administradores) -->
+          <button class="eliminarBtn" data-bs-toggle="modal" data-bs-target="#borrarModal"
+            (click)="infoVideojuegoSeleccionado($index, videojuego.game_id)">X</button>
+        }
+
+        <!-- Botón de agregar -->
+        <button (click)="agregarVideojuego(videojuego)">Agregar</button>
+
+      } @else {
+        <!-- Botón de agregar (desactivado para invitados) -->
+        <button class="btn-disabled">Agregar</button>
+      }
+
+    </div>
+  }
 </div>
 
 <!-- Modal confirmacion eliminar videojuego -->
-<!-- <div class="modal fade" id="borrarModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
-    <div class="modal-dialog" role="document">
-    <div class="modal-content">
+@if (videojuegos) {
+  <div class="modal fade" id="borrarModal" aria-hidden="true" aria-labelledby="BorrarModalLabel" tabindex="-1">
+    <div class="modal-dialog modal-sm modal-dialog-centered">
+
+      <div class="modal-content">
+
+        <!-- Titular -->
         <div class="modal-header">
-        <h5 class="modal-title" id="exampleModalLabel">Modal title</h5>
-        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-            <span aria-hidden="true">&times;</span>
-        </button>
+          <h2 class="modal-title fs-5" id="exampleModalLabel">¿Eliminar "{{videojuegos[posicionArrVideojuego].title}}"?
+          </h2>
+          <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
         </div>
+
+        <!-- Mensaje del modal -->
         <div class="modal-body">
-        ...
+
+          <p>Esta acción no se puede deshacer, eliminarlo hará que desaparezca de todas las bibliotecas, del catálogo y
+            las estadísticas de todos los usuarios.</p>
+          <p>¿Continuar?</p>
+
         </div>
+
+        <!-- Footer con los botones -->
         <div class="modal-footer">
-        <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-        <button type="button" class="btn btn-primary">Save changes</button>
-        </div>
-    </div>
-    </div>
-</div> -->
 
+          <!-- Cancelar Botón -->
+          <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">
+            Cancelar
+          </button>
 
-<!-- Modal confirmacion eliminar videojuego -->
-@if (true) {
-    <div class="modal fade" id="borrarModal" aria-hidden="true" aria-labelledby="BorrarModalLabel" tabindex="-1">
-      <div class="modal-dialog modal-sm modal-dialog-centered">
-  
-        <div class="modal-content">
-  
-          <!-- Titular -->
-          <div class="modal-header">
-            <h2 class="modal-title fs-5" id="exampleModalLabel">¿Estás seguro de eliminar "{{videojuegos[posicionArrVideojuego].title}}"?</h2>
-            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-          </div>
-  
-          <!-- Detalles Contenido -->
-          <div class="modal-body">
-  
-            <p>Esta acción no se puede deshacer, eliminarlo hará que desaparezca de todas las bibliotecas, del catálogo y las estadísticas de todos los usuarios.</p>
-            <p>¿Continuar?</p>
-  
-          </div>
-  
-          <!-- Footer -->
-          <div class="modal-footer">
-  
-            <!-- Cancelar Botón -->
-            <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">
-              Cancelar
-            </button>
-  
-            <!-- Editar Botón -->
-            <button class="btn btn-outline-info btn-modal" (click)="eliminarVideojuego(idVideojuego, posicionArrVideojuego)" data-bs-dismiss="modal">Confirmar</button>
-  
-          </div>
-  
+          <!-- Confirmar Botón -->
+          <button class="btn btn-outline-info btn-modal" (click)="eliminarVideojuego(idVideojuego, posicionArrVideojuego)"
+            data-bs-dismiss="modal">Confirmar
+          </button>
+
         </div>
-  
+
       </div>
+
     </div>
-  }
+  </div>
+}

@@ -59,6 +59,13 @@ export class PanelAdministradorComponent {
   // Archivo de imagen seleccionado
   archivoSeleccionado: File | null = null;
 
+  // Id del usuario seleccionado
+  emailSeleccionado?: string;
+  // Id de la comunidad seleccionada
+  idComunidad:number = 0;
+  // Posicion en el array del objeto seleccionado
+  posArraySeleccion = 0;
+
   constructor(private form: FormBuilder) {
 
     // Añadir validadores a los campos del formulario
@@ -282,6 +289,26 @@ export class PanelAdministradorComponent {
     } else {
       console.log('Formulario no válido o archivo no seleccionado');
     }
+  }
+
+  // Actualiza la informacion del usuario seleccionado (email y posicion en el array de usuarios)
+  infoSeleccionUsuario(email: string, posArraySeleccion: number): void {
+
+    console.log('email usuario: ' + email);
+    console.log('posicion en array: ' + posArraySeleccion);
+
+    this.emailSeleccionado = email;
+    this.posArraySeleccion = posArraySeleccion;
+  }
+
+  // Actualiza la informacion del usuario seleccionado (email y posicion en el array de usuarios)
+  infoSeleccionComunidad(idComunidad: number, posArraySeleccion: number): void {
+
+    console.log('idComunidad: ' + idComunidad);
+    console.log('posicion en array: ' + posArraySeleccion);
+
+    this.idComunidad = idComunidad;
+    this.posArraySeleccion = posArraySeleccion;
   }
 
   // Comprobar si el videojuego existe en la BD

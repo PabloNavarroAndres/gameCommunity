@@ -76,7 +76,7 @@ export class ComunidadCrearComponent {
 
     // Añadir validadores a los campos del formulario
     this.formularioComunidad = this.form.group({
-      nombre: ['', [Validators.required, Validators.minLength(3)]],
+      nombre: ['', [Validators.minLength(3)]],
       descripcion: [''],
     });
 
@@ -159,11 +159,15 @@ export class ComunidadCrearComponent {
     // Evitar que se envie el formulario automáticamente
     event.preventDefault();
 
-    // Si no hay errores de validacion se procede a enviar
-    if (this.formularioComunidad.valid) {
+    // Obtener los datos del formulario
+    const formData = this.formularioComunidad.value;
 
-      // Obtener los datos del formulario
-      const formData = this.formularioComunidad.value;
+    // Quitar espacios vacios al inicio y final del nombre y la descripcion
+    formData.nombre = formData.nombre.trim();
+    formData.descripcion = formData.descripcion.trim();
+
+    // Si no hay errores de validacion se procede a enviar
+    if (this.formularioComunidad.valid && formData.nombre !== '') {
 
       // El usuario con los datos del formulario
       const nuevaComunidad: Comunidad = {
@@ -208,8 +212,11 @@ export class ComunidadCrearComponent {
               this.comunidadCreada = false;
             }, 4000);
 
-            // Vaciar campos del formulario
-            this.formularioComunidad.reset();
+             // Reiniciar valores del formulario
+             this.formularioComunidad.reset({
+              nombre: '',
+              descripcion: ''
+            });
 
           },
           error: (error: any) => {
@@ -227,11 +234,24 @@ export class ComunidadCrearComponent {
   // Envio del formulario de actualizar
   actualizar() {
 
+    // Obtener los datos del formulario
+    const formData = this.formularioComunidad.value;
+    
+    // Quitar espacios vacios al inicio y final del nombre y la descripcion
+    formData.nombre = formData.nombre ? formData.nombre.trim() : '';
+    formData.descripcion = formData.descripcion ? formData.descripcion.trim() : '';
+
     // Si no hay errores de validacion se procede a enviar
     if (this.formularioComunidad.valid) {
 
-      // Obtener los datos del formulario
-      const formData = this.formularioComunidad.value;
+      // Comprobar si se ha editado el nombre y descripcion,
+      // si esta vacio se queda su valor actual
+      if (formData.nombre === '') {
+        formData.nombre = this.comunidadActiva?.title;
+      }
+      if (formData.descripcion === '') {
+        formData.descripcion = this.comunidadActiva?.description;
+      }
 
       // El usuario con los datos del formulario
       const comunidadActualizada: Comunidad = {
@@ -251,6 +271,7 @@ export class ComunidadCrearComponent {
         
         console.log('comunidad existe:');
 
+        // Activar mensaje de comunidad existente
         this.comunidadExiste = true;
 
         // Desactivar el mensaje de éxito después de 5 segundos
@@ -269,12 +290,25 @@ export class ComunidadCrearComponent {
             console.log('comunidad actualizada:');
             console.log(response);
 
+            // Activar condicion para mostrar mensaje de comunidad actualizada
             this.comunidadActualizada = true;
+
+            // Sustituir el nombre de la comunidad del array con el nuevo valor
+            for (const comunidad of this.comunidades) {
+              if (comunidad.title === this.comunidadActiva?.title) {
+                console.log('el titulo de la comunidad array: ' + comunidad.title);
+                console.log('el titulo de la activa: ' + comunidad.title);
+                // Actualizamos el nombre de la comunidad del array, para que no
+                // detecte el nombre anterior como ya existente si se vuelve a poner
+                comunidad.title = comunidadActualizada.title;
+              }
+            }
 
             // Actualizar campos actualizados de la comunidad activa
             this.comunidadActiva!.title = comunidadActualizada.title;
             this.comunidadActiva!.description = comunidadActualizada.description;
 
+            // Reiniciamos los campos del formulario
             this.formularioComunidad.reset();
 
             // Desactivar el mensaje de éxito después de 5 segundos

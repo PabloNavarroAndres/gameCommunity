@@ -24,7 +24,11 @@
                             <!-- Botón de eliminar -->
                             <button class="eliminarBtn" (click)="eliminarUsuario(usuario.email, $index)">X</button>
 
-                 
+                            <!-- Modal para confirmar eliminar al usuario -->
+                            <button class="eliminarBtn" data-bs-toggle="modal" data-bs-target="#borrarUsuarioModal"
+                                (click)="infoSeleccionUsuario(usuario.email, $index)">X
+                            </button>
+
                             <!-- Acciones -->
                             <div class="ficha-btns">
 
@@ -60,9 +64,10 @@
                         <h2>{{ comunidad.title }}</h2>
                         <hr>
 
-                        <!-- Botón de eliminar -->
-                        <button class="eliminarBtn" (click)="eliminarComunidad(comunidad.community_id, $index)">X</button>
-
+                        <!-- Modal para confirmar eliminar la comunidad -->
+                        <button class="eliminarBtn" data-bs-toggle="modal" data-bs-target="#borrarComunidadModal"
+                            (click)="infoSeleccionComunidad(comunidad.community_id!, $index)">X
+                        </button>
         
                         <!-- Descripcion -->
                         @if (comunidad.description === '') {
@@ -140,3 +145,89 @@
     </mat-tab>
 
 </mat-tab-group>
+
+@if (usuarios) {
+    <!-- Modal para confirmar borrar un usuario -->
+    <div class="modal fade" id="borrarUsuarioModal" aria-hidden="true" aria-labelledby="BorrarModalLabel" tabindex="-1">
+        <div class="modal-dialog modal-sm modal-dialog-centered">
+    
+          <div class="modal-content">
+    
+            <!-- Titular -->
+            <div class="modal-header">
+              <h2 class="modal-title fs-5" id="exampleModalLabel">¿Eliminar a "{{usuarios[posArraySeleccion]?.username}}"?
+              </h2>
+              <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+    
+            <!-- Mensaje del modal -->
+            <div class="modal-body">
+    
+              <p>Esta acción no se puede deshacer, eliminarlo hará que desaparezca del registro de usuarios.</p>
+              <p>¿Continuar?</p>
+    
+            </div>
+    
+            <!-- Footer con los botones -->
+            <div class="modal-footer">
+    
+              <!-- Cancelar Botón -->
+              <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">
+                Cancelar
+              </button>
+    
+              <!-- Confirmar Botón -->
+              <button class="btn btn-outline-info btn-modal" (click)="eliminarUsuario(emailSeleccionado!, posArraySeleccion)"
+                data-bs-dismiss="modal">Confirmar
+              </button>
+    
+            </div>
+    
+          </div>
+    
+        </div>
+    </div>
+}
+
+@if (comunidades) {
+    <!-- Modal para confirmar borrar una comunidad -->
+    <div class="modal fade" id="borrarComunidadModal" aria-hidden="true" aria-labelledby="BorrarModalLabel" tabindex="-1">
+        <div class="modal-dialog modal-sm modal-dialog-centered">
+    
+          <div class="modal-content">
+    
+            <!-- Titular -->
+            <div class="modal-header">
+              <h2 class="modal-title fs-5" id="exampleModalLabel">¿Eliminar la comunidad "{{comunidades[posArraySeleccion]?.title}}";
+              </h2>
+              <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+    
+            <!-- Mensaje del modal -->
+            <div class="modal-body">
+    
+              <p>Esta acción no se puede deshacer, eliminarlo hará que desaparezca del registro de comunidades.</p>
+              <p>¿Continuar?</p>
+    
+            </div>
+    
+            <!-- Footer con los botones -->
+            <div class="modal-footer">
+    
+              <!-- Cancelar Botón -->
+              <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">
+                Cancelar
+              </button>
+    
+              <!-- Confirmar Botón -->
+              <button class="btn btn-outline-info btn-modal" (click)="eliminarComunidad(idComunidad, posArraySeleccion)"
+                data-bs-dismiss="modal">Confirmar
+              </button>
+    
+            </div>
+    
+          </div>
+    
+        </div>
+    </div>
+}

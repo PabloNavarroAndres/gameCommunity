@@ -75,6 +75,7 @@
         </div>
     </div>
     
+    <!-- Usuarios -->
     <div class="contenedor-fichas">
         @for (usuario of usuariosComunidad; track $index) {
        
@@ -82,7 +83,10 @@
                 <img [src]="usuario.profile_picture" alt="Juego de la biblioteca">
                 <h2>{{ usuario.username }}</h2>
 
-                @if (usuario.isAdmin || usuario.isCreator) {
+                <!-- Comprobar rol del usuario en la comunidad -->
+                @if (usuario.isCreator) {
+                    <span>Creador</span>
+                } @else if (usuario.isAdmin) {
                     <span> Administrador </span>
                 } @else {
                     <span> Usuario </span>

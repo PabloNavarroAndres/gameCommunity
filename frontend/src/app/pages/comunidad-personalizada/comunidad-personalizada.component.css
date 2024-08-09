@@ -104,6 +104,10 @@ h2 {
     }
 }
 
+.msj-error {
+    margin-top: 30px;
+}
+
 @media (max-width: 460px) {
     .subtitulo-descripcion {
         font-size: 15px;

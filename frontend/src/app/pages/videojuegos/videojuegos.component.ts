@@ -109,7 +109,7 @@ export class VideojuegosComponent {
 
   }
 
-  // Informacion del videojuego seleccionado
+  // Informacion del videojuego seleccionado (su id y posicion en el array de videojuegos)
   infoVideojuegoSeleccionado(posicionArrVideojuego: number, indice: number) {
     console.log('posicion array: ' + posicionArrVideojuego);
     console.log('id juego: ' + indice);

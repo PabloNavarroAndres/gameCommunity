@@ -152,15 +152,19 @@
             </div>
 
             <!-- Mensaje de error (nombre de comunidad existente en la BD) -->
-            <div class="msj-error" *ngIf="msjTituloExiste()">
-                Ya existe una comunidad con ese nombre
-            </div>
-    
-            <!-- Mensaje de éxito -->
-            <div class="msj-exito" *ngIf="msjComunidadActualizada()">
-                ¡Comunidad actualizada con éxito!
-            </div>
-    
+            @if (msjTituloExiste()) {
+                <div class="msj-error">
+                    Ya existe una comunidad con ese nombre
+                </div>
+            }
+            
+            <!-- Mensaje de éxito (comunidad actualizada) -->
+            @if (msjComunidadActualizada()) {
+                <div class="msj-exito">
+                    ¡Comunidad actualizada con éxito!
+                </div>
+            }
+
             <!-- Crear Comunidad -->
             <button type="submit" class="boton-general">Actualizar</button>
         </form>

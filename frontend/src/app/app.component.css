@@ -156,3 +156,9 @@ footer {
 .logo-footer {
     align-self: center;
 }
+
+@media (max-width: 985px) {
+    .navbar-nav {
+        gap: 0;
+    }
+}

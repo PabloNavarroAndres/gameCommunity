@@ -263,18 +263,20 @@ app-root {
     text-align: center;
     background: red;
     color: white !important;
+    word-break: auto-phrase;
     border-radius: 0px 0px 10px 10px;
-    padding: 5px;
+    padding: 7px;
 }
 
 .msj-error {
     text-align: center;
     background: red;
     color: white !important;
-    width: 40%;
+    width: 70%;
     margin: 0 auto;
+    word-break: auto-phrase;
     border-radius: 20px;
-    padding: 5px;
+    padding: 7px 15px;
 }
 
 .msj-exito {

@@ -33,7 +33,18 @@
     padding-bottom: 10px;
 }
 
+@media (max-width: 1250px) {
+    
+    .form-general {
+        width: 75%;
+    }
+}
+
 @media (max-width: 545px) {
+
+    .form-general {
+        width: 85%;
+    }
     
     .form-redirection {
         font-size: 1.05rem;

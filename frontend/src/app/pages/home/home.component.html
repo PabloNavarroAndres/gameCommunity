@@ -38,8 +38,13 @@
                     <span style="display: block; padding-top: 40px;">¿A qué esperas para <span style="font-weight: bolder;">unirte?</span></span>
                 </p>
 
-                <!-- Boton para ir al registro -->
-                <button (click)="toggleRegistro()" id="join-btn">Únete</button>
+                @if (!usuarioIniciado()) {
+                    <!-- Boton para ir al registro -->
+                    <button (click)="toggleRegistro()" id="join-btn">Únete</button>
+                } @else {
+                    <!-- Boton para ir a la biblioteca personal del usuario iniciado -->
+                    <button routerLink="/biblioteca"  id="join-btn">Únete</button>
+                }
             </div>
             
             <div class="join-image">

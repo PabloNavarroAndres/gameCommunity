@@ -87,7 +87,7 @@ export class AppComponent {
   // Comprueba si la sesion del usuario está iniciada
   usuarioIniciado() {
     // Comprobamos si existe el usuario en el local storage
-    const sesionIniciada = localStorage.getItem('usuarioIniciado');
+    const sesionIniciada = this.usuariosService.obtenerUsuarioIniciado();
     // Tiene que devolver falso para que no se muestre,
     // en caso de que no tenga nada el local storage
     return sesionIniciada !== null;

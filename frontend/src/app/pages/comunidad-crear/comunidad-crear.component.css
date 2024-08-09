@@ -3,3 +3,12 @@
     height: 600px;
     object-fit: cover;
 }
+
+.form-general {
+    box-shadow: 0px 0px 25px;
+}
+
+.msj-error {
+    margin-top: 30px;
+}
+
